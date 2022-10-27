@@ -1,5 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&family=PT+Sans+Caption:wght@400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @import './styles/normalize';
+@import './styles/media-variables';
+@import './styles/colors';
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Noto Sans', 'PT Sans Caption', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--black)
+}
+
+// Scroll customization
+* {
+  scrollbar-width: thin;
+  //TODO: change color
+  //scrollbar-color: var(--) var(--);
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  //TODO: change color
+  //background: var(--);
+}
+
+*::-webkit-scrollbar-thumb {
+  //TODO: change color
+  //background-color: var(--);
+  border-radius: 24px;
+}
