@@ -1,7 +1,12 @@
 <div class="input-wrapper">
-  <mat-form-field appearance="fill">
-    <mat-label *ngIf="label">{{label}}</mat-label>
+  <mat-label *ngIf="label">{{label}}</mat-label>
+  <mat-form-field appearance="outline">
+    <mat-icon
+      matPrefix
+      *ngIf="icon"
+      [svgIcon]="icon"
+    ></mat-icon>
     <input [disabled]="readonly" [type]="type" matInput [(ngModel)]="value" [placeholder]="placeholder">
-    <mat-error *ngIf="isError">{{error}}</mat-error>
+    <mat-error *ngIf="hasError">{{error}}</mat-error>
   </mat-form-field>
 </div>

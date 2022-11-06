@@ -22,10 +22,10 @@ export class InputComponent implements OnInit {
   };
   @Input() public placeholder!: string;
   @Input() public label!: string;
-  @Input() public icon = '';
+  @Input() public icon?: string;
   @Input() public readonly = false;
-  @Input() public error = '';
-  @Input() public isError = false;
+  @Input() public error!: string;
+  @Input() public hasError = false;
 
   constructor() { }
 
