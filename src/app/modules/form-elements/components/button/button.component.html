@@ -1,0 +1,13 @@
+<div class="wrapper"
+>
+  <button
+    (click)="onClickBtn()"
+    [disabled]="isDisabledButton"
+    class="button {{buttonShape}} {{buttonStyle}} {{iconPosition}}"
+    [type]="type"
+  >
+    <mat-icon *ngIf="icon && iconPosition === 'start'" [svgIcon]="icon" class="mr-4"></mat-icon>
+    {{ content }}
+    <mat-icon *ngIf="icon && iconPosition === 'end'" [svgIcon]="icon" class="ml-4"></mat-icon>
+  </button>
+</div>

@@ -1,13 +1,14 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
+import { ButtonComponent } from './components/button/button.component';
 
 import { InputComponent } from "./components/input/input.component";
 
 @NgModule({
-  declarations: [InputComponent],
+  declarations: [InputComponent, ButtonComponent],
   imports: [
     CommonModule,
     MatInputModule,
@@ -15,6 +16,7 @@ import { InputComponent } from "./components/input/input.component";
     FormsModule,
     MatIconModule
   ],
-  exports: [InputComponent]
+  exports: [InputComponent, ButtonComponent]
 })
-export class FormElementsModule { }
+export class FormElementsModule {
+}
