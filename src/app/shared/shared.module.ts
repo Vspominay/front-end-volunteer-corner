@@ -14,7 +14,8 @@ export const translationConfig = {
 };
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [
     CommonModule,
     TranslateModule.forRoot(translationConfig),
