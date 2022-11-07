@@ -1,0 +1,49 @@
+:host {
+  display: block;
+
+  @mixin style-control($color, $shadow-color) {
+    background-color: $color;
+
+    &:hover {
+      cursor: pointer;
+      transform: translateY(-4px);
+      box-shadow: 0 10px 20px rgba($shadow-color, .3);
+    }
+  }
+
+  .wrapper {
+    &, mat-icon {
+      color: theme('colors.white');
+    }
+
+    transition: .2s;
+
+    h2 {
+      font-size: 38px;
+      line-height: 26px;
+      font-weight: 600;
+    }
+
+    &.yellow {
+      @include style-control(theme('colors.yellow'), #FBCA36);
+    }
+
+    &.danger {
+      @include style-control(theme('colors.primaryRed'), #EB5757);
+
+    }
+
+    &.lightBlue {
+      @include style-control(theme('colors.lightBlue'), #04AFD4);
+
+    }
+
+    &.indigo {
+      @include style-control(theme('colors.lightPurple'), #9575CD);
+    }
+
+    &.lightGreen {
+      @include style-control(theme('colors.lightGreen'), #81C784);
+    }
+  }
+}
