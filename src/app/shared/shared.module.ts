@@ -17,8 +17,7 @@ export const translationConfig = {
 
 @NgModule({
   declarations: [
-
-    DashboardCardComponent
+    DashboardCardComponent,
   ],
   imports: [
     CommonModule,
@@ -26,7 +25,7 @@ export const translationConfig = {
     MatIconModule,
   ],
   exports: [
-    DashboardCardComponent
+    DashboardCardComponent,
   ]
 })
 export class SharedModule {

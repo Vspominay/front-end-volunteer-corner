@@ -1,3 +1,11 @@
 {
-
+  "titles": {
+    "requests": "Requests",
+    "dashboard": "Dashboard",
+    "proposals": "Proposals",
+    "settings": "Settings"
+  },
+  "appButtons": {
+    "logOut": "Log Out"
+  }
 }

@@ -1,0 +1,30 @@
+<div class="wrapper px-2 py-6 back bg-primaryPurple flex flex-col w-56 min-h-screen">
+  <div class="logo-container mb-11">
+    <a routerLink="/">
+      <img src="../../../../assets/images/logo.png" width="211" height="47" alt="logo">
+    </a>
+  </div>
+
+  <div class="user-block flex items-center mb-11 cursor-pointer">
+    <mat-icon svgIcon="ic-blank-user" class="mr-3.5"></mat-icon>
+    <div class="text-sm text-white">
+      <h3>OCD CARLO JOE</h3>
+      <span class="opacity-50">Administrator</span>
+    </div>
+  </div>
+
+  <div class="flex flex-col items-center flex-grow">
+    <a routerLinkActive="active"
+       [routerLink]="menuItem.routerLink"
+       *ngFor="let menuItem of menuItems"
+       class="py-2 px-3.5 menu-item mb-4 font-medium flex items-center w-full">
+      <mat-icon class="mr-3.5" [svgIcon]="menuItem.icon"></mat-icon>
+      <span>{{menuItem.title | translate}}</span>
+    </a>
+  </div>
+
+  <div class="py-2 px-3.5 text-white mb-4 font-medium flex items-center w-full cursor-pointer">
+    <mat-icon class="mr-3.5" svgIcon="ic-logout"></mat-icon>
+    <span>{{'appButtons.logOut' | translate}}</span>
+  </div>
+</div>
