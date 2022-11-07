@@ -16,16 +16,20 @@ import { NG_VALUE_ACCESSOR } from "@angular/forms";
 })
 export class InputComponent implements OnInit {
 
-  @Input() public type!: 'text' | 'password' | 'number';
-  @Input() set inputValue (value: string){
+  @Input() public type: 'text' | 'password' | 'number' = 'text';
+
+  @Input() set inputValue(value: string) {
     this.value = value;
   };
+
   @Input() public placeholder!: string;
   @Input() public label!: string;
   @Input() public icon?: string;
   @Input() public readonly = false;
   @Input() public error!: string;
-  @Input() public hasError = false;
+  @Input() public hasError?: boolean;
+
+  public isHide: boolean = true;
 
   constructor() { }
 
@@ -38,12 +42,12 @@ export class InputComponent implements OnInit {
 
   private _value: string = '';
 
-  public get value(){
+  public get value() {
     return this._value;
   }
 
-  public set value(value: string){
-    if (value || value === ''){
+  public set value(value: string) {
+    if (value || value === '') {
       this._value = value;
     }
   }
@@ -58,5 +62,10 @@ export class InputComponent implements OnInit {
 
   public registerOnTouched(fn: any): void {
     this._onTouched = fn;
+  }
+
+  public onHide(): void {
+    this.isHide = !this.isHide;
+    this.type = this.isHide ? 'password' : 'text';
   }
 }

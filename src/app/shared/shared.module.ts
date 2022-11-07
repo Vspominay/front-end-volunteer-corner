@@ -1,8 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { HttpClient } from "@angular/common/http";
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { MatIconModule } from "@angular/material/icon";
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { DashboardCardComponent } from './components/dashboard-card/dashboard-card.component';
 
 export const translationConfig = {
   loader: {
@@ -15,13 +17,17 @@ export const translationConfig = {
 
 @NgModule({
   declarations: [
+
+    DashboardCardComponent
   ],
   imports: [
     CommonModule,
     TranslateModule.forRoot(translationConfig),
+    MatIconModule,
   ],
   exports: [
-
+    DashboardCardComponent
   ]
 })
-export class SharedModule { }
+export class SharedModule {
+}

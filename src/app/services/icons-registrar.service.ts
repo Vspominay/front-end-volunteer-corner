@@ -4,6 +4,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 export const SVG_ICONS_PATH = 'assets/images/icons/';
 export const SVG_ICONS = [
+  { name: 'ic-box-time', path: SVG_ICONS_PATH + 'box-time.svg' },
 
 ];
 

@@ -1,3 +1,14 @@
 <div class="wrapper">
-  <app-input></app-input>
+  <app-input
+    class="w-1/2"
+    [error]="'some error message'"
+    [placeholder]="'Some placeholder'"
+    [label]="'User name'"
+    [type]="'password'"
+  ></app-input>
+
+  <app-button
+    [content]="'OFFER DONATION'"
+    [icon]="'chevron_right'"
+  ></app-button>
 </div>
