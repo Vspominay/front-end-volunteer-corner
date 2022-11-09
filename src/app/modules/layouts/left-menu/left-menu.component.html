@@ -1,4 +1,4 @@
-<div class="wrapper px-2 py-6 back bg-primaryPurple flex flex-col w-56 min-h-screen">
+<div *ngIf="isShowMenu" class="wrapper px-2 py-6 back bg-primaryPurple flex flex-col w-56 min-h-screen">
   <div class="logo-container mb-11">
     <a routerLink="/">
       <img src="../../../../assets/images/logo.png" width="211" height="47" alt="logo">
@@ -7,7 +7,7 @@
 
   <div class="user-block flex items-center mb-11 cursor-pointer">
     <mat-icon svgIcon="ic-blank-user" class="mr-3.5"></mat-icon>
-    <div class="text-sm text-white">
+    <div (click)="auth()" class="text-sm text-white">
       <h3>OCD CARLO JOE</h3>
       <span class="opacity-50">Administrator</span>
     </div>

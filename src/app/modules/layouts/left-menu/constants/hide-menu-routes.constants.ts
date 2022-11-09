@@ -1,0 +1,1 @@
+export const HIDE_MENU_ROUTES = ['auth'];

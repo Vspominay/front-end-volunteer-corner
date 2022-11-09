@@ -7,5 +7,16 @@
   },
   "appButtons": {
     "logOut": "Log Out"
+  },
+  "placeholders": {
+    "enter": "Enter {{name}}",
+    "username": "username",
+    "password": "password"
+  },
+  "signIn": {
+    "title": "Sign In",
+    "tip": "Please enter your credentials to proceed.",
+    "username": "Username",
+    "password": "Password"
   }
 }

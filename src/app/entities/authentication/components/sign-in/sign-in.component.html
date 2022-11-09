@@ -1,0 +1,14 @@
+<div class="wrapper">
+  <div class="mb-5">
+    <h2>{{'signIn.title' | translate}}</h2>
+    <span class="text-lightSilver text-sm">{{'signIn.tip' | translate}}</span>
+  </div>
+  <form class="form">
+    <app-input class="mb-4" [label]="'signIn.username' | translate"
+               [placeholder]="'placeholders.enter' | translate : {name: 'placeholders.username' | translate}"></app-input>
+    <app-input class="mb-7" [label]="'signIn.password' | translate"
+               [placeholder]="'placeholders.enter' | translate : {name: 'placeholders.password' | translate}"></app-input>
+
+    <app-button class="block" [content]="'signIn.title' | translate"></app-button>
+  </form>
+</div>
