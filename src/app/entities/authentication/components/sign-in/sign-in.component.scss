@@ -1,0 +1,7 @@
+:host {
+  .wrapper {
+    app-input::ng-deep .mat-form-field-infix {
+      padding: 16px 0 16px 16px;
+    }
+  }
+}

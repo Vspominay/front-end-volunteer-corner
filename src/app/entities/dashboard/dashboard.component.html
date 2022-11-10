@@ -1,0 +1,17 @@
+<div class="wrapper">
+  <h2 class="font-medium">{{'dashboard.overview' | translate}}</h2>
+
+  <div class="flex flex-wrap stat-row py-10">
+    <div *ngFor="let card of statistic" class="stat-col w-1/2 sm:w-4/12 md:w-3/12">
+      <div class="stat-item">
+        <app-dashboard-card
+          [title]="card.title"
+          [icon]="card.icon"
+          [description]="card.description"
+          [style]="card.style"
+        >
+        </app-dashboard-card>
+      </div>
+    </div>
+  </div>
+</div>

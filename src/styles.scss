@@ -17,8 +17,8 @@ body {
   font-family: 'Work Sans', sans-serif;
   font-size: 16px;
   font-weight: 400;
-  color: var(--darkGray);
-  background: theme('colors.white');
+  color: theme('colors.darkGray');
+  background: theme('colors.bgWhite');
 }
 
 // Scroll customization
@@ -42,4 +42,10 @@ body {
   //TODO: change color
   //background-color: var(--);
   border-radius: 24px;
+}
+
+h2 {
+  font-size: theme('fontSize.xxl[0]');
+  font-weight: theme('fontWeight.regular');
+  line-height: theme('fontSize.xxl[0]');
 }

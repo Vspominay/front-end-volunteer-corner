@@ -16,7 +16,8 @@ module.exports = {
                 lightSilver: '#8C9297',
                 lightBlue: '#04AFD4',
                 yellow: '#FBCA36',
-                white: '#ffffff'
+                white: '#ffffff',
+                bgWhite: '#FBFBFB'
             },
             screens: {
                 sm: "640px",
@@ -39,6 +40,7 @@ module.exports = {
                 base: ['16px', '24px'],
                 lg: ['20px', '26px'],
                 xl: ['24px', '30px'],
+                xxl: ['34px', '32px'],
             }
         },
     },

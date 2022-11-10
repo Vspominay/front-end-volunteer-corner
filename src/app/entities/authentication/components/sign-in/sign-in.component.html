@@ -1,0 +1,26 @@
+<div class="wrapper">
+  <div class="mb-5">
+    <h2>{{'signIn.title' | translate}}</h2>
+    <span class="text-lightSilver text-sm">{{'signIn.tip' | translate}}</span>
+  </div>
+  <form (ngSubmit)="onSubmit()" [formGroup]="sighInFormGroup" class="form">
+
+    <app-input [hasError]="sighInFormGroup.controls['userName'].invalid && sighInFormGroup.controls['userName'].dirty"
+               class="mb-4"
+               formControlName="userName"
+               [label]="'signIn.username' | translate"
+               [error]="'errors.required' | translate : {name: 'signIn.username' | translate}"
+               [placeholder]="'placeholders.enter' | translate : {name: 'placeholders.username' | translate}"></app-input>
+    <app-input [hasError]="sighInFormGroup.controls['password'].invalid && sighInFormGroup.controls['password'].dirty"
+               class="mb-7"
+               [type]="'password'"
+               formControlName="password"
+               [label]="'signIn.password' | translate"
+               [error]="sighInFormGroup.controls['password'].hasError('wrongCred') ? wrongCredentialsError : 'errors.required' | translate : {name: 'signIn.password' | translate}"
+               [placeholder]="'placeholders.enter' | translate : {name: 'placeholders.password' | translate}"></app-input>
+
+    <app-button [isDisabledButton]="sighInFormGroup.invalid"
+                class="block"
+                [content]="'signIn.title' | translate"></app-button>
+  </form>
+</div>

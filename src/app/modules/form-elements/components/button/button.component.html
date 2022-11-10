@@ -7,7 +7,7 @@
     [type]="type"
   >
     <mat-icon *ngIf="icon && iconPosition === 'start'" [svgIcon]="icon" class="mr-4"></mat-icon>
-    {{ content }}
+    <span class="text-center w-full">{{ content }}</span>
     <mat-icon *ngIf="icon && iconPosition === 'end'" [svgIcon]="icon" class="ml-4"></mat-icon>
   </button>
 </div>

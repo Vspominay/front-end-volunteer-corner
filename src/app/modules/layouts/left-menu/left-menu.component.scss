@@ -1,0 +1,18 @@
+:host {
+  .menu-item {
+    color: theme('colors.white');
+    transition: .2s;
+
+    &.active, &:hover {
+      background-color: theme('colors.lightPurple');
+    }
+  }
+
+  .user-block {
+    mat-icon {
+      width: 37px;
+      min-width: 37px;
+      height: 37px;
+    }
+  }
+}

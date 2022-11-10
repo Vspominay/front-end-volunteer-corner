@@ -1,3 +1,28 @@
 {
-
+  "titles": {
+    "requests": "Requests",
+    "dashboard": "Dashboard",
+    "proposals": "Proposals",
+    "settings": "Settings"
+  },
+  "appButtons": {
+    "logOut": "Log Out"
+  },
+  "placeholders": {
+    "enter": "Enter {{name}}",
+    "username": "username",
+    "password": "password"
+  },
+  "errors": {
+    "required": "{{name}} is required"
+  },
+  "signIn": {
+    "title": "Sign In",
+    "tip": "Please enter your credentials to proceed.",
+    "username": "Username",
+    "password": "Password"
+  },
+  "dashboard": {
+    "overview": "Overview"
+  }
 }
