@@ -1,1 +1,58 @@
-<p>desktop-table works!</p>
+<table mat-table *ngIf="data.length" [dataSource]="data" class="mat-elevation-z8 w-full table">
+  <ng-container matColumnDef="id">
+    <th class="" mat-header-cell *matHeaderCellDef>
+      {{ "table.ref" | translate }}
+    </th>
+    <td class="item" mat-cell *matCellDef="let element">
+      <app-table-field [title]="element.status"></app-table-field>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="item">
+    <th class="" mat-header-cell *matHeaderCellDef>
+      {{ "table.item" | translate }}
+    </th>
+    <td class="" mat-cell *matCellDef="let element; let  i = index">
+      <app-table-field [title]="element.name" [subTitle]="element.description"></app-table-field>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="donor">
+    <th mat-header-cell *matHeaderCellDef class="boxes">
+      {{ "table.donor" | translate }}
+    </th>
+    <td class="" mat-cell *matCellDef="let element">
+      <app-table-field [title]="element.owner && element.owner.firstName"
+                       [subTitle]="element.owner && element.owner.lastName"></app-table-field>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="location">
+    <th class="" mat-header-cell *matHeaderCellDef>
+      {{ "table.location" | translate }}
+    </th>
+    <td class="price " mat-cell *matCellDef="let element">
+      <app-table-field [title]="'Manila City'" [subTitle]="'Tree house'"></app-table-field>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="date">
+    <th class="" mat-header-cell *matHeaderCellDef>
+      {{ "table.date" | translate }}
+    </th>
+    <td class="price " mat-cell *matCellDef="let element">
+      <app-table-field [title]="element.createdDate | date"></app-table-field>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th class=" actions" mat-header-cell *matHeaderCellDef>
+      {{ "table.actions" | translate }}
+    </th>
+    <td class=" actions" mat-cell *matCellDef="let element">
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columns"></tr>
+  <tr mat-row *matRowDef="let row; columns: columns"></tr>
+</table>

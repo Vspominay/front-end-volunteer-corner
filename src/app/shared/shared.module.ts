@@ -5,6 +5,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { DashboardCardComponent } from './components/dashboard-card/dashboard-card.component';
+import { TableFieldComponent } from './components/table-field/table-field.component';
 
 export const translationConfig = {
   loader: {
@@ -18,6 +19,7 @@ export const translationConfig = {
 @NgModule({
   declarations: [
     DashboardCardComponent,
+    TableFieldComponent,
   ],
   imports: [
     CommonModule,
@@ -26,6 +28,7 @@ export const translationConfig = {
   ],
   exports: [
     DashboardCardComponent,
+    TableFieldComponent,
   ]
 })
 export class SharedModule {

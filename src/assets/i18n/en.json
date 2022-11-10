@@ -25,6 +25,14 @@
   "dashboard": {
     "overview": "Overview"
   },
+  "table": {
+    "ref": "Ref. no.",
+    "item": "Donation Item",
+    "donor": "Donor",
+    "location": "Pick-up location",
+    "date": "Creation date",
+    "actions": "Actions"
+  },
   "requests": {
   }
 }

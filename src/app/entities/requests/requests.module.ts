@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { MatTableModule } from "@angular/material/table";
 import { TranslateModule } from "@ngx-translate/core";
+import { SharedModule } from "../../shared/shared.module";
+import { DesktopTableComponent } from './desktop-table/desktop-table.component';
 
 import { RequestsRoutingModule } from './requests-routing.module';
 import { RequestsComponent } from './requests.component';
-import { DesktopTableComponent } from './desktop-table/desktop-table.component';
 
 
 @NgModule({
@@ -15,7 +17,9 @@ import { DesktopTableComponent } from './desktop-table/desktop-table.component';
   imports: [
     CommonModule,
     RequestsRoutingModule,
-    TranslateModule
+    TranslateModule,
+    MatTableModule,
+    SharedModule
   ]
 })
 export class RequestsModule {

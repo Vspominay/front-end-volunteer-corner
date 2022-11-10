@@ -15,8 +15,8 @@ export class RequestsService {
 
   constructor(private http: HttpClient) { }
 
-  public getHelpRequests(search?: string, status?: ERequestStatus, startDate?: string, endDate?: string): Observable<IHelpRequest> {
-    return this.http.get<IHelpRequest>(`${this.api}HelpRequests`, {
+  public getHelpRequests(search?: string, status?: ERequestStatus, startDate?: string, endDate?: string): Observable<IHelpRequest[]> {
+    return this.http.get<IHelpRequest[]>(`${this.api}HelpRequests`, {
       params: {
         Search: search || '',
         Status: status || '',

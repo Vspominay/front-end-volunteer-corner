@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Collection } from "ngx-pagination";
+import { IHelpRequest } from "../interfaces/help-request.interface";
 
 @Component({
   selector: 'app-desktop-table',
@@ -6,6 +8,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./desktop-table.component.scss']
 })
 export class DesktopTableComponent implements OnInit {
+
+  @Input() columns!: string[];
+  @Input() data!: Collection<IHelpRequest>
 
   constructor() { }
 
