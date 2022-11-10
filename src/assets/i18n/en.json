@@ -21,5 +21,8 @@
     "tip": "Please enter your credentials to proceed.",
     "username": "Username",
     "password": "Password"
+  },
+  "dashboard": {
+    "overview": "Overview"
   }
 }

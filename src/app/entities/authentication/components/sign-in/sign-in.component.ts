@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
 import { Store } from "@ngxs/store";
 import { Subject, takeUntil } from "rxjs";
 
@@ -17,7 +18,11 @@ export class SignInComponent implements OnInit, OnDestroy {
   public sighInFormGroup!: FormGroup;
   public wrongCredentialsError!: string;
 
-  constructor(private fb: FormBuilder, private store: Store) { }
+  constructor(
+    private fb: FormBuilder,
+    private store: Store,
+    private router: Router
+  ) { }
 
   public ngOnInit(): void {
     this.initForm();
@@ -28,7 +33,9 @@ export class SignInComponent implements OnInit, OnDestroy {
       this.store.dispatch(new Login(this.sighInFormGroup.value))
           .pipe(takeUntil(this._destroy$))
           .subscribe({
-            next: () => {}, error: (error) => {
+            next: () => {
+              this.router.navigateByUrl('/dashboard');
+            }, error: (error) => {
               if (error.message) {
                 this.wrongCredentialsError = error.message;
                 this.sighInFormGroup.controls['password'].setErrors({ wrongCred: true });

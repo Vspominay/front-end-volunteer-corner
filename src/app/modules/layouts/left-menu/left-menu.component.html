@@ -1,4 +1,5 @@
-<div *ngIf="isShowMenu" class="wrapper px-2 py-6 back bg-primaryPurple flex flex-col w-56 min-h-screen">
+<div *ngIf="!isHideMenu && isAuthenticated"
+     class="wrapper px-2 py-6 back bg-primaryPurple flex flex-col w-56 min-h-screen">
   <div class="logo-container mb-11">
     <a routerLink="/">
       <img src="../../../../assets/images/logo.png" width="211" height="47" alt="logo">

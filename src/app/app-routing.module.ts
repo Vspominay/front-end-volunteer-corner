@@ -5,8 +5,17 @@ import { AuthGuard } from "./guards/auth.guard";
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'dashboard',
+    pathMatch: 'full'
+  },
+  {
     path: 'auth',
     loadChildren: () => import('./entities/authentication/authentication.module').then(m => m.AuthenticationModule)
+  },
+  {
+    path: 'dashboard',
+    loadChildren: () => import('./entities/dashboard/dashboard.module').then(m => m.DashboardModule)
   },
   {
     path: 'testing',

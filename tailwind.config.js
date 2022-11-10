@@ -16,7 +16,8 @@ module.exports = {
                 lightSilver: '#8C9297',
                 lightBlue: '#04AFD4',
                 yellow: '#FBCA36',
-                white: '#ffffff'
+                white: '#ffffff',
+                bgWhite: '#FBFBFB'
             },
             screens: {
                 sm: "640px",

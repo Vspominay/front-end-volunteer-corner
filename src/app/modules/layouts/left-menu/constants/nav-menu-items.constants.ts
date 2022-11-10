@@ -3,7 +3,7 @@ import { IMenuItem } from "../interfaces/menu-item";
 export const NAV_MENU_ITEMS: IMenuItem[] = [
   {
     icon: 'ic-dashboard',
-    routerLink: 'testing',
+    routerLink: 'dashboard',
     title: 'titles.dashboard'
   },
   {
