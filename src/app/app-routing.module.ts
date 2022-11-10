@@ -15,7 +15,11 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
-    loadChildren: () => import('./entities/dashboard/dashboard.module').then(m => m.DashboardModule)
+    loadChildren: () => import('./entities/dashboard/dashboard.module').then(m => m.DashboardModule),
+  },
+  {
+    path: 'requests',
+    loadChildren: () => import('./entities/requests/requests.module').then(m => m.RequestsModule)
   },
   {
     path: 'testing',
