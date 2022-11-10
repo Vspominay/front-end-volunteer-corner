@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from "@angular/forms";
 import { TranslateModule } from "@ngx-translate/core";
 import { FormElementsModule } from "../../modules/form-elements/form-elements.module";
 
@@ -17,7 +18,8 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
     CommonModule,
     AuthenticationRoutingModule,
     TranslateModule,
-    FormElementsModule
+    FormElementsModule,
+    ReactiveFormsModule,
   ]
 })
 export class AuthenticationModule {

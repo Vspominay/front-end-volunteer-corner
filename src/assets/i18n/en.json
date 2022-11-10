@@ -13,6 +13,9 @@
     "username": "username",
     "password": "password"
   },
+  "errors": {
+    "required": "{{name}} is required"
+  },
   "signIn": {
     "title": "Sign In",
     "tip": "Please enter your credentials to proceed.",

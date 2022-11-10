@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from "@angular/forms";
+import { Component, Input } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 
 @Component({
   selector: 'app-input',
@@ -11,10 +11,9 @@ import { NG_VALUE_ACCESSOR } from "@angular/forms";
       useExisting: InputComponent,
       multi: true
     }
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  ]
 })
-export class InputComponent implements OnInit {
+export class InputComponent implements ControlValueAccessor {
 
   @Input() public type: 'text' | 'password' | 'number' = 'text';
 
@@ -31,12 +30,7 @@ export class InputComponent implements OnInit {
 
   public isHide: boolean = true;
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-  private _onChange(value: string): void {};
+  public onChange(value: string): void {};
 
   private _onTouched = () => {};
 
@@ -49,6 +43,7 @@ export class InputComponent implements OnInit {
   public set value(value: string) {
     if (value || value === '') {
       this._value = value;
+      this.onChange(value);
     }
   }
 
@@ -57,7 +52,7 @@ export class InputComponent implements OnInit {
   }
 
   public registerOnChange(fn: any): void {
-    this._onChange = fn;
+    this.onChange = fn;
   }
 
   public registerOnTouched(fn: any): void {
