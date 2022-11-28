@@ -41,4 +41,25 @@ export class RequestsService {
   public deleteRequest(id: string): Observable<void> {
     return this.http.delete<void>(`${this.api}HelpRequest/${id}`);
   }
+
+  public updateHelpRequest(id: string, name?: string, description?: string, location?: string) {
+    return this.http.put(`${this.api}HelpRequests/${id}`, {
+      name, description, location
+    });
+  }
+
+  public changeRequestStatus(id: number, status: ERequestStatus) {
+    return this.http.patch(`${this.api}HelpRequests${id}`, { NewStatus: status });
+  }
+
+  public uploadRequestDocuments(id: number, documents: File[]) {
+    const documentFormData = new FormData();
+
+    for (const document of documents) {
+      documentFormData.append('', document);
+    }
+
+    return this.http.patch((`${this.api}HelpRequests/${id}`), documentFormData);
+  }
+
 }
