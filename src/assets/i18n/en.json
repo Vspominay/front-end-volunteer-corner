@@ -6,12 +6,24 @@
     "settings": "Settings"
   },
   "appButtons": {
-    "logOut": "Log Out"
+    "logOut": "Log Out",
+    "confirm": "Confirm"
+  },
+  "statuses": {
+    "active": "Active",
+    "closed": "Closed",
+    "canceled": "Canceled"
   },
   "placeholders": {
     "enter": "Enter {{name}}",
     "username": "username",
-    "password": "password"
+    "password": "password",
+    "name": "Name",
+    "contactNumber": "Contact number",
+    "email": "Email",
+    "pickUpLocation": "Pick-up location",
+    "dropOffAddress": "Drop-off address",
+    "lastModified": "Last Modified"
   },
   "errors": {
     "required": "{{name}} is required"
@@ -26,7 +38,7 @@
     "overview": "Overview"
   },
   "table": {
-    "ref": "Ref. no.",
+    "status": "Status",
     "item": "Donation Item",
     "donor": "Donor",
     "location": "Pick-up location",
@@ -34,5 +46,21 @@
     "actions": "Actions"
   },
   "requests": {
+    "searchPlaceholder": "Search reference no.",
+    "createRequest": "Create Request",
+    "changeStatus": "Change Status",
+    "viewDetails": "Details",
+    "delete": "Delete"
+  },
+  "detailsPage": {
+    "id": "ID",
+    "volunteer": "Volunteer",
+    "recipient": "Recipient",
+    "lastModified": "Last modified date",
+    "created": "Created date",
+    "remark": "volunteer’s remarks",
+    "updatedRemark": "Remark",
+    "changeDetails": "Changing details",
+    "itemTitle": "Item title"
   }
 }

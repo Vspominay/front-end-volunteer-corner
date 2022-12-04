@@ -6,5 +6,7 @@ export interface IHelpRequest extends IBaseCreatedEntity {
   owner: IHelpSeeker,
   name: string | null,
   description: string | null,
+  location: string,
+  additionalDocuments: string[],
   status: ERequestStatus,
 }

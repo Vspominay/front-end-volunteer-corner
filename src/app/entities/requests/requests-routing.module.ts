@@ -7,6 +7,10 @@ const routes: Routes = [
     path: '',
     component: RequestsComponent,
     pathMatch: "full"
+  },
+  {
+    path: 'info',
+    loadChildren: () => import('./components/request-details/request-details.module').then(m => m.RequestDetailsModule)
   }
 ];
 

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatTableModule } from "@angular/material/table";
 import { TranslateModule } from "@ngx-translate/core";
+import { FormElementsModule } from '../../modules/form-elements/form-elements.module';
 import { SharedModule } from "../../shared/shared.module";
 import { DesktopTableComponent } from './desktop-table/desktop-table.component';
 
@@ -19,7 +20,8 @@ import { RequestsComponent } from './requests.component';
     RequestsRoutingModule,
     TranslateModule,
     MatTableModule,
-    SharedModule
+    SharedModule,
+    FormElementsModule
   ]
 })
 export class RequestsModule {

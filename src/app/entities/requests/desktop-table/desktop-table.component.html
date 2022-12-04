@@ -1,10 +1,10 @@
 <table mat-table *ngIf="data.length" [dataSource]="data" class="mat-elevation-z8 w-full table">
   <ng-container matColumnDef="id">
     <th class="" mat-header-cell *matHeaderCellDef>
-      {{ "table.ref" | translate }}
+      {{ "table.status" | translate }}
     </th>
-    <td class="item" mat-cell *matCellDef="let element">
-      <app-table-field [title]="element.status"></app-table-field>
+    <td class="item flex items-center justify-center" mat-cell *matCellDef="let element">
+      <app-status [status]="element.status"></app-status>
     </td>
   </ng-container>
 
@@ -50,6 +50,7 @@
       {{ "table.actions" | translate }}
     </th>
     <td class=" actions" mat-cell *matCellDef="let element">
+      <app-menu [items]="actions[element.id]"></app-menu>
     </td>
   </ng-container>
 

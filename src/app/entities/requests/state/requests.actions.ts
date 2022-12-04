@@ -9,7 +9,7 @@ export class FetchRequests {
 export class GetRequestInformation {
   static readonly type = '[Requests] Get Request information';
 
-  constructor(public payload: number) {}
+  constructor(public payload: string) {}
 }
 
 export class CreateHelpRequest {
@@ -21,7 +21,7 @@ export class CreateHelpRequest {
 export class UpdateRequestInformation {
   static readonly type = '[Requests] Update Request information';
 
-  constructor(public payload: { id: number, name: string, location: string, description: string }) {}
+  constructor(public payload: { id: string, name: string, location: string, description: string }) {}
 }
 
 export class DeleteRequestInformation {

@@ -2,6 +2,21 @@
   <h2 class="font-medium">{{'dashboard.overview' | translate}}</h2>
 
   <div class="py-10">
-    <app-desktop-table [columns]="columns" [data]="requests"></app-desktop-table>
+    <div class="mb-6 flex justify-between items-center">
+      <app-input
+        icon="ic-search"
+        [placeholder]="'requests.searchPlaceholder' | translate"
+      >
+      </app-input>
+
+      <app-button
+        [icon]="'ic-create'"
+        [buttonStyle]="buttonStyle"
+        iconPosition="start"
+        [content]="'requests.createRequest' | translate"
+      ></app-button>
+    </div>
+
+    <app-desktop-table [actions]="requestMenu" [columns]="columns" [data]="requests"></app-desktop-table>
   </div>
 </div>

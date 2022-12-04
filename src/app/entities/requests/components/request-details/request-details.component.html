@@ -1,0 +1,30 @@
+<div *ngIf="(vm$ | async) as viewModel" class="wrapper p-6 py-12 sm:p-8 md:p-10">
+  <div class="flex items-center py-4 w-full border-b border-solid border-lightSilver">
+    <div class="flex font-medium flex-grow items-center">
+      <span class="text-lg mr-5">{{'detailsPage.id' | translate}}: {{viewModel.request.id}}</span>
+      <span class="text-lightSilver text-sm">{{viewModel.request.createdDate | date}}</span>
+    </div>
+
+    <div class="">
+      <mat-icon class="cursor-pointer text-lightSilver" (click)="openEditPopup()" svgIcon="ic-edit"></mat-icon>
+    </div>
+  </div>
+
+  <div class="mb-6 mt-8">
+    <app-product-info
+      [title]="viewModel.request.name || '--'"
+    >
+    </app-product-info>
+  </div>
+
+  <div class="flex flex-wrap -mx-4">
+    <div class="w-1/2 px-4 mb-6" *ngFor="let detailCard of [viewModel.volunteer, viewModel.recipient]">
+      <app-card-information [title]="detailCard.title | translate" [fields]="detailCard.fields"></app-card-information>
+    </div>
+  </div>
+
+  <div *ngIf="viewModel.request.description" class="">
+    <app-card-information [title]="'detailsPage.remark' | translate"
+                          [fields]="[{title: '', subtitle: viewModel.request.description }]"></app-card-information>
+  </div>
+</div>

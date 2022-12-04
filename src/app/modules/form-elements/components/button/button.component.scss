@@ -42,6 +42,11 @@
     &.pale {
       color: theme('colors.white');
       background-color: theme('colors.lightGreen');
+
+      &:hover {
+        box-shadow: 0 0 15px theme('colors.lightGreen');
+        transform: translateY(-2px);
+      }
     }
 
     &.colorless {

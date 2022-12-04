@@ -27,7 +27,7 @@ export class RequestsService {
   }
 
   public getRequest(id: string): Observable<IHelpRequest> {
-    return this.http.get<IHelpRequest>(`${this.api}HelpRequest/${id}`);
+    return this.http.get<IHelpRequest>(`${this.api}HelpRequests/${id}`);
   }
 
   public createRequest(ownerId: string, title: string, description: string): Observable<IHelpRequest> {
@@ -43,7 +43,7 @@ export class RequestsService {
   }
 
   public updateHelpRequest(id: string, name?: string, description?: string, location?: string) {
-    return this.http.put(`${this.api}HelpRequests/${id}`, {
+    return this.http.put<IHelpRequest>(`${this.api}HelpRequests/${id}`, {
       name, description, location
     });
   }

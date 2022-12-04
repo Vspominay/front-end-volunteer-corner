@@ -12,6 +12,14 @@ export const SVG_ICONS = [
   { name: 'ic-blank-user', path: SVG_ICONS_PATH + 'blank-user.svg' },
   { name: 'ic-blank-user', path: SVG_ICONS_PATH + 'blank-user.svg' },
   { name: 'ic-logout', path: SVG_ICONS_PATH + 'logout.svg' },
+  { name: 'ic-edit', path: SVG_ICONS_PATH + 'edit.svg' },
+  { name: 'ic-search', path: SVG_ICONS_PATH + 'search.svg' },
+  { name: 'ic-date', path: SVG_ICONS_PATH + 'date.svg' },
+  { name: 'ic-more', path: SVG_ICONS_PATH + 'more.svg' },
+  { name: 'ic-change', path: SVG_ICONS_PATH + 'change.svg' },
+  { name: 'ic-create', path: SVG_ICONS_PATH + 'create.svg' },
+  { name: 'ic-eye', path: SVG_ICONS_PATH + 'eye.svg' },
+  { name: 'ic-delete', path: SVG_ICONS_PATH + 'delete.svg' },
 
 ];
 
