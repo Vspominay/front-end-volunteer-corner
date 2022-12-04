@@ -19,6 +19,7 @@ export const SVG_ICONS = [
   { name: 'ic-change', path: SVG_ICONS_PATH + 'change.svg' },
   { name: 'ic-create', path: SVG_ICONS_PATH + 'create.svg' },
   { name: 'ic-eye', path: SVG_ICONS_PATH + 'eye.svg' },
+  { name: 'ic-help', path: SVG_ICONS_PATH + 'help.svg' },
   { name: 'ic-delete', path: SVG_ICONS_PATH + 'delete.svg' },
 
 ];

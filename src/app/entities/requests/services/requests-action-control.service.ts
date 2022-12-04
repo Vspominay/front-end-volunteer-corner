@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 import { IMenuItem } from '../../../shared/components/menu/menu-item.interface';
+import { PopupConfirmationComponent } from '../../../shared/components/popup-confirmation/popup-confirmation.component';
 import { IHelpRequest } from '../interfaces/help-request.interface';
 
 @Injectable({
@@ -10,7 +12,8 @@ import { IHelpRequest } from '../interfaces/help-request.interface';
 export class RequestsActionControlService {
 
   constructor(
-    private _router: Router
+    private _router: Router,
+    private _matDialog: MatDialog
   ) { }
 
   public getActions(request: IHelpRequest): IMenuItem[] {
@@ -48,7 +51,13 @@ export class RequestsActionControlService {
       text: 'requests.delete',
       icon: 'ic-delete',
       handler: () => {
-
+        this._matDialog.open(PopupConfirmationComponent, {
+          data: {
+            title: 'requests.deleteRequest',
+            confirmBtnText: 'appButtons.confirm',
+            cancelBtnText: 'appButtons.cancel'
+          }
+        })
       }
     }
   }
