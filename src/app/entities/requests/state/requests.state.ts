@@ -9,7 +9,8 @@ import { IRequestsState } from "./requests.models";
 @State<IRequestsState>({
   name: 'requests',
   defaults: {
-    requests: []
+    requests: [],
+    isFetched: false
   }
 })
 @Injectable()
@@ -18,6 +19,11 @@ export class RequestsState {
   @Selector()
   static requests(state: IRequestsState) {
     return state.requests;
+  }
+
+  @Selector()
+  static isFetched(state: IRequestsState) {
+    return state.isFetched;
   }
 
   @Selector()
@@ -32,7 +38,8 @@ export class RequestsState {
     return this.requestsService.getHelpRequests(payload.search, payload.status, payload.startDate, payload.endDate)
                .pipe(tap((requests) => {
                  patchState({
-                   requests
+                   requests,
+                   isFetched: true
                  });
                }));
   }

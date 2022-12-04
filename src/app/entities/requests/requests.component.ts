@@ -8,8 +8,6 @@ import { IMenuItem } from '../../shared/components/menu/menu-item.interface';
 import { REQUEST_COLUMNS } from "./constants/request-columns.constant";
 import { IHelpRequest } from "./interfaces/help-request.interface";
 import { RequestsActionControlService } from './services/requests-action-control.service';
-
-import { FetchRequests } from "./state/requests.actions";
 import { RequestsState } from "./state/requests.state";
 
 @Component({
@@ -33,7 +31,6 @@ export class RequestsComponent implements OnInit {
   ) { }
 
   public ngOnInit(): void {
-    this._store.dispatch(new FetchRequests({}));
     this._store.select(RequestsState.requests)
         .pipe(takeUntil(this._destroy$))
         .subscribe(requests => {

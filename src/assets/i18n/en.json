@@ -64,5 +64,10 @@
     "updatedRemark": "Remark",
     "changeDetails": "Changing details",
     "itemTitle": "Item title"
+  },
+  "statusChanges": {
+    "active": "Active request that can be executed",
+    "closed": "Completed successful request",
+    "canceled": "Request that was canceled for certain reasons"
   }
 }

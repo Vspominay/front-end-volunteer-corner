@@ -1,6 +1,6 @@
-<div class="dialog-title flex items-center flex-col mb-2">
-  <mat-icon class="icon-info mb-2" svgIcon="ic-help"></mat-icon>
-  <span mat-dialog-title class="my-2 my-sm-0">
+<div class="flex items-center  mb-4">
+  <mat-icon class="icon-info mr-2" svgIcon="ic-help"></mat-icon>
+  <span mat-dialog-title class="modal-title">
     {{ modalConfig.title | translate }}
   </span>
 </div>
@@ -11,13 +11,13 @@
     *ngIf="modalConfig.cancelBtnText"
     class="cancel-btn"
     mat-dialog-close="close"
-    [buttonStyle]="modalConfig.cancelBtnStyle || buttonStyle.Outline"
+    [buttonStyle]="modalConfig.cancelBtnStyle || buttonStyle.Colorless"
     [content]="modalConfig.cancelBtnText | translate">
   </app-button>
   <app-button
     *ngIf="modalConfig.confirmBtnText"
     mat-dialog-close="confirmed"
-    [buttonStyle]="modalConfig.confirmBtnStyle || buttonStyle.Filled"
+    [buttonStyle]="modalConfig.confirmBtnStyle || buttonStyle.Outline"
     [content]="modalConfig.confirmBtnText | translate">
   </app-button>
 </div>

@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 import { IMenuItem } from '../../../shared/components/menu/menu-item.interface';
 import { PopupConfirmationComponent } from '../../../shared/components/popup-confirmation/popup-confirmation.component';
+import { StatusChangeSheetComponent } from '../components/request-details/components/status-change-sheet/status-change-sheet.component';
 import { IHelpRequest } from '../interfaces/help-request.interface';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class RequestsActionControlService {
 
   constructor(
     private _router: Router,
-    private _matDialog: MatDialog
+    private _matDialog: MatDialog,
+    private _bottomSheet: MatBottomSheet
   ) { }
 
   public getActions(request: IHelpRequest): IMenuItem[] {
@@ -31,7 +32,7 @@ export class RequestsActionControlService {
       text: 'requests.changeStatus',
       icon: 'ic-change',
       handler: () => {
-
+        this._bottomSheet.open(StatusChangeSheetComponent);
       }
     }
   }

@@ -1,5 +1,6 @@
 import { IHelpRequest } from "../interfaces/help-request.interface";
 
 export interface IRequestsState {
-  requests: IHelpRequest[]
+  requests: IHelpRequest[],
+  isFetched: boolean
 }
