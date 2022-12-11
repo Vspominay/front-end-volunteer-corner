@@ -1,5 +1,5 @@
 <div class="wrapper p-6 py-12 sm:p-8 md:p-10">
-  <h2 class="font-medium">{{'dashboard.overview' | translate}}</h2>
+  <h2 class="font-medium">{{'titles.requests' | translate}}</h2>
 
   <div class="py-10">
     <div class="mb-6 flex justify-between items-center">
@@ -10,12 +10,17 @@
       </app-input>
 
       <app-button
-        [icon]="'ic-create'"
-        [buttonStyle]="buttonStyle"
+        [icon]="isShowCreateForm ? 'ic-close' : 'ic-create'"
+        [buttonStyle]="isShowCreateForm ? buttonStyle.Danger : buttonStyle.Pale"
         iconPosition="start"
-        [content]="'requests.createRequest' | translate"
+        (click)="isShowCreateForm = !isShowCreateForm"
+        [content]="(isShowCreateForm ? 'appButtons.cancel' : 'requests.createRequest' ) | translate"
       ></app-button>
     </div>
+
+    <app-create-request-form @fade
+                             *ngIf="isShowCreateForm"
+                             class="mx-auto max-w-3xl mb-6 block"></app-create-request-form>
 
     <app-desktop-table [actions]="requestMenu" [columns]="columns" [data]="requests"></app-desktop-table>
   </div>

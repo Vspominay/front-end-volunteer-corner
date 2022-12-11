@@ -12,13 +12,15 @@ import { DesktopTableComponent } from './desktop-table/desktop-table.component';
 import { RequestsRoutingModule } from './requests-routing.module';
 import { RequestsComponent } from './requests.component';
 import { RequestsActionControlService } from './services/requests-action-control.service';
+import { CreateRequestFormComponent } from './components/create-request-form/create-request-form.component';
 
 
 @NgModule({
   declarations: [
     RequestsComponent,
     DesktopTableComponent,
-    StatusChangeSheetComponent
+    StatusChangeSheetComponent,
+    CreateRequestFormComponent
   ],
   imports: [
     CommonModule,

@@ -11,6 +11,7 @@ module.exports = {
                 primaryRed: '#EB5757',
                 darkGray: '#343434',
                 lightPurple: '#9575CD',
+                lightPurpleTransparent: 'rgba(149,117,205,0.4)',
                 lightGreen: '#81C784',
                 lightGreenSecond: '#43CDB4',
                 lightSilver: '#8C9297',

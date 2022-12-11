@@ -39,6 +39,18 @@
       }
     }
 
+    &.danger {
+      background-color: transparent;
+      color: theme('colors.primaryRed');
+      border: 2px solid theme('colors.primaryRed');
+
+
+      &:hover {
+        color: theme('colors.white');
+        background-color: theme('colors.primaryRed');;
+      }
+    }
+
     &.pale {
       color: theme('colors.white');
       background-color: theme('colors.lightGreen');

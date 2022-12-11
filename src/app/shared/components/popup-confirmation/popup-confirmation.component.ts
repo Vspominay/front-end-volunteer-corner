@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+
 import { EButtonStyle } from '../../../modules/form-elements/components/button/enums/button-style.enum';
 import { IModalConfig } from './interfaces/modal-config.interface';
 

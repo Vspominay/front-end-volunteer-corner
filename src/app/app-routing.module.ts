@@ -24,6 +24,13 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'profile',
+    loadChildren: () => import('./entities/profile/profile.module').then(m => m.ProfileModule),
+    canActivate: [AuthGuard]
+  },
+
+  //TODO: delete before release
+  {
     path: 'testing',
     loadChildren: () => import('./entities/component-testing/component-testing.module').then(m => m.ComponentTestingModule),
   }

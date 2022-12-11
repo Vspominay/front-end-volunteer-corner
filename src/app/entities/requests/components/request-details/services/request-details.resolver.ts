@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { first, map, Observable, of } from 'rxjs';
-import { IHelpRequest } from '../../../interfaces/help-request.interface';
 
+import { IHelpRequest } from '../../../interfaces/help-request.interface';
 import { RequestsService } from '../../../services/requests.service';
 import { GetRequestInformation } from '../../../state/requests.actions';
 import { RequestsState } from '../../../state/requests.state';

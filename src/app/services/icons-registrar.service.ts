@@ -21,6 +21,8 @@ export const SVG_ICONS = [
   { name: 'ic-eye', path: SVG_ICONS_PATH + 'eye.svg' },
   { name: 'ic-help', path: SVG_ICONS_PATH + 'help.svg' },
   { name: 'ic-delete', path: SVG_ICONS_PATH + 'delete.svg' },
+  { name: 'ic-check', path: SVG_ICONS_PATH + 'check.svg' },
+  { name: 'ic-close', path: SVG_ICONS_PATH + 'close.svg' },
 
 ];
 

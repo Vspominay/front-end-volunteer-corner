@@ -19,23 +19,24 @@ import { PopupChangeDetailsComponent } from './components/popup-change-details/p
 export class RequestDetailsComponent {
   private _changeDetailsData!: { title: string | null, location: string, description: string | null };
 
-  public vm$: Observable<{ request: IHelpRequest, volunteer: { title: string, fields: { title: string, subtitle: string | null }[] }, recipient: { title: string, fields: { title: string, subtitle: string | null }[] } }> = this._store.select(RequestsState.requests)
-                                                                                                                                                                                                                                  .pipe(
-                                                                                                                                                                                                                                    map((requests) => requests.find(request => request.id === this._route.snapshot.paramMap.get('id')) as IHelpRequest),
-                                                                                                                                                                                                                                    map(request => {
-                                                                                                                                                                                                                                      this._changeDetailsData = {
-                                                                                                                                                                                                                                        location: request.location,
-                                                                                                                                                                                                                                        description: request.description,
-                                                                                                                                                                                                                                        title: request.name
-                                                                                                                                                                                                                                      }
+  public vm$: Observable<{ request: IHelpRequest, volunteer: { title: string, fields: { title: string, subtitle: string | null }[] }, recipient: { title: string, fields: { title: string, subtitle: string | null }[] } }> =
+    this._store.select(RequestsState.requests)
+        .pipe(
+          map((requests) => requests.find(request => request.id === this._route.snapshot.paramMap.get('id')) as IHelpRequest),
+          map(request => {
+            this._changeDetailsData = {
+              location: request.location,
+              description: request.description,
+              title: request.name
+            }
 
-                                                                                                                                                                                                                                      return {
-                                                                                                                                                                                                                                        request,
-                                                                                                                                                                                                                                        volunteer: this._getVolunteerInfoFields(request),
-                                                                                                                                                                                                                                        recipient: this._getRecipientInfoFields(request)
-                                                                                                                                                                                                                                      }
-                                                                                                                                                                                                                                    })
-                                                                                                                                                                                                                                  );
+            return {
+              request,
+              volunteer: this._getVolunteerInfoFields(request),
+              recipient: this._getRecipientInfoFields(request)
+            }
+          })
+        );
 
   constructor(
     private _route: ActivatedRoute,
@@ -55,7 +56,7 @@ export class RequestDetailsComponent {
       panelClass: 'change-details-container'
     }).afterClosed()
         .pipe(
-          filter(value => value.title && value.location && value.description),
+          filter(value => value && value.title && value.location && value.description),
           take(1),
           tap(console.log),
         )

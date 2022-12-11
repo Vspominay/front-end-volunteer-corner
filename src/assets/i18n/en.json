@@ -3,7 +3,8 @@
     "requests": "Requests",
     "dashboard": "Dashboard",
     "proposals": "Proposals",
-    "settings": "Settings"
+    "settings": "Settings",
+    "profile": "Profile"
   },
   "appButtons": {
     "logOut": "Log Out",
@@ -69,5 +70,15 @@
     "active": "Active request that can be executed",
     "closed": "Completed successful request",
     "canceled": "Request that was canceled for certain reasons"
+  },
+  "createRequest": {
+  },
+  "profile": {
+    "firstName": "First Name",
+    "lastName": "Surname",
+    "userName": "User Name",
+    "email": "Email",
+    "phone": "Phone number",
+    "editProfile": "Edit profile"
   }
 }
