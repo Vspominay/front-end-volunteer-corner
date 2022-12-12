@@ -41,7 +41,7 @@ export class RequestsService {
   }
 
   public deleteRequest(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.api}HelpRequest/${id}`);
+    return this.http.delete<void>(`${this.api}HelpRequests/${id}`);
   }
 
   public updateHelpRequest(id: string, name?: string, description?: string, location?: string) {

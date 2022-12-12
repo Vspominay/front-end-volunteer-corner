@@ -1,4 +1,4 @@
-import { ERequestStatus } from "../enums/request-status.enum";
+import { ERequestStatus } from "../../enums/request-status.enum";
 
 export class FetchRequests {
   static readonly type = '[Requests] Fetch requests';
@@ -27,7 +27,7 @@ export class UpdateRequestInformation {
 export class DeleteRequestInformation {
   static readonly type = '[Request] Delete request information';
 
-  constructor(public payload: number) {}
+  constructor(public payload: string) {}
 }
 
 export class ChangeRequestStatus {

@@ -5,8 +5,8 @@ import { first, map, Observable, of } from 'rxjs';
 
 import { IHelpRequest } from '../../../interfaces/help-request.interface';
 import { RequestsService } from '../../../services/requests.service';
-import { GetRequestInformation } from '../../../state/requests.actions';
-import { RequestsState } from '../../../state/requests.state';
+import { GetRequestInformation } from '../../../state/requests/requests.actions';
+import { RequestsState } from '../../../state/requests/requests.state';
 
 @Injectable({
   providedIn: 'root'

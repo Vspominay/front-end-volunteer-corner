@@ -11,8 +11,8 @@ import { IMenuItem } from '../../shared/components/menu/menu-item.interface';
 import { REQUEST_COLUMNS } from './constants/request-columns.constant';
 import { IHelpRequest } from './interfaces/help-request.interface';
 import { RequestsActionControlService } from './services/requests-action-control.service';
-import { FetchRequests } from './state/requests.actions';
-import { RequestsState } from './state/requests.state';
+import { FetchRequests } from './state/requests/requests.actions';
+import { RequestsState } from './state/requests/requests.state';
 
 @Component({
   selector: 'app-requests',
@@ -22,7 +22,7 @@ import { RequestsState } from './state/requests.state';
     trigger('fade', [
       transition(':enter', [
         style({ height: 0, transform: 'translateY(-60vh)' }),
-        animate(300, style({ height: '163px', transform: 'translateY(0)' })),
+        animate(300, style({ height: '230px', transform: 'translateY(0)' })),
       ]),
       transition(':leave', [
         animate(300, style({ height: 0, transform: 'translateY(-60vh)' })),

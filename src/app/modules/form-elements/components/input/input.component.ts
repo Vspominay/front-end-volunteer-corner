@@ -40,12 +40,9 @@ export class InputComponent implements ControlValueAccessor {
     return this._value;
   }
 
-  public set value(value: string) {
-    console.log(value)
-    if (value || value === '') {
-      this._value = value;
-      this.onChange(value);
-    }
+  public set value(value: string | null) {
+    this._value = value || '';
+    this.onChange(value || '');
   }
 
   public writeValue(value: string): void {

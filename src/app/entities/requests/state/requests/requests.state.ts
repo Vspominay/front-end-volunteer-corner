@@ -2,8 +2,8 @@ import { Injectable } from "@angular/core";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { tap } from "rxjs";
 
-import { RequestsService } from "../services/requests.service";
-import { ChangeRequestStatus, CreateHelpRequest, FetchRequests, GetRequestInformation, UpdateRequestInformation } from "./requests.actions";
+import { RequestsService } from "../../services/requests.service";
+import { ChangeRequestStatus, CreateHelpRequest, DeleteRequestInformation, FetchRequests, GetRequestInformation, UpdateRequestInformation } from "./requests.actions";
 import { IRequestsState } from "./requests.models";
 
 @State<IRequestsState>({
@@ -91,6 +91,19 @@ export class RequestsState {
                  patchState({
                    requests: getState().requests.map(req => req.id === payload.id ? { ...req, status } : req)
                  });
+               }));
+  }
+
+  @Action(DeleteRequestInformation)
+  deleteRequestInformation({
+    patchState,
+    getState
+  }: StateContext<IRequestsState>, { payload }: DeleteRequestInformation) {
+    return this.requestsService.deleteRequest(payload)
+               .pipe(tap(() => {
+                 patchState({
+                   requests: getState().requests.filter(request => request.id !== payload)
+                 })
                }));
   }
 }

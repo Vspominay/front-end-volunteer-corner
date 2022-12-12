@@ -11,7 +11,7 @@ import { STATUS_CHANGE_SHEET } from '../components/request-details/components/st
 import { StatusChangeSheetComponent } from '../components/request-details/components/status-change-sheet/status-change-sheet.component';
 import { ERequestStatus } from '../enums/request-status.enum';
 import { IHelpRequest } from '../interfaces/help-request.interface';
-import { ChangeRequestStatus } from '../state/requests.actions';
+import { ChangeRequestStatus, DeleteRequestInformation } from '../state/requests/requests.actions';
 
 @Injectable()
 export class RequestsActionControlService {
@@ -28,7 +28,7 @@ export class RequestsActionControlService {
 
     resultAction.push(this._viewDetails(request.id));
     if (request.status !== ERequestStatus.Closed) resultAction.push(this._changeStatus(request));
-    resultAction.push(this._deleteRequest());
+    resultAction.push(this._deleteRequest(request));
 
     return resultAction;
   }
@@ -65,7 +65,7 @@ export class RequestsActionControlService {
     }
   }
 
-  private _deleteRequest(): IMenuItem {
+  private _deleteRequest(request: IHelpRequest): IMenuItem {
     return {
       text: 'requests.delete',
       icon: 'ic-delete',
@@ -77,6 +77,13 @@ export class RequestsActionControlService {
             cancelBtnText: 'appButtons.cancel'
           }
         })
+            .afterClosed()
+            .pipe(
+              take(1),
+              filter(value => value === 'confirmed')
+            ).subscribe(() => {
+          this._store.dispatch(new DeleteRequestInformation(request.id))
+        });
       }
     }
   }

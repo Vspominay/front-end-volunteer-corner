@@ -5,7 +5,7 @@ import { Subject, takeUntil } from 'rxjs';
 
 import { EButtonStyle } from '../../../../modules/form-elements/components/button/enums/button-style.enum';
 import { NAME_PATTERN } from '../../../../utils/name-pattern.constant';
-import { CreateHelpRequest } from '../../state/requests.actions';
+import { CreateHelpRequest } from '../../state/requests/requests.actions';
 
 @Component({
   selector: 'app-create-request-form',

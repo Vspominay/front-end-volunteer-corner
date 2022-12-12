@@ -6,8 +6,8 @@ import { Store } from '@ngxs/store';
 import { filter, map, Observable, take, tap } from 'rxjs';
 
 import { IHelpRequest } from '../../interfaces/help-request.interface';
-import { UpdateRequestInformation } from '../../state/requests.actions';
-import { RequestsState } from '../../state/requests.state';
+import { UpdateRequestInformation } from '../../state/requests/requests.actions';
+import { RequestsState } from '../../state/requests/requests.state';
 import { PopupChangeDetailsComponent } from './components/popup-change-details/popup-change-details.component';
 
 @Component({
