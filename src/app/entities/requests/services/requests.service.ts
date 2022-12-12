@@ -50,8 +50,8 @@ export class RequestsService {
     });
   }
 
-  public changeRequestStatus(id: number, status: ERequestStatus) {
-    return this.http.patch(`${this.api}HelpRequests${id}`, { NewStatus: status });
+  public changeRequestStatus(id: string, status: ERequestStatus): Observable<ERequestStatus> {
+    return this.http.patch<ERequestStatus>(`${this.api}HelpRequests/${id}/ChangeStatus`, { newStatus: status });
   }
 
   public uploadRequestDocuments(id: number, documents: File[]) {

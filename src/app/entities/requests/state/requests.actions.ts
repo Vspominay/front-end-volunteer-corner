@@ -33,7 +33,7 @@ export class DeleteRequestInformation {
 export class ChangeRequestStatus {
   static readonly type = '[Request] Change request status';
 
-  constructor(public payload: number) {}
+  constructor(public payload: { id: string, status: ERequestStatus }) {}
 }
 
 export class DeleteRequestDocuments {
