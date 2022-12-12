@@ -1,15 +1,17 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from "@ngxs/store";
 import { Collection } from 'ngx-pagination';
-import { Subject, takeUntil } from "rxjs";
+import { debounceTime, distinctUntilChanged, map, Observable, Subject, switchMap, takeUntil } from "rxjs";
 
 import { EButtonStyle } from '../../modules/form-elements/components/button/enums/button-style.enum';
 import { IMenuItem } from '../../shared/components/menu/menu-item.interface';
 import { REQUEST_COLUMNS } from './constants/request-columns.constant';
 import { IHelpRequest } from './interfaces/help-request.interface';
 import { RequestsActionControlService } from './services/requests-action-control.service';
+import { FetchRequests } from './state/requests.actions';
 import { RequestsState } from './state/requests.state';
 
 @Component({
@@ -31,10 +33,20 @@ import { RequestsState } from './state/requests.state';
 export class RequestsComponent implements OnInit {
 
   public readonly columns = REQUEST_COLUMNS;
-  public requests!: IHelpRequest[];
+  public viewModel$: Observable<{
+    requests: IHelpRequest[],
+    requestMenu: { [key: string]: IMenuItem[] }
+  }> = this._store.select(RequestsState.requests)
+           .pipe(
+             map(requests => ({
+               requests: requests || [],
+               requestMenu: this._generateActions(requests) || {}
+             }))
+           );
+
   public buttonStyle = EButtonStyle;
-  public requestMenu!: { [key: string]: IMenuItem[] };
   public isShowCreateForm: boolean = false;
+  public searchInput: FormControl = new FormControl<string>('');
 
   private _destroy$: Subject<void> = new Subject<void>();
 
@@ -45,12 +57,7 @@ export class RequestsComponent implements OnInit {
   ) { }
 
   public ngOnInit(): void {
-    this._store.select(RequestsState.requests)
-        .pipe(takeUntil(this._destroy$))
-        .subscribe(requests => {
-          this.requests = requests;
-          this.requestMenu = this._generateActions(requests);
-        });
+    this._initSearchInput();
   }
 
   private _generateActions(collection: Collection<IHelpRequest>): { [key: string]: IMenuItem[] } {
@@ -62,6 +69,16 @@ export class RequestsComponent implements OnInit {
     }
 
     return result;
+  }
+
+  private _initSearchInput(): void {
+    this.searchInput.valueChanges
+        .pipe(
+          takeUntil(this._destroy$),
+          debounceTime(500),
+          distinctUntilChanged(),
+          switchMap((search) => this._store.dispatch(new FetchRequests({ search: search }))),
+        ).subscribe();
   }
 
   public ngOnDestroy() {

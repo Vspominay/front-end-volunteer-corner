@@ -10,6 +10,7 @@ import { IRequestsState } from "./requests.models";
   name: 'requests',
   defaults: {
     requests: [],
+    search: '',
     isFetched: false
   }
 })

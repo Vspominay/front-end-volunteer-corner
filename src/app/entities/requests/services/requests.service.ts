@@ -18,7 +18,7 @@ export class RequestsService {
   public getHelpRequests(search?: string, status?: ERequestStatus, startDate?: string, endDate?: string): Observable<IHelpRequest[]> {
     return this.http.get<IHelpRequest[]>(`${this.api}HelpRequests`, {
       params: {
-        Search: search || '',
+        SearchString: search || '',
         Status: status || '',
         StartDate: startDate || '',
         EndDate: endDate || ''

@@ -5,6 +5,7 @@
     <div class="mb-6 flex justify-between items-center">
       <app-input
         icon="ic-search"
+        [formControl]="searchInput"
         [placeholder]="'requests.searchPlaceholder' | translate"
       >
       </app-input>
@@ -22,6 +23,10 @@
                              *ngIf="isShowCreateForm"
                              class="mx-auto max-w-3xl mb-6 block"></app-create-request-form>
 
-    <app-desktop-table [actions]="requestMenu" [columns]="columns" [data]="requests"></app-desktop-table>
+    <ng-container *ngIf="(viewModel$ | async) as vm">
+      <app-desktop-table [actions]="vm.requestMenu"
+                         [columns]="columns"
+                         [data]="vm.requests"></app-desktop-table>
+    </ng-container>
   </div>
 </div>
