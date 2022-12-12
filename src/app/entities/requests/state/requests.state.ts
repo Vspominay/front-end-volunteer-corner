@@ -3,7 +3,7 @@ import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { tap } from "rxjs";
 
 import { RequestsService } from "../services/requests.service";
-import { FetchRequests, GetRequestInformation, UpdateRequestInformation } from "./requests.actions";
+import { CreateHelpRequest, FetchRequests, GetRequestInformation, UpdateRequestInformation } from "./requests.actions";
 import { IRequestsState } from "./requests.models";
 
 @State<IRequestsState>({
@@ -71,5 +71,15 @@ export class RequestsState {
                    patchState({ requests: getState().requests.map(stateReq => request.id === payload.id ? request : stateReq) });
                  })
                )
+  }
+
+  @Action(CreateHelpRequest)
+  createHelpRequest({ patchState, getState }: StateContext<IRequestsState>, { payload }: CreateHelpRequest) {
+    return this.requestsService.createRequest(payload.name, payload.location, payload.description)
+               .pipe(tap(request => {
+                 patchState({
+                   requests: [request, ...getState().requests]
+                 });
+               }));
   }
 }

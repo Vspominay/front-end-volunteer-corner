@@ -25,7 +25,7 @@ export class InputComponent implements ControlValueAccessor {
   @Input() public label!: string;
   @Input() public icon?: string;
   @Input() public readonly = false;
-  @Input() public error!: string;
+  @Input() public error?: string;
   @Input() public hasError?: boolean;
 
   public isHide: boolean = true;
@@ -41,6 +41,7 @@ export class InputComponent implements ControlValueAccessor {
   }
 
   public set value(value: string) {
+    console.log(value)
     if (value || value === '') {
       this._value = value;
       this.onChange(value);

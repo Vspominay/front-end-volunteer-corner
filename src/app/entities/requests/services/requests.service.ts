@@ -30,12 +30,14 @@ export class RequestsService {
     return this.http.get<IHelpRequest>(`${this.api}HelpRequests/${id}`);
   }
 
-  public createRequest(ownerId: string, title: string, description: string): Observable<IHelpRequest> {
-    return this.http.post<IHelpRequest>(`${this.api}HelpRequests`, {
-      OwnerId: ownerId,
-      Name: title,
-      Description: description
-    })
+  public createRequest(title: string, location: string, description: string = ''): Observable<IHelpRequest> {
+    const createFormData: FormData = new FormData();
+
+    createFormData.append('Name', title);
+    createFormData.append('location', location);
+    createFormData.append('Description', description);
+
+    return this.http.post<IHelpRequest>(`${this.api}HelpRequests`, createFormData);
   }
 
   public deleteRequest(id: string): Observable<void> {

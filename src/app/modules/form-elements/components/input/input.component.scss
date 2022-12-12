@@ -65,7 +65,8 @@
         position: absolute;
         font-size: theme('fontSize.xs[0]');
         left: 16px;
-        bottom: -1.5em;
+        bottom: 0;
+        transform: translateY(1rem);
       }
 
       mat-icon {

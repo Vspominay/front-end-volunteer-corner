@@ -15,7 +15,7 @@ export class GetRequestInformation {
 export class CreateHelpRequest {
   static readonly type = '[Requests] Create help request';
 
-  constructor(public payload: { file: File, name: string, description: string }) {}
+  constructor(public payload: { location: string, name: string, description?: string }) {}
 }
 
 export class UpdateRequestInformation {

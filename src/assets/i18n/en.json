@@ -28,7 +28,9 @@
     "lastModified": "Last Modified"
   },
   "errors": {
-    "required": "{{name}} is required"
+    "pattern": "Invalid format",
+    "required": "Field is required",
+    "minlength": "Minimum allowed length {{length}} characters"
   },
   "signIn": {
     "title": "Sign In",
