@@ -25,8 +25,11 @@ export class AuthState {
 
   @Action(Login)
   login({ patchState }: StateContext<IAuthState>, { payload }: Login) {
+    console.log('===============LOGIN ', payload)
     return this.authService.login(payload.userName, payload.password)
                .pipe(tap(({ token }) => {
+                 console.log('success login')
+
                  patchState({
                    userName: payload.userName,
                    token
