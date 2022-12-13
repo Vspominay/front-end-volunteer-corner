@@ -15,12 +15,11 @@ export class ProfileService {
 
   constructor(private http: HttpClient) { }
 
-  public fetchProfile(): Observable<IProfile> {
-    return this.http.get<IProfile>(`${this.api}User`);
+  public getProfile(): Observable<IProfile> {
+    return this.http.get<IProfile>(`${this.api}Users/profile`);
   }
 
   public updateProfile(updateUserData: IUpdateProfileRequest): Observable<IProfile> {
-    return this.http.put<IProfile>(`${this.api}User/UpdateProfile`, {})
+    return this.http.put<IProfile>(`${this.api}Users/UpdateProfile`, { ...updateUserData })
   }
-
 }

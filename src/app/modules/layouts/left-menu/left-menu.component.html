@@ -8,7 +8,7 @@
   <a data-cy="user-profile" routerLink="/profile" class="user-block flex items-center mb-11 cursor-pointer">
     <mat-icon svgIcon="ic-blank-user" class="text-white mr-3.5"></mat-icon>
     <div class="text-sm text-white">
-      <h3>OCD CARLO JOE</h3>
+      <h3>{{(fullName$ | async) | uppercase}}</h3>
       <span class="opacity-50">Administrator</span>
     </div>
   </a>

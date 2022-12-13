@@ -1,16 +1,16 @@
-import { Injectable } from "@angular/core";
-import { Action, Selector, State, StateContext } from "@ngxs/store";
-import { tap } from "rxjs";
+import { Injectable } from '@angular/core';
+import { Action, Selector, State, StateContext } from '@ngxs/store';
+import { tap } from 'rxjs';
 
-import { AuthService } from "../services/auth.service";
-import { Login, Logout } from "./auth.actions";
-import { IAuthState } from "./auth.models";
+import { SetUserName } from '../../profile/state/profile.actions';
+import { AuthService } from '../services/auth.service';
+import { Login, Logout } from './auth.actions';
+import { IAuthState } from './auth.models';
 
 @State<IAuthState>({
   name: 'auth',
   defaults: {
-    token: '',
-    userName: ''
+    token: ''
   }
 })
 @Injectable()
@@ -24,24 +24,22 @@ export class AuthState {
   constructor(private authService: AuthService) {}
 
   @Action(Login)
-  login({ patchState }: StateContext<IAuthState>, { payload }: Login) {
-    console.log('===============LOGIN ', payload)
+  login({ patchState, dispatch }: StateContext<IAuthState>, { payload }: Login) {
     return this.authService.login(payload.userName, payload.password)
                .pipe(tap(({ token }) => {
-                 console.log('success login')
+
+                 dispatch(new SetUserName(payload.userName));
 
                  patchState({
-                   userName: payload.userName,
                    token
-                 })
+                 });
                }));
   }
 
   @Action(Logout)
   logout({ patchState }: StateContext<IAuthState>) {
     patchState({
-      token: '',
-      userName: ''
+      token: ''
     });
   }
 }
