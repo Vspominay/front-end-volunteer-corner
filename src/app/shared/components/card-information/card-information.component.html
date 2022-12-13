@@ -1,0 +1,15 @@
+<div class="wrapper rounded-md text-sm py-4 px-5 h-full">
+  <span class="text-lightPurple inline-block uppercase mb-4">{{title}}</span>
+
+  <div class="flex flex-wrap -mx-4">
+    <div *ngFor="let field of fields" class="w-1/2 px-4 mb-6">
+      <app-information-field
+        [data]="{
+        title: field.title | translate,
+        subtitle: field.subtitle
+      }"
+        class="w-full block">
+      </app-information-field>
+    </div>
+  </div>
+</div>

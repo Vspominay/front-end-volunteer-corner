@@ -1,0 +1,1 @@
+export const REQUEST_COLUMNS: string[] = ['id', 'item', 'donor', 'location', 'date', 'actions'];

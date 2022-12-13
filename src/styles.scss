@@ -6,6 +6,7 @@
 
 @import './styles/normalize';
 @import './styles/default.theme';
+@import './styles/table';
 
 html,
 body {
@@ -23,6 +24,7 @@ body {
 
 // Scroll customization
 * {
+  box-sizing: border-box;
   scrollbar-width: thin;
   //TODO: change color
   //scrollbar-color: var(--) var(--);

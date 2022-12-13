@@ -1,8 +1,8 @@
-<div class="wrapper">
+<div class="wrapper p-6 py-12 sm:p-8 md:p-10">
   <h2 class="font-medium">{{'dashboard.overview' | translate}}</h2>
 
   <div class="flex flex-wrap stat-row py-10">
-    <div *ngFor="let card of statistic" class="stat-col w-1/2 sm:w-4/12 md:w-3/12">
+    <div *ngFor="let card of statistic" class="stat-col w-1/2 md:w-4/12 lg:w-3/12">
       <div class="stat-item">
         <app-dashboard-card
           [title]="card.title"

@@ -3,18 +3,34 @@
     "requests": "Requests",
     "dashboard": "Dashboard",
     "proposals": "Proposals",
-    "settings": "Settings"
+    "settings": "Settings",
+    "profile": "Profile"
   },
   "appButtons": {
-    "logOut": "Log Out"
+    "logOut": "Log Out",
+    "confirm": "Confirm",
+    "cancel": "Cancel"
+  },
+  "statuses": {
+    "active": "Active",
+    "closed": "Closed",
+    "canceled": "Canceled"
   },
   "placeholders": {
     "enter": "Enter {{name}}",
     "username": "username",
-    "password": "password"
+    "password": "password",
+    "name": "Name",
+    "contactNumber": "Contact number",
+    "email": "Email",
+    "pickUpLocation": "Pick-up location",
+    "dropOffAddress": "Drop-off address",
+    "lastModified": "Last Modified"
   },
   "errors": {
-    "required": "{{name}} is required"
+    "pattern": "Invalid format",
+    "required": "Field is required",
+    "minlength": "Minimum allowed length {{length}} characters"
   },
   "signIn": {
     "title": "Sign In",
@@ -24,5 +40,47 @@
   },
   "dashboard": {
     "overview": "Overview"
+  },
+  "table": {
+    "status": "Status",
+    "item": "Donation Item",
+    "donor": "Donor",
+    "location": "Pick-up location",
+    "date": "Creation date",
+    "actions": "Actions"
+  },
+  "requests": {
+    "searchPlaceholder": "Search reference no.",
+    "createRequest": "Create Request",
+    "changeStatus": "Change Status",
+    "viewDetails": "Details",
+    "delete": "Delete",
+    "deleteRequest": "Are you sure you want to delete this entry?"
+  },
+  "detailsPage": {
+    "id": "ID",
+    "volunteer": "Volunteer",
+    "recipient": "Recipient",
+    "lastModified": "Last modified date",
+    "created": "Created date",
+    "remark": "volunteer’s remarks",
+    "updatedRemark": "Remark",
+    "changeDetails": "Changing details",
+    "itemTitle": "Item title"
+  },
+  "statusChanges": {
+    "active": "Active request that can be executed",
+    "closed": "Completed successful request",
+    "canceled": "Request that was canceled for certain reasons"
+  },
+  "createRequest": {
+  },
+  "profile": {
+    "firstName": "First Name",
+    "lastName": "Surname",
+    "userName": "User Name",
+    "email": "Email",
+    "phone": "Phone number",
+    "editProfile": "Edit profile"
   }
 }

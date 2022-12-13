@@ -1,0 +1,18 @@
+:host {
+  .wrapper {
+    &.active {
+      color: theme('colors.white');
+      background: theme('colors.lightGreen');
+    }
+
+    &.closed {
+      color: theme('colors.darkGray');
+      background: theme('colors.yellow');
+    }
+
+    &.canceled {
+      color: theme('colors.white');
+      background: theme('colors.primaryRed');
+    }
+  }
+}

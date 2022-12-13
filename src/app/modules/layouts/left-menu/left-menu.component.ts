@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { Store } from "@ngxs/store";
 import { Subject, takeUntil } from "rxjs";
-import { Login } from "../../../entities/authentication/state/auth.actions";
+
+import { Logout } from "../../../entities/authentication/state/auth.actions";
 import { AuthState } from "../../../entities/authentication/state/auth.state";
 import { HIDE_MENU_ROUTES } from "./constants/hide-menu-routes.constants";
-
 import { NAV_MENU_ITEMS } from "./constants/nav-menu-items.constants";
 
 @Component({
@@ -38,8 +38,9 @@ export class LeftMenuComponent implements OnInit {
         });
   }
 
-  public auth(): void {
-    this.store.dispatch(new Login({ userName: 'root', password: '_QGrXyvcmTD4aVQJ_' }));
+  public logout(): void {
+    this.store.dispatch(new Logout());
+    this.router.navigateByUrl('/auth');
   }
 
   private _defineIsShowMenu(): void {

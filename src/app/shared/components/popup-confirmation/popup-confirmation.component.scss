@@ -1,0 +1,18 @@
+::ng-deep {
+  .mat-dialog-confirm-container .mat-dialog-container {
+    padding: 40px 48px;
+    border-radius: 20px;
+    width: fit-content;
+    max-width: 762px;
+  }
+
+  .mat-dialog-confirm-container.mat-dialog-lg-container .mat-dialog-container {
+    max-width: 565px;
+  }
+}
+
+:host {
+  .modal-title {
+    margin: 0;
+  }
+}

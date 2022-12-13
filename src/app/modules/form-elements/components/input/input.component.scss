@@ -6,7 +6,11 @@
       pointer-events: none;
     }
 
+
     ::ng-deep {
+      .mat-form-field-prefix {
+        padding-left: 10px;
+      }
 
       input {
         color: theme('colors.darkGray');
@@ -61,7 +65,8 @@
         position: absolute;
         font-size: theme('fontSize.xs[0]');
         left: 16px;
-        bottom: -1.5em;
+        bottom: 0;
+        transform: translateY(1rem);
       }
 
       mat-icon {

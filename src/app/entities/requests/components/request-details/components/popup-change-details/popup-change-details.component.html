@@ -1,0 +1,27 @@
+<div class="wrapper py-5 px-6 font-medium">
+  <div class="flex items-center justify-between mb-6">
+    <h1 class="font-semiBold text-primaryPurple">{{'detailsPage.changeDetails' | translate}}</h1>
+    <mat-icon></mat-icon>
+  </div>
+
+  <form (ngSubmit)="onSubmit()" [formGroup]="editForm" class="">
+    <div class="mb-4">
+      <app-input formControlName="title" [label]="'detailsPage.itemTitle' | translate"></app-input>
+    </div>
+    <div class="mb-4">
+      <app-input formControlName="location" [label]="'table.location' | translate"></app-input>
+    </div>
+    <div class="mb-7">
+      <app-input formControlName="description" [label]="'detailsPage.updatedRemark' | translate"></app-input>
+    </div>
+
+    <app-button
+      [buttonShape]="buttonShape"
+      [isDisabledButton]="editForm.invalid"
+      [buttonStyle]="buttonStyle"
+      class="max-w-50 mx-auto block"
+      type="submit"
+      [content]="'appButtons.confirm' | translate"
+    ></app-button>
+  </form>
+</div>

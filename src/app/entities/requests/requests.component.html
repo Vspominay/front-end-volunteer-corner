@@ -1,0 +1,40 @@
+<div class="wrapper p-6 py-12 sm:p-8 md:p-10">
+  <h2 class="font-medium">{{'titles.requests' | translate}}</h2>
+
+  <div class="py-10">
+    <div class="mb-6 flex justify-between items-center">
+      <app-input
+        icon="ic-search"
+        [formControl]="searchInput"
+        [placeholder]="'requests.searchPlaceholder' | translate"
+      >
+      </app-input>
+
+      <app-button
+        [icon]="isShowCreateForm ? 'ic-close' : 'ic-create'"
+        [buttonStyle]="isShowCreateForm ? buttonStyle.Danger : buttonStyle.Pale"
+        iconPosition="start"
+        (click)="isShowCreateForm = !isShowCreateForm"
+        [content]="(isShowCreateForm ? 'appButtons.cancel' : 'requests.createRequest' ) | translate"
+      ></app-button>
+    </div>
+
+    <app-create-request-form @fade
+                             *ngIf="isShowCreateForm"
+                             class="mx-auto max-w-3xl mb-6 block"></app-create-request-form>
+
+
+    <ng-container *ngIf="(viewModel$ | async) as vm">
+      <app-desktop-table [actions]="vm.requestMenu"
+                         [columns]="columns"
+                         [data]="vm.requests"></app-desktop-table>
+    </ng-container>
+
+
+    <!--    <mat-tab-group>-->
+    <!--      <mat-tab *ngFor="let tab of asyncTabs | async">-->
+    <!--      </mat-tab>-->
+    <!--    </mat-tab-group>-->
+
+  </div>
+</div>

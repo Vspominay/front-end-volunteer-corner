@@ -25,7 +25,7 @@ export class InputComponent implements ControlValueAccessor {
   @Input() public label!: string;
   @Input() public icon?: string;
   @Input() public readonly = false;
-  @Input() public error!: string;
+  @Input() public error?: string;
   @Input() public hasError?: boolean;
 
   public isHide: boolean = true;
@@ -40,11 +40,9 @@ export class InputComponent implements ControlValueAccessor {
     return this._value;
   }
 
-  public set value(value: string) {
-    if (value || value === '') {
-      this._value = value;
-      this.onChange(value);
-    }
+  public set value(value: string | null) {
+    this._value = value || '';
+    this.onChange(value || '');
   }
 
   public writeValue(value: string): void {
