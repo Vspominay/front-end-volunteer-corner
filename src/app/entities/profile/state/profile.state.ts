@@ -36,6 +36,7 @@ export class ProfileState {
   getProfileData({ patchState }: StateContext<IProfileState>) {
     return this._profileService.getProfile()
                .pipe(tap(profile => {
+                 console.log(profile)
                  patchState({
                    ...profile,
                    isFetched: true
