@@ -42,7 +42,6 @@ describe('Authentication', () => {
     cy.get('app-button').click().then(() => {
       cy.location().should(location => {
         expect(location.pathname).to.eq('/dashboard')
-        expect(JSON.parse(localStorage.getItem('auth') || '').userName).to.eq(authUser.username)
       });
     });
   });

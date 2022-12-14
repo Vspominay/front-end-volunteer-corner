@@ -4,19 +4,27 @@
   </div>
 
   <div class="grid grid-cols-2 gap-y-6 gap-x-8 w-full">
-    <app-information-field [data]="{
+    <app-information-field
+      data-cy="firstName"
+      [data]="{
       title: 'profile.firstName' | translate,
       subtitle: profile.firstName
     }"></app-information-field>
-    <app-information-field [data]="{
+    <app-information-field
+      data-cy="lastName"
+      [data]="{
       title: 'profile.lastName' | translate,
       subtitle: profile.lastName
     }"></app-information-field>
-    <app-information-field [data]="{
+    <app-information-field
+      data-cy="phone"
+      [data]="{
       title: 'profile.phone' | translate,
       subtitle: profile.phoneNumber
     }"></app-information-field>
-    <app-information-field [data]="{
+    <app-information-field
+      data-cy="email"
+      [data]="{
       title: 'profile.email' | translate,
       subtitle: profile.email
     }"></app-information-field>
@@ -25,6 +33,7 @@
 
 <div class="flex justify-end">
   <app-button
+    data-cy="edit-profile-btn"
     [routerLink]="['../', 'edit']"
     [content]="'profile.editProfile' | translate"
   ></app-button>
