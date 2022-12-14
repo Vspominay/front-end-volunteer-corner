@@ -1,9 +1,11 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { Store } from "@ngxs/store";
+import { AgGridAngular } from 'ag-grid-angular/lib/ag-grid-angular.component';
 import { ColDef, ICellRendererParams } from 'ag-grid-community';
 import { Collection } from 'ngx-pagination';
 import { debounceTime, distinctUntilChanged, map, Observable, Subject, switchMap, takeUntil } from "rxjs";
@@ -38,46 +40,54 @@ import { RequestsState } from './state/requests/requests.state';
 })
 export class RequestsComponent implements OnInit {
 
+  @ViewChild('agGrid') gridApi!: AgGridAngular;
+
   public rowData: any = [];
   public colDefs: ColDef[] = [
     {
-      field: 'status',
+      field: 'Status',
+      headerValueGetter: this._localizeHeader.bind(this),
       cellRendererSelector: (params: ICellRendererParams) => this._retrieveTableFieldParams(StatusComponent, {
         status: params.data.status
       })
     },
     {
-      field: 'item',
+      field: 'Item',
+      headerValueGetter: this._localizeHeader.bind(this),
       cellRendererSelector: (params: ICellRendererParams) => this._retrieveTableFieldParams(TableFieldComponent, {
         title: params.data.name,
         subTitle: params.data.description
       })
     },
     {
-      field: 'donor',
+      field: 'Donor',
+      headerValueGetter: this._localizeHeader.bind(this),
       cellRendererSelector: (params: ICellRendererParams) => this._retrieveTableFieldParams(TableFieldComponent, {
         title: params.data.owner.firstName,
         subTitle: params.data.owner.lastName
       })
     },
     {
-      field: 'location',
+      field: 'Location',
+      headerValueGetter: this._localizeHeader.bind(this),
       cellRendererSelector: (params: ICellRendererParams) => this._retrieveTableFieldParams(TableFieldComponent, {
         title: params.data.location
       })
     },
 
     {
-      field: 'date',
+      field: 'Date',
+      headerValueGetter: this._localizeHeader.bind(this),
       cellRendererSelector: (params: ICellRendererParams) => this._retrieveTableFieldParams(TableFieldComponent, {
         title: this._datePipe.transform(params.data.createdDate) || ''
       })
     },
     {
-      field: 'actions',
+      field: 'Actions',
+      headerValueGetter: this._localizeHeader.bind(this),
       cellRendererSelector: (params: ICellRendererParams) => this._retrieveTableFieldParams(MenuComponent, {
         items: this._actionControlService.getActions(params.data)
-      })
+      }),
     }
   ];
 
@@ -115,11 +125,17 @@ export class RequestsComponent implements OnInit {
     private _store: Store,
     private _router: Router,
     private _datePipe: DatePipe,
+    private _translateService: TranslateService,
     private _actionControlService: RequestsActionControlService
   ) { }
 
   public ngOnInit(): void {
     this._initSearchInput();
+  }
+
+  public _localizeHeader(parameters: any): string {
+    const headerIdentifier = `table.${parameters.colDef!.field}`.toLowerCase();
+    return this._translateService.instant(headerIdentifier);
   }
 
   private _generateActions(collection: Collection<IHelpRequest>): { [key: string]: IMenuItem[] } {
