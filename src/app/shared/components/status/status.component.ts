@@ -1,4 +1,7 @@
 import { Component, Input } from '@angular/core';
+import { ICellRendererAngularComp } from 'ag-grid-angular';
+import { ICellRendererParams } from 'ag-grid-community';
+
 import { ERequestStatus } from '../../../entities/requests/enums/request-status.enum';
 
 @Component({
@@ -6,7 +9,7 @@ import { ERequestStatus } from '../../../entities/requests/enums/request-status.
   templateUrl: './status.component.html',
   styleUrls: ['./status.component.scss']
 })
-export class StatusComponent {
+export class StatusComponent implements ICellRendererAngularComp {
 
   public textStatus!: string;
   public style!: string;
@@ -25,6 +28,12 @@ export class StatusComponent {
     }[value];
   };
 
-  constructor() { }
+  public refresh(params: ICellRendererParams): boolean {
+    return false;
+  }
+
+  public agInit(params: ICellRendererParams & { status: ERequestStatus }) {
+    this.status = params.status;
+  }
 
 }

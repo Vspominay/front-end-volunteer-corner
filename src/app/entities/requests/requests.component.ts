@@ -1,13 +1,18 @@
 import { animate, style, transition, trigger } from '@angular/animations';
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from "@ngxs/store";
+import { ColDef, ICellRendererParams } from 'ag-grid-community';
 import { Collection } from 'ngx-pagination';
 import { debounceTime, distinctUntilChanged, map, Observable, Subject, switchMap, takeUntil } from "rxjs";
 
 import { EButtonStyle } from '../../modules/form-elements/components/button/enums/button-style.enum';
 import { IMenuItem } from '../../shared/components/menu/menu-item.interface';
+import { MenuComponent } from '../../shared/components/menu/menu.component';
+import { StatusComponent } from '../../shared/components/status/status.component';
+import { TableFieldComponent } from '../../shared/components/table-field/table-field.component';
 import { REQUEST_COLUMNS } from './constants/request-columns.constant';
 import { IHelpRequest } from './interfaces/help-request.interface';
 import { RequestsActionControlService } from './services/requests-action-control.service';
@@ -29,8 +34,64 @@ import { RequestsState } from './state/requests/requests.state';
       ]),
     ])
   ],
+  providers: [DatePipe]
 })
 export class RequestsComponent implements OnInit {
+
+  public rowData: any = [];
+  public colDefs: ColDef[] = [
+    {
+      field: 'status',
+      cellRendererSelector: (params: ICellRendererParams) => this._retrieveTableFieldParams(StatusComponent, {
+        status: params.data.status
+      })
+    },
+    {
+      field: 'item',
+      cellRendererSelector: (params: ICellRendererParams) => this._retrieveTableFieldParams(TableFieldComponent, {
+        title: params.data.name,
+        subTitle: params.data.description
+      })
+    },
+    {
+      field: 'donor',
+      cellRendererSelector: (params: ICellRendererParams) => this._retrieveTableFieldParams(TableFieldComponent, {
+        title: params.data.owner.firstName,
+        subTitle: params.data.owner.lastName
+      })
+    },
+    {
+      field: 'location',
+      cellRendererSelector: (params: ICellRendererParams) => this._retrieveTableFieldParams(TableFieldComponent, {
+        title: params.data.location
+      })
+    },
+
+    {
+      field: 'date',
+      cellRendererSelector: (params: ICellRendererParams) => this._retrieveTableFieldParams(TableFieldComponent, {
+        title: this._datePipe.transform(params.data.createdDate) || ''
+      })
+    },
+    {
+      field: 'actions',
+      cellRendererSelector: (params: ICellRendererParams) => this._retrieveTableFieldParams(MenuComponent, {
+        items: this._actionControlService.getActions(params.data)
+      })
+    }
+  ];
+
+  public defaultColDef: ColDef = {
+    sortable: true,
+    filter: true
+  };
+
+  private _retrieveTableFieldParams(component: typeof TableFieldComponent | typeof StatusComponent | typeof MenuComponent, params: { [key: string]: string | IMenuItem[] }): { component: typeof TableFieldComponent | typeof StatusComponent | typeof MenuComponent, params: { [key: string]: string | IMenuItem[] } } {
+    return {
+      component,
+      params
+    }
+  }
 
   public readonly columns = REQUEST_COLUMNS;
   public viewModel$: Observable<{
@@ -53,6 +114,7 @@ export class RequestsComponent implements OnInit {
   constructor(
     private _store: Store,
     private _router: Router,
+    private _datePipe: DatePipe,
     private _actionControlService: RequestsActionControlService
   ) { }
 
