@@ -10,6 +10,7 @@ import { NgxsModule } from "@ngxs/store";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthState } from "./entities/authentication/state/auth.state";
+import { ProfileState } from './entities/profile/state/profile.state';
 import { RequestsState } from "./entities/requests/state/requests/requests.state";
 import { InterceptorModule } from "./interceptors/interceptor.module";
 import { LayoutsModule } from "./modules/layouts/layouts.module";
@@ -38,11 +39,12 @@ export function initializeAppSteps(appInitService: AppInitService): any {
     [
       NgxsModule.forRoot([
         AuthState,
-        RequestsState
+        RequestsState,
+        ProfileState
       ]),
       NgxsReduxDevtoolsPluginModule.forRoot(),
       NgxsStoragePluginModule.forRoot({
-        key: ['auth'],
+        key: ['auth', 'profile.firstName', 'profile.lastName'],
       })
     ],
     SharedModule,

@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { Store } from '@ngxs/store';
-import { filter, map, Observable, startWith } from 'rxjs';
+import { Actions, ofActionDispatched, Store } from '@ngxs/store';
+import { filter, map, Observable, startWith, Subject, takeUntil } from 'rxjs';
 
+import { Logout } from './entities/authentication/state/auth.actions';
 import { AuthState } from './entities/authentication/state/auth.state';
+import { ResetProfile } from './entities/profile/state/profile.actions';
 import { IWindowCypress } from './interfaces/window-cypress.interface';
 import { HIDE_MENU_ROUTES } from './modules/layouts/left-menu/constants/hide-menu-routes.constants';
 
@@ -13,6 +15,8 @@ import { HIDE_MENU_ROUTES } from './modules/layouts/left-menu/constants/hide-men
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+
+  private _destroy$: Subject<void> = new Subject<void>();
 
   public isHideMenu$: Observable<boolean> =
     this._router.events
@@ -28,7 +32,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     private _router: Router,
-    private _store: Store
+    private _store: Store,
+    private _actions: Actions
   ) {}
 
   public ngOnInit(): void {
@@ -37,5 +42,18 @@ export class AppComponent implements OnInit {
     if (windowWithStore.Cypress) {
       windowWithStore.store = this._store;
     }
+
+    this._actions.pipe(
+      ofActionDispatched(Logout),
+      takeUntil(this._destroy$)
+    ).subscribe(() => {
+      this._store.dispatch([ResetProfile]);
+      this._router.navigateByUrl('/auth');
+    });
+  }
+
+  public ngOnDestroy() {
+    this._destroy$.next();
+    this._destroy$.complete();
   }
 }
