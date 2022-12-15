@@ -33,17 +33,14 @@ export class StatusFilterComponent implements IFilterAngularComp {
   }
 
   public getModel() {
-    console.log(this.status)
     if (!this.isFilterActive()) {
       return null;
     }
 
-    console.log(this.status)
     return { value: this.status };
   }
 
   public setModel(model: any) {
-    console.log(model)
   }
 
   public setFilter(status: ERequestStatus): void {

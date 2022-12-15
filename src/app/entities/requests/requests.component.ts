@@ -11,6 +11,7 @@ import { Collection } from 'ngx-pagination';
 import { debounceTime, distinctUntilChanged, map, Observable, Subject, switchMap, takeUntil } from "rxjs";
 
 import { EButtonStyle } from '../../modules/form-elements/components/button/enums/button-style.enum';
+import { DatepickerComponent } from '../../shared/components/datepicker/datepicker.component';
 import { IMenuItem } from '../../shared/components/menu/menu-item.interface';
 import { MenuComponent } from '../../shared/components/menu/menu.component';
 import { StatusFilterComponent } from '../../shared/components/status-filter/status-filter.component';
@@ -53,7 +54,7 @@ export class RequestsComponent implements OnInit {
       }),
       sortable: true,
       comparator: (valueA, valueB, nodeA, nodeB) => nodeA.data.status - nodeB.data.status,
-      filter: StatusFilterComponent
+      filter: StatusFilterComponent,
     },
     {
       field: 'Item',
@@ -86,7 +87,11 @@ export class RequestsComponent implements OnInit {
         title: this._datePipe.transform(params.data.createdDate) || ''
       }),
       sortable: true,
-      comparator: (valueA, valueB, nodeA, nodeB, isDescending) => new Date(nodeA.data.createdDate).getTime() - new Date(nodeB.data.createdDate).getTime()
+      filter: DatepickerComponent,
+      filterParams: {
+        isShowHint: false
+      },
+      comparator: (valueA, valueB, nodeA, nodeB) => new Date(nodeA.data.createdDate).getTime() - new Date(nodeB.data.createdDate).getTime(),
     },
     {
       field: 'Actions',

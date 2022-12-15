@@ -1,44 +1,45 @@
 @use '@angular/material' as mat;
+
 @include mat.core();
 
 $primary-palette: (
- 100: theme('colors.primaryPurple'),
- 500: theme('colors.primaryPurple'),
- 700: theme('colors.primaryPurple'),
-      contrast: (
-      )
+    100: theme('colors.lightPurple'),
+    500: theme('colors.lightPurple'),
+    700: theme('colors.lightPurple'),
+    contrast: (
+    )
 );
 
 $accent-palette: (
- 100: theme('colors.lightPurple'),
- 500: theme('colors.lightPurple'),
- 700: theme('colors.lightPurple'),
-      contrast: (
-      )
+    100: theme('colors.primaryPurple'),
+    500: theme('colors.primaryPurple'),
+    700: theme('colors.primaryPurple'),
+    contrast: (
+    )
 );
 
 $error-palette: (
- 100: theme('colors.primaryRed'),
- 500: theme('colors.primaryRed'),
- 700: theme('colors.primaryRed'),
-  contrast: (
-  )
+    100: theme('colors.primaryRed'),
+    500: theme('colors.primaryRed'),
+    700: theme('colors.primaryRed'),
+    contrast: (
+    )
 );
 
 $vc-primary: mat.define-palette($primary-palette);
 $vc-accent: mat.define-palette($accent-palette);
 $vc-warn: mat.define-palette($error-palette);
 $vc-typography: mat.define-typography-config(
-  $font-family: 'Work Sans, sans-serif'
+    $font-family: 'Work Sans, sans-serif'
 );
 
 $vc-theme: mat.define-light-theme((
-  color: (
-    primary: $vc-primary,
-    accent: $vc-accent,
-    warn: $vc-warn
-  ),
-  typography: $vc-typography
+    color: (
+        primary: $vc-primary,
+        accent: $vc-accent,
+        warn: $vc-warn
+    ),
+    typography: $vc-typography
 ));
 
 @include mat.all-component-themes($vc-theme);

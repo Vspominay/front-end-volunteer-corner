@@ -18,7 +18,7 @@
         [content]="(isShowCreateForm ? 'appButtons.cancel' : 'requests.createRequest' ) | translate"
       ></app-button>
     </div>
-
+    
     <app-create-request-form @fade
                              *ngIf="isShowCreateForm"
                              class="mx-auto max-w-3xl mb-6 block"></app-create-request-form>

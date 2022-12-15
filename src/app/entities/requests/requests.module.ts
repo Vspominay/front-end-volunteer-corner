@@ -9,6 +9,7 @@ import { TranslateModule } from "@ngx-translate/core";
 import { AgGridModule } from 'ag-grid-angular';
 
 import { FormElementsModule } from '../../modules/form-elements/form-elements.module';
+import { DatepickerComponent } from '../../shared/components/datepicker/datepicker.component';
 import { SharedModule } from "../../shared/shared.module";
 import { CreateRequestFormComponent } from './components/create-request-form/create-request-form.component';
 import { StatusChangeSheetComponent } from './components/request-details/components/status-change-sheet/status-change-sheet.component';
@@ -36,7 +37,8 @@ import { RequestsActionControlService } from './services/requests-action-control
     MatListModule,
     ReactiveFormsModule,
     MatTabsModule,
-    AgGridModule
+    AgGridModule,
+    DatepickerComponent
   ],
   providers: [
     RequestsActionControlService,

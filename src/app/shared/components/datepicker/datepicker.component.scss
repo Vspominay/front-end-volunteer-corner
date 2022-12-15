@@ -1,0 +1,11 @@
+::ng-deep {
+  .hide-padding .mat-form-field-wrapper {
+    padding-bottom: 0;
+  }
+  
+  .mat-calendar-body-cell:hover .mat-calendar-body-cell-content,
+  .mat-calendar-body-in-range .mat-calendar-body-cell-content,
+  .mat-calendar-body-active .mat-focus-indicator {
+    color: theme('colors.white');
+  }
+}
