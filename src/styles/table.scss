@@ -3,6 +3,10 @@
   --ag-header-background-color: theme('colors.bgWhite');
   --ag-header-foreground-color: theme('colors.lightSilver');
 
+  .ag-menu {
+    border-radius: theme('borderRadius.2xl');
+  }
+
   .ag-root-wrapper {
     border: none;
     font-family: 'Work Sans', 'sans-serif';

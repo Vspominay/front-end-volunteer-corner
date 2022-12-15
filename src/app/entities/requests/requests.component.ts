@@ -13,6 +13,7 @@ import { debounceTime, distinctUntilChanged, map, Observable, Subject, switchMap
 import { EButtonStyle } from '../../modules/form-elements/components/button/enums/button-style.enum';
 import { IMenuItem } from '../../shared/components/menu/menu-item.interface';
 import { MenuComponent } from '../../shared/components/menu/menu.component';
+import { StatusFilterComponent } from '../../shared/components/status-filter/status-filter.component';
 import { StatusComponent } from '../../shared/components/status/status.component';
 import { TableFieldComponent } from '../../shared/components/table-field/table-field.component';
 import { REQUEST_COLUMNS } from './constants/request-columns.constant';
@@ -49,7 +50,10 @@ export class RequestsComponent implements OnInit {
       headerValueGetter: this._localizeHeader.bind(this),
       cellRendererSelector: (params: ICellRendererParams) => this._retrieveTableFieldParams(StatusComponent, {
         status: params.data.status
-      })
+      }),
+      sortable: true,
+      comparator: (valueA, valueB, nodeA, nodeB) => nodeA.data.status - nodeB.data.status,
+      filter: StatusFilterComponent
     },
     {
       field: 'Item',
@@ -80,7 +84,9 @@ export class RequestsComponent implements OnInit {
       headerValueGetter: this._localizeHeader.bind(this),
       cellRendererSelector: (params: ICellRendererParams) => this._retrieveTableFieldParams(TableFieldComponent, {
         title: this._datePipe.transform(params.data.createdDate) || ''
-      })
+      }),
+      sortable: true,
+      comparator: (valueA, valueB, nodeA, nodeB, isDescending) => new Date(nodeA.data.createdDate).getTime() - new Date(nodeB.data.createdDate).getTime()
     },
     {
       field: 'Actions',
@@ -90,11 +96,6 @@ export class RequestsComponent implements OnInit {
       }),
     }
   ];
-
-  public defaultColDef: ColDef = {
-    sortable: true,
-    filter: true
-  };
 
   private _retrieveTableFieldParams(component: typeof TableFieldComponent | typeof StatusComponent | typeof MenuComponent, params: { [key: string]: string | IMenuItem[] }): { component: typeof TableFieldComponent | typeof StatusComponent | typeof MenuComponent, params: { [key: string]: string | IMenuItem[] } } {
     return {

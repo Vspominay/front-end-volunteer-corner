@@ -30,7 +30,6 @@
           class="ag-theme-alpine w-full flex-grow"
           [rowData]="vm.requests"
           [columnDefs]="colDefs"
-          [defaultColDef]="defaultColDef"
           [rowHeight]="73"
           (gridReady)="gridApi.api.refreshHeader()"
       >

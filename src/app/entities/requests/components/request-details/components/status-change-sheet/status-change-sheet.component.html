@@ -1,7 +1,7 @@
 <mat-nav-list>
   <div (click)="closeBottomSheet(item.status)" *ngFor="let item of data.sheetItems"
-       class="cursor-pointer hover:bg-bgWhite flex py-3 justify-between items-center">
+       class="rounded-xl transition ease-linear duration-200 px-3 cursor-pointer hover:bg-lightSilverSecondary flex py-3 justify-between items-center">
     <span class="mr-3 text-lightSilver">{{item.description | translate}}</span>
-    <app-status [status]="item.status" class="mr-3"></app-status>
+    <app-status [status]="item.status"></app-status>
   </div>
 </mat-nav-list>
