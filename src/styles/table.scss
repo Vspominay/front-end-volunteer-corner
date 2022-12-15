@@ -1,3 +1,45 @@
+.ag-theme-alpine {
+  --ag-borders: none;
+  --ag-header-background-color: theme('colors.bgWhite');
+  --ag-header-foreground-color: theme('colors.lightSilver');
+
+  .ag-menu {
+    border-radius: theme('borderRadius.2xl');
+  }
+
+  .ag-root-wrapper {
+    border: none;
+    font-family: 'Work Sans', 'sans-serif';
+  }
+
+  .ag-row {
+    border: none;
+  }
+
+  .ag-row-even {
+    background-color: rgba(#C6CBD4, .2);
+  }
+
+  .ag-cell-value {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ag-header-cell-label {
+    box-sizing: border-box;
+    border: 0;
+    color: theme('colors.lightSilver');
+    font-size: 12px;
+    line-height: 17px;
+    font-weight: 500;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
 .mat-elevation-z8 {
   width: 100%;
   box-shadow: none;

@@ -6,6 +6,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from "@angular/material/table";
 import { MatTabsModule } from '@angular/material/tabs';
 import { TranslateModule } from "@ngx-translate/core";
+import { AgGridModule } from 'ag-grid-angular';
 
 import { FormElementsModule } from '../../modules/form-elements/form-elements.module';
 import { SharedModule } from "../../shared/shared.module";
@@ -34,7 +35,8 @@ import { RequestsActionControlService } from './services/requests-action-control
     FormElementsModule,
     MatListModule,
     ReactiveFormsModule,
-    MatTabsModule
+    MatTabsModule,
+    AgGridModule
   ],
   providers: [
     RequestsActionControlService,

@@ -1,0 +1,10 @@
+<div class="wrapper">
+  <div class="flex bg-white flex-col items-center p-2">
+    <div *ngFor="let statusItem of statuses"
+         (click)="setFilter(statusItem)"
+         [class.active]="statusItem === status"
+         class="w-full hover:bg-lightSilverSecondary transition ease-linear duration-150 cursor-pointer my-2 p-2 rounded-xl">
+      <app-status class="mx-auto block w-fit" [status]="statusItem"></app-status>
+    </div>
+  </div>
+</div>

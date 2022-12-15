@@ -1,7 +1,7 @@
-<div class="wrapper p-6 py-12 sm:p-8 md:p-10">
+<div class="wrapper h-full p-6 py-12 sm:p-8 md:p-10">
   <h2 class="font-medium">{{'titles.requests' | translate}}</h2>
 
-  <div class="py-10">
+  <div class="py-10 h-full flex flex-col">
     <div class="mb-6 flex justify-between items-center">
       <app-input
         icon="ic-search"
@@ -25,16 +25,22 @@
 
 
     <ng-container *ngIf="(viewModel$ | async) as vm">
-      <app-desktop-table [actions]="vm.requestMenu"
-                         [columns]="columns"
-                         [data]="vm.requests"></app-desktop-table>
+      <ag-grid-angular
+          #agGrid
+          class="ag-theme-alpine w-full flex-grow"
+          [rowData]="vm.requests"
+          [columnDefs]="colDefs"
+          [rowHeight]="73"
+          (gridReady)="gridApi.api.refreshHeader()"
+      >
+      </ag-grid-angular>
+
+      <!--      <app-desktop-table [actions]="vm.requestMenu"-->
+      <!--                         [columns]="columns"-->
+      <!--                         [data]="vm.requests"></app-desktop-table>-->
+
     </ng-container>
 
-
-    <!--    <mat-tab-group>-->
-    <!--      <mat-tab *ngFor="let tab of asyncTabs | async">-->
-    <!--      </mat-tab>-->
-    <!--    </mat-tab-group>-->
 
   </div>
 </div>

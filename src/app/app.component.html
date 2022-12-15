@@ -1,4 +1,4 @@
-<div class="wrapper flex">
+<div class="wrapper h-full flex">
   <app-left-menu *ngIf="(isAuthenticated$ | async) && !(isHideMenu$ | async)" class="hidden sm:block"></app-left-menu>
 
   <div [class.restrict-width]="(isAuthenticated$ | async) && !(isHideMenu$ | async)" class="content flex-grow">

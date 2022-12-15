@@ -1,13 +1,21 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { Store } from "@ngxs/store";
+import { AgGridAngular } from 'ag-grid-angular/lib/ag-grid-angular.component';
+import { ColDef, ICellRendererParams } from 'ag-grid-community';
 import { Collection } from 'ngx-pagination';
 import { debounceTime, distinctUntilChanged, map, Observable, Subject, switchMap, takeUntil } from "rxjs";
 
 import { EButtonStyle } from '../../modules/form-elements/components/button/enums/button-style.enum';
 import { IMenuItem } from '../../shared/components/menu/menu-item.interface';
+import { MenuComponent } from '../../shared/components/menu/menu.component';
+import { StatusFilterComponent } from '../../shared/components/status-filter/status-filter.component';
+import { StatusComponent } from '../../shared/components/status/status.component';
+import { TableFieldComponent } from '../../shared/components/table-field/table-field.component';
 import { REQUEST_COLUMNS } from './constants/request-columns.constant';
 import { IHelpRequest } from './interfaces/help-request.interface';
 import { RequestsActionControlService } from './services/requests-action-control.service';
@@ -29,8 +37,72 @@ import { RequestsState } from './state/requests/requests.state';
       ]),
     ])
   ],
+  providers: [DatePipe]
 })
 export class RequestsComponent implements OnInit {
+
+  @ViewChild('agGrid') gridApi!: AgGridAngular;
+
+  public rowData: any = [];
+  public colDefs: ColDef[] = [
+    {
+      field: 'Status',
+      headerValueGetter: this._localizeHeader.bind(this),
+      cellRendererSelector: (params: ICellRendererParams) => this._retrieveTableFieldParams(StatusComponent, {
+        status: params.data.status
+      }),
+      sortable: true,
+      comparator: (valueA, valueB, nodeA, nodeB) => nodeA.data.status - nodeB.data.status,
+      filter: StatusFilterComponent
+    },
+    {
+      field: 'Item',
+      headerValueGetter: this._localizeHeader.bind(this),
+      cellRendererSelector: (params: ICellRendererParams) => this._retrieveTableFieldParams(TableFieldComponent, {
+        title: params.data.name,
+        subTitle: params.data.description
+      })
+    },
+    {
+      field: 'Donor',
+      headerValueGetter: this._localizeHeader.bind(this),
+      cellRendererSelector: (params: ICellRendererParams) => this._retrieveTableFieldParams(TableFieldComponent, {
+        title: params.data.owner.firstName,
+        subTitle: params.data.owner.lastName
+      })
+    },
+    {
+      field: 'Location',
+      headerValueGetter: this._localizeHeader.bind(this),
+      cellRendererSelector: (params: ICellRendererParams) => this._retrieveTableFieldParams(TableFieldComponent, {
+        title: params.data.location
+      })
+    },
+
+    {
+      field: 'Date',
+      headerValueGetter: this._localizeHeader.bind(this),
+      cellRendererSelector: (params: ICellRendererParams) => this._retrieveTableFieldParams(TableFieldComponent, {
+        title: this._datePipe.transform(params.data.createdDate) || ''
+      }),
+      sortable: true,
+      comparator: (valueA, valueB, nodeA, nodeB, isDescending) => new Date(nodeA.data.createdDate).getTime() - new Date(nodeB.data.createdDate).getTime()
+    },
+    {
+      field: 'Actions',
+      headerValueGetter: this._localizeHeader.bind(this),
+      cellRendererSelector: (params: ICellRendererParams) => this._retrieveTableFieldParams(MenuComponent, {
+        items: this._actionControlService.getActions(params.data)
+      }),
+    }
+  ];
+
+  private _retrieveTableFieldParams(component: typeof TableFieldComponent | typeof StatusComponent | typeof MenuComponent, params: { [key: string]: string | IMenuItem[] }): { component: typeof TableFieldComponent | typeof StatusComponent | typeof MenuComponent, params: { [key: string]: string | IMenuItem[] } } {
+    return {
+      component,
+      params
+    }
+  }
 
   public readonly columns = REQUEST_COLUMNS;
   public viewModel$: Observable<{
@@ -53,11 +125,18 @@ export class RequestsComponent implements OnInit {
   constructor(
     private _store: Store,
     private _router: Router,
+    private _datePipe: DatePipe,
+    private _translateService: TranslateService,
     private _actionControlService: RequestsActionControlService
   ) { }
 
   public ngOnInit(): void {
     this._initSearchInput();
+  }
+
+  public _localizeHeader(parameters: any): string {
+    const headerIdentifier = `table.${parameters.colDef!.field}`.toLowerCase();
+    return this._translateService.instant(headerIdentifier);
   }
 
   private _generateActions(collection: Collection<IHelpRequest>): { [key: string]: IMenuItem[] } {
