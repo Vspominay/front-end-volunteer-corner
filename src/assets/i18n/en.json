@@ -25,7 +25,8 @@
     "email": "Email",
     "pickUpLocation": "Pick-up location",
     "dropOffAddress": "Drop-off address",
-    "lastModified": "Last Modified"
+    "lastModified": "Last Modified",
+    "selectDateRange": "Select a date range"
   },
   "errors": {
     "pattern": "Invalid format",
