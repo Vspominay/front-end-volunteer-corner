@@ -24,6 +24,10 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'proposals',
+    loadChildren: () => import('./entities/proposals/proposals.module').then(m => m.ProposalsModule)
+  },
+  {
     path: 'profile',
     loadChildren: () => import('./entities/profile/profile.module').then(m => m.ProfileModule),
     canActivate: [AuthGuard]

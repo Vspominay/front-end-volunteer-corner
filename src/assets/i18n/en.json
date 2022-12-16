@@ -83,5 +83,8 @@
     "email": "Email",
     "phone": "Phone number",
     "editProfile": "Edit profile"
+  },
+  "proposals": {
+    "searchPlaceholder": "Search proposal by name, ref ect."
   }
 }

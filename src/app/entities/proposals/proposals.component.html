@@ -1,0 +1,48 @@
+<div class="wrapper h-full p-6 py-12 sm:p-8 md:p-10">
+  <h2 class="font-medium">{{'titles.proposals' | translate}}</h2>
+
+  <div class="py-10 h-full flex flex-col">
+    <div class="mb-6 flex justify-between items-center">
+      <app-input
+        icon="ic-search"
+        [formControl]="searchInput"
+        [placeholder]="'proposals.searchPlaceholder' | translate"
+      >
+      </app-input>
+
+      <app-button
+        [icon]="isShowCreateForm ? 'ic-close' : 'ic-create'"
+        [buttonStyle]="isShowCreateForm ? buttonStyle.Danger : buttonStyle.Pale"
+        iconPosition="start"
+        (click)="isShowCreateForm = !isShowCreateForm"
+        [content]="(isShowCreateForm ? 'appButtons.cancel' : 'requests.createRequest' ) | translate"
+      ></app-button>
+    </div>
+
+    <!--    <app-create-request-form @fade-->
+    <!--                             *ngIf="isShowCreateForm"-->
+    <!--                             class="mx-auto max-w-3xl mb-6 block"></app-create-request-form>-->
+
+
+    <ng-container *ngIf="(viewModel$ | async) as vm">
+      <ag-grid-angular
+          #agGrid
+          [paginationAutoPageSize]="true"
+          [pagination]="true"
+          class="ag-theme-alpine w-full flex-grow"
+          [rowData]="vm.proposals | paginate : paginationConfig"
+          [columnDefs]="colDefs"
+          [rowHeight]="73"
+          [paginationPageSize]="paginationConfig.itemsPerPage"
+          [suppressPaginationPanel]="true"
+          [suppressScrollOnNewData]="true"
+          (gridReady)="onGridReady($event)"
+      >
+      </ag-grid-angular>
+
+      <div class="flex justify-end">
+        <app-pagination (onPageChange)="setPage($event)" [config]="paginationConfig"></app-pagination>
+      </div>
+    </ng-container>
+  </div>
+</div>

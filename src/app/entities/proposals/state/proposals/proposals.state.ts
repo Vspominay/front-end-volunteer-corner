@@ -15,7 +15,7 @@ import { IProposalsState } from './proposals.models';
   }
 })
 @Injectable()
-export class RequestsState {
+export class ProposalsState {
 
   @Selector()
   static proposals(state: IProposalsState) {
