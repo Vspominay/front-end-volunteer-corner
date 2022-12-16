@@ -1,13 +1,14 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Store } from "@ngxs/store";
 import { ColDef, GridApi, GridReadyEvent, ICellRendererParams } from 'ag-grid-community';
 import { Collection, PaginationInstance } from 'ngx-pagination';
 import { debounceTime, distinctUntilChanged, map, Observable, Subject, switchMap, takeUntil } from "rxjs";
+import { ICreateEntity } from '../../interfaces/create-entity.interface';
 
 import { EButtonStyle } from '../../modules/form-elements/components/button/enums/button-style.enum';
 import { DatepickerComponent } from '../../shared/components/datepicker/datepicker.component';
@@ -16,10 +17,11 @@ import { MenuComponent } from '../../shared/components/menu/menu.component';
 import { StatusFilterComponent } from '../../shared/components/status-filter/status-filter.component';
 import { StatusComponent } from '../../shared/components/status/status.component';
 import { TableFieldComponent } from '../../shared/components/table-field/table-field.component';
+import { NAME_PATTERN } from '../../utils/name-pattern.constant';
 import { REQUEST_COLUMNS } from './constants/request-columns.constant';
 import { IHelpRequest } from './interfaces/help-request.interface';
 import { RequestsActionControlService } from './services/requests-action-control.service';
-import { FetchRequests } from './state/requests/requests.actions';
+import { CreateHelpRequest, FetchRequests } from './state/requests/requests.actions';
 import { RequestsState } from './state/requests/requests.state';
 
 @Component({
@@ -98,14 +100,6 @@ export class RequestsComponent implements OnInit {
       }),
     }
   ];
-
-  private _retrieveTableFieldParams(component: typeof TableFieldComponent | typeof StatusComponent | typeof MenuComponent, params: { [key: string]: string | IMenuItem[] }): { component: typeof TableFieldComponent | typeof StatusComponent | typeof MenuComponent, params: { [key: string]: string | IMenuItem[] } } {
-    return {
-      component,
-      params
-    }
-  }
-
   public readonly columns = REQUEST_COLUMNS;
   public viewModel$: Observable<{
     requests: IHelpRequest[],
@@ -121,6 +115,16 @@ export class RequestsComponent implements OnInit {
   public buttonStyle = EButtonStyle;
   public isShowCreateForm: boolean = false;
   public searchInput: FormControl = new FormControl<string>('');
+  public createRequestForm!: FormGroup<{
+    name: FormControl<string>,
+    description: FormControl<string>,
+    location: FormControl<string>
+  }>;
+  public paginationConfig: PaginationInstance = {
+    id: 'requests',
+    itemsPerPage: 5,
+    currentPage: 0
+  };
 
   private _destroy$: Subject<void> = new Subject<void>();
 
@@ -129,18 +133,14 @@ export class RequestsComponent implements OnInit {
     private _router: Router,
     private _datePipe: DatePipe,
     private _translateService: TranslateService,
-    private _actionControlService: RequestsActionControlService
+    private _actionControlService: RequestsActionControlService,
+    private _fb: FormBuilder
   ) { }
 
   public ngOnInit(): void {
     this._initSearchInput();
+    this._initCreateRequestForm();
   }
-
-  public paginationConfig: PaginationInstance = {
-    id: 'list',
-    itemsPerPage: 5,
-    currentPage: 0
-  };
 
   public onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
@@ -152,9 +152,24 @@ export class RequestsComponent implements OnInit {
     this.paginationConfig.currentPage = page;
   }
 
+  public createRequest(): void {
+    this._store.dispatch(new CreateHelpRequest(this.createRequestForm.value as ICreateEntity))
+        .pipe(takeUntil(this._destroy$))
+        .subscribe(() => {
+          this.createRequestForm.reset();
+        });
+  }
+
   private _localizeHeader(parameters: any): string {
     const headerIdentifier = `table.${parameters.colDef!.field}`.toLowerCase();
     return this._translateService.instant(headerIdentifier);
+  }
+
+  private _retrieveTableFieldParams(component: typeof TableFieldComponent | typeof StatusComponent | typeof MenuComponent, params: { [key: string]: string | IMenuItem[] }): { component: typeof TableFieldComponent | typeof StatusComponent | typeof MenuComponent, params: { [key: string]: string | IMenuItem[] } } {
+    return {
+      component,
+      params
+    }
   }
 
   private _generateActions(collection: Collection<IHelpRequest>): { [key: string]: IMenuItem[] } {
@@ -176,6 +191,14 @@ export class RequestsComponent implements OnInit {
           distinctUntilChanged(),
           switchMap((search) => this._store.dispatch(new FetchRequests({ search: search }))),
         ).subscribe();
+  }
+
+  private _initCreateRequestForm(): void {
+    this.createRequestForm = this._fb.group({
+      name: this._fb.nonNullable.control('', [Validators.required, NAME_PATTERN]),
+      description: this._fb.nonNullable.control('', [Validators.required, Validators.minLength(3)]),
+      location: this._fb.nonNullable.control('', [Validators.required, Validators.minLength(10)]),
+    });
   }
 
   public ngOnDestroy() {

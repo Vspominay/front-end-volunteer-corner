@@ -1,3 +1,4 @@
+import { ICreateEntity } from '../../../../interfaces/create-entity.interface';
 import { ERequestStatus } from "../../enums/request-status.enum";
 
 export class FetchRequests {
@@ -15,7 +16,7 @@ export class GetRequestInformation {
 export class CreateHelpRequest {
   static readonly type = '[Requests] Create help request';
 
-  constructor(public payload: { location: string, name: string, description?: string }) {}
+  constructor(public payload: ICreateEntity) {}
 }
 
 export class UpdateRequestInformation {

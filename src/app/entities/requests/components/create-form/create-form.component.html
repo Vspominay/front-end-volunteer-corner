@@ -1,24 +1,24 @@
 <div class="wrapper shadow-lg border border-lightPurpleTransparent p-5 rounded-2xl">
-  <form (ngSubmit)="onSubmit()" [formGroup]="createRequestForm" class="request-form">
+  <form (ngSubmit)="onSubmit()" [formGroup]="createForm" class="request-form">
     <div class="columns-2 gap-5 mb-5">
       <app-input
         formControlName="name"
         [placeholder]="'detailsPage.itemTitle' | translate"
-        [error]="(createRequestForm.controls['name'].errors | errorControl) | translate"
-        [hasError]="createRequestForm.controls['name'].invalid && createRequestForm.controls['name'].dirty"
+        [error]="(createForm.controls['name'].errors | errorControl) | translate"
+        [hasError]="createForm.controls['name'].invalid && createForm.controls['name'].dirty"
       ></app-input>
       <app-input
         formControlName="location"
         [placeholder]="'table.location' | translate"
-        [error]="(createRequestForm.controls['location'].errors | errorControl) | translate : {length: 3}"
-        [hasError]="createRequestForm.controls['location'].invalid && createRequestForm.controls['location'].dirty"
+        [error]="(createForm.controls['location'].errors | errorControl) | translate : {length: 3}"
+        [hasError]="createForm.controls['location'].invalid && createForm.controls['location'].dirty"
       ></app-input>
     </div>
     <div class="columns-1 mb-4">
       <app-input
         formControlName="description"
-        [error]="(createRequestForm.controls['description'].errors | errorControl) | translate: {length: 10}"
-        [hasError]="createRequestForm.controls['description'].invalid && createRequestForm.controls['description'].dirty"
+        [error]="(createForm.controls['description'].errors | errorControl) | translate: {length: 10}"
+        [hasError]="createForm.controls['description'].invalid && createForm.controls['description'].dirty"
         [placeholder]="'detailsPage.updatedRemark' | translate"></app-input>
     </div>
 
@@ -26,7 +26,7 @@
       <app-button
         [buttonStyle]="buttonStyle"
         [type]="'submit'"
-        [isDisabledButton]="createRequestForm.invalid"
+        [isDisabledButton]="createForm.invalid"
         [content]="'appButtons.confirm' | translate"
       ></app-button>
     </div>

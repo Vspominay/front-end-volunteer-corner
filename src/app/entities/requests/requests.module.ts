@@ -13,7 +13,7 @@ import { FormElementsModule } from '../../modules/form-elements/form-elements.mo
 import { DatepickerComponent } from '../../shared/components/datepicker/datepicker.component';
 import { PaginationComponent } from '../../shared/components/pagination/pagination.component';
 import { SharedModule } from "../../shared/shared.module";
-import { CreateRequestFormComponent } from './components/create-request-form/create-request-form.component';
+import { CreateFormComponent } from './components/create-form/create-form.component';
 import { StatusChangeSheetComponent } from './components/request-details/components/status-change-sheet/status-change-sheet.component';
 import { DesktopTableComponent } from './desktop-table/desktop-table.component';
 import { RequestsRoutingModule } from './requests-routing.module';
@@ -26,8 +26,7 @@ import { RequestsActionControlService } from './services/requests-action-control
   declarations: [
     RequestsComponent,
     DesktopTableComponent,
-    StatusChangeSheetComponent,
-    CreateRequestFormComponent
+    StatusChangeSheetComponent
   ],
   imports: [
     CommonModule,
@@ -42,7 +41,8 @@ import { RequestsActionControlService } from './services/requests-action-control
     AgGridModule,
     DatepickerComponent,
     PaginationComponent,
-    NgxPaginationModule
+    NgxPaginationModule,
+    CreateFormComponent
   ],
   providers: [
     RequestsActionControlService,
