@@ -85,6 +85,7 @@
     "editProfile": "Edit profile"
   },
   "proposals": {
-    "searchPlaceholder": "Search proposal by name, ref ect."
+    "searchPlaceholder": "Search proposal by name, ref ect.",
+    "createProposal": "Create proposal"
   }
 }

@@ -1,3 +1,4 @@
+import { animate, style, transition, trigger } from '@angular/animations';
 import { DatePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -8,8 +9,8 @@ import { ColDef, GridApi, GridReadyEvent, ICellRendererParams } from 'ag-grid-co
 import { Collection, PaginationInstance } from 'ngx-pagination';
 import { debounceTime, distinctUntilChanged, map, Observable, Subject, switchMap, takeUntil } from 'rxjs';
 import { ICreateEntity } from '../../interfaces/create-entity.interface';
-
 import { EButtonStyle } from '../../modules/form-elements/components/button/enums/button-style.enum';
+
 import { DatepickerComponent } from '../../shared/components/datepicker/datepicker.component';
 import { IMenuItem } from '../../shared/components/menu/menu-item.interface';
 import { MenuComponent } from '../../shared/components/menu/menu.component';
@@ -18,7 +19,6 @@ import { StatusComponent } from '../../shared/components/status/status.component
 import { TableFieldComponent } from '../../shared/components/table-field/table-field.component';
 import { NAME_PATTERN } from '../../utils/name-pattern.constant';
 import { REQUEST_COLUMNS } from '../requests/constants/request-columns.constant';
-import { RequestsActionControlService } from '../requests/services/requests-action-control.service';
 import { IProposal } from './interfaces/proposal.interface';
 import { CreateProposal, FetchProposals } from './state/proposals/proposals.actions';
 import { ProposalsState } from './state/proposals/proposals.state';
@@ -26,7 +26,19 @@ import { ProposalsState } from './state/proposals/proposals.state';
 @Component({
   selector: 'app-proposals',
   templateUrl: './proposals.component.html',
-  styleUrls: ['./proposals.component.scss']
+  styleUrls: ['./proposals.component.scss'],
+  animations: [
+    trigger('fade', [
+      transition(':enter', [
+        style({ height: 0, transform: 'translateY(-60vh)' }),
+        animate(300, style({ height: '230px', transform: 'translateY(0)' })),
+      ]),
+      transition(':leave', [
+        animate(300, style({ height: 0, transform: 'translateY(-60vh)' })),
+      ]),
+    ])
+  ],
+  providers: [DatePipe]
 })
 export class ProposalsComponent implements OnInit, OnDestroy {
 
@@ -83,7 +95,7 @@ export class ProposalsComponent implements OnInit, OnDestroy {
       field: 'Actions',
       headerValueGetter: this._localizeHeader.bind(this),
       cellRendererSelector: (params: ICellRendererParams) => this._retrieveTableFieldParams(MenuComponent, {
-        items: this._actionControlService.getActions(params.data)
+        // items: this._actionControlService.getActions(params.data)
       }),
     }
   ];
@@ -121,7 +133,6 @@ export class ProposalsComponent implements OnInit, OnDestroy {
     private _router: Router,
     private _datePipe: DatePipe,
     private _translateService: TranslateService,
-    private _actionControlService: RequestsActionControlService,
     private _fb: FormBuilder
   ) { }
 
