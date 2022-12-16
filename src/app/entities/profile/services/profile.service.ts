@@ -11,7 +11,7 @@ import { IUpdateProfileRequest } from '../interfaces/update-profile-request.inte
 })
 export class ProfileService {
 
-  private readonly api = environment.api;
+  private readonly api = environment.requestsApi;
 
   constructor(private http: HttpClient) { }
 

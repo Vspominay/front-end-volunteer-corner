@@ -11,7 +11,7 @@ import { IHelpRequest } from "../interfaces/help-request.interface";
 })
 export class RequestsService {
 
-  private readonly api = environment.api;
+  private readonly api = environment.requestsApi;
 
   constructor(private http: HttpClient) { }
 
