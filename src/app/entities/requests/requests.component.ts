@@ -1,13 +1,12 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { DatePipe } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Store } from "@ngxs/store";
-import { AgGridAngular } from 'ag-grid-angular/lib/ag-grid-angular.component';
-import { ColDef, ICellRendererParams } from 'ag-grid-community';
-import { Collection } from 'ngx-pagination';
+import { ColDef, GridApi, GridReadyEvent, ICellRendererParams } from 'ag-grid-community';
+import { Collection, PaginationInstance } from 'ngx-pagination';
 import { debounceTime, distinctUntilChanged, map, Observable, Subject, switchMap, takeUntil } from "rxjs";
 
 import { EButtonStyle } from '../../modules/form-elements/components/button/enums/button-style.enum';
@@ -42,9 +41,7 @@ import { RequestsState } from './state/requests/requests.state';
 })
 export class RequestsComponent implements OnInit {
 
-  @ViewChild('agGrid') gridApi!: AgGridAngular;
-
-  public rowData: any = [];
+  public gridApi!: GridApi;
   public colDefs: ColDef[] = [
     {
       field: 'Status',
@@ -139,7 +136,23 @@ export class RequestsComponent implements OnInit {
     this._initSearchInput();
   }
 
-  public _localizeHeader(parameters: any): string {
+  public paginationConfig: PaginationInstance = {
+    id: 'list',
+    itemsPerPage: 5,
+    currentPage: 0
+  };
+
+  public onGridReady(params: GridReadyEvent) {
+    this.gridApi = params.api;
+    this.gridApi.refreshHeader();
+  }
+
+  public setPage(page: number) {
+    this.gridApi.paginationGoToPage(page);
+    this.paginationConfig.currentPage = page;
+  }
+
+  private _localizeHeader(parameters: any): string {
     const headerIdentifier = `table.${parameters.colDef!.field}`.toLowerCase();
     return this._translateService.instant(headerIdentifier);
   }

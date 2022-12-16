@@ -23,6 +23,7 @@ export const SVG_ICONS = [
   { name: 'ic-delete', path: SVG_ICONS_PATH + 'delete.svg' },
   { name: 'ic-check', path: SVG_ICONS_PATH + 'check.svg' },
   { name: 'ic-close', path: SVG_ICONS_PATH + 'close.svg' },
+  { name: 'ic-right', path: SVG_ICONS_PATH + 'right.svg' },
 
 ];
 

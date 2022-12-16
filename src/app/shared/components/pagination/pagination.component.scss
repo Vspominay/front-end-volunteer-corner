@@ -1,0 +1,37 @@
+:host {
+  display: block;
+  width: fit-content;
+}
+
+.pagination-wrapper {
+  div {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .current {
+    background-color: theme('colors.primaryPurple');
+    border-radius: theme('borderRadius.md');
+
+    span {
+      font-weight: theme('fontWeight.medium');
+      font-size: 1rem;
+      line-height: 1rem;
+      color: theme('colors.white');
+    }
+  }
+
+  mat-icon {
+    width: 24px;
+    height: 24px;
+    padding: 4px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    color: theme('colors.lightSilver');
+  }
+}

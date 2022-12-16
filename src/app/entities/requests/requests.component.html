@@ -18,7 +18,7 @@
         [content]="(isShowCreateForm ? 'appButtons.cancel' : 'requests.createRequest' ) | translate"
       ></app-button>
     </div>
-    
+
     <app-create-request-form @fade
                              *ngIf="isShowCreateForm"
                              class="mx-auto max-w-3xl mb-6 block"></app-create-request-form>
@@ -27,18 +27,22 @@
     <ng-container *ngIf="(viewModel$ | async) as vm">
       <ag-grid-angular
           #agGrid
+          [paginationAutoPageSize]="true"
+          [pagination]="true"
           class="ag-theme-alpine w-full flex-grow"
-          [rowData]="vm.requests"
+          [rowData]="vm.requests | paginate : paginationConfig"
           [columnDefs]="colDefs"
           [rowHeight]="73"
-          (gridReady)="gridApi.api.refreshHeader()"
+          [paginationPageSize]="paginationConfig.itemsPerPage"
+          [suppressPaginationPanel]="true"
+          [suppressScrollOnNewData]="true"
+          (gridReady)="onGridReady($event)"
       >
       </ag-grid-angular>
 
-      <!--      <app-desktop-table [actions]="vm.requestMenu"-->
-      <!--                         [columns]="columns"-->
-      <!--                         [data]="vm.requests"></app-desktop-table>-->
-
+      <div class="flex justify-end">
+        <app-pagination (onPageChange)="setPage($event)" [config]="paginationConfig"></app-pagination>
+      </div>
     </ng-container>
 
 
