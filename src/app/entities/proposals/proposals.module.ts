@@ -8,6 +8,7 @@ import { FormElementsModule } from '../../modules/form-elements/form-elements.mo
 import { PaginationComponent } from '../../shared/components/pagination/pagination.component';
 
 import { SharedModule } from '../../shared/shared.module';
+import { CreateFormComponent } from '../requests/components/create-form/create-form.component';
 import { RequestsRoutingModule } from './proposals-routing.module';
 import { ProposalsComponent } from './proposals.component';
 
@@ -24,7 +25,8 @@ import { ProposalsComponent } from './proposals.component';
     PaginationComponent,
     ReactiveFormsModule,
     TranslateModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    CreateFormComponent
   ]
 })
 export class ProposalsModule {

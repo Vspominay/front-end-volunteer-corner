@@ -19,9 +19,11 @@
       ></app-button>
     </div>
 
-    <!--    <app-create-request-form @fade-->
-    <!--                             *ngIf="isShowCreateForm"-->
-    <!--                             class="mx-auto max-w-3xl mb-6 block"></app-create-request-form>-->
+    <app-create-form @fade
+                     [createForm]="createProposalForm"
+                     (onSubmitForm)="createProposal()"
+                     *ngIf="isShowCreateForm"
+                     class="mx-auto max-w-3xl mb-6 block"></app-create-form>
 
 
     <ng-container *ngIf="(viewModel$ | async) as vm">

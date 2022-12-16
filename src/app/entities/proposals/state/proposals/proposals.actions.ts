@@ -1,3 +1,4 @@
+import { ICreateEntity } from '../../../../interfaces/create-entity.interface';
 import { ERequestStatus } from '../../../requests/enums/request-status.enum';
 
 export class FetchProposals {
@@ -13,7 +14,7 @@ export class GetProposalInformation {
 export class CreateProposal {
   static readonly type = '[Proposals] Create Proposal';
 
-  constructor(public payload: { location: string, name: string, description?: string }) {}
+  constructor(public payload: ICreateEntity) {}
 }
 
 export class UpdateProposalInformation {
