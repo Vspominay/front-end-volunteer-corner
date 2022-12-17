@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgxsModule } from '@ngxs/store';
 import { AgGridModule } from 'ag-grid-angular';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FormElementsModule } from '../../modules/form-elements/form-elements.module';
@@ -11,6 +12,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { CreateFormComponent } from '../requests/components/create-form/create-form.component';
 import { RequestsRoutingModule } from './proposals-routing.module';
 import { ProposalsComponent } from './proposals.component';
+import { ProposalsState } from './state/proposals/proposals.state';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import { ProposalsComponent } from './proposals.component';
     ReactiveFormsModule,
     TranslateModule,
     NgxPaginationModule,
-    CreateFormComponent
+    CreateFormComponent,
+    NgxsModule.forFeature([ProposalsState])
   ]
 })
 export class ProposalsModule {

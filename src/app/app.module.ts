@@ -11,7 +11,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthState } from "./entities/authentication/state/auth.state";
 import { ProfileState } from './entities/profile/state/profile.state';
-import { RequestsState } from "./entities/requests/state/requests/requests.state";
 import { InterceptorModule } from "./interceptors/interceptor.module";
 import { LayoutsModule } from "./modules/layouts/layouts.module";
 import { AppInitService } from "./services/app-init.service";
@@ -39,7 +38,6 @@ export function initializeAppSteps(appInitService: AppInitService): any {
     [
       NgxsModule.forRoot([
         AuthState,
-        RequestsState,
         ProfileState
       ]),
       NgxsReduxDevtoolsPluginModule.forRoot(),

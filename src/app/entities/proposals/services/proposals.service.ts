@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -16,7 +16,14 @@ export class ProposalsService {
   constructor(private http: HttpClient) { }
 
   public getProposals(): Observable<IProposal[]> {
-    return this.http.get<IProposal[]>(`${this.api}proposals`);
+    const headers: HttpHeaders = new HttpHeaders(
+      {
+        'Access-Control-Allow-Origin': '*'
+      }
+    )
+
+    return this.http.get<IProposal[]>(`${this.api}proposals`, { headers }
+    );
   }
 
   public getProposal(id: string): Observable<IProposal> {

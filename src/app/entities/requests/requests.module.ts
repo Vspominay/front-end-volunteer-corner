@@ -6,6 +6,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from "@angular/material/table";
 import { MatTabsModule } from '@angular/material/tabs';
 import { TranslateModule } from "@ngx-translate/core";
+import { NgxsModule } from '@ngxs/store';
 import { AgGridModule } from 'ag-grid-angular';
 import { NgxPaginationModule } from 'ngx-pagination';
 
@@ -20,6 +21,8 @@ import { RequestsRoutingModule } from './requests-routing.module';
 import { RequestsComponent } from './requests.component';
 
 import { RequestsActionControlService } from './services/requests-action-control.service';
+import { HelpSeekersState } from './state/help-seeker/help-seekers.state';
+import { RequestsState } from './state/requests/requests.state';
 
 
 @NgModule({
@@ -42,7 +45,8 @@ import { RequestsActionControlService } from './services/requests-action-control
     DatepickerComponent,
     PaginationComponent,
     NgxPaginationModule,
-    CreateFormComponent
+    CreateFormComponent,
+    NgxsModule.forFeature([HelpSeekersState, RequestsState])
   ],
   providers: [
     RequestsActionControlService,

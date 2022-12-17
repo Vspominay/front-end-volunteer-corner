@@ -8,8 +8,8 @@ import { Store } from "@ngxs/store";
 import { ColDef, GridApi, GridReadyEvent, ICellRendererParams } from 'ag-grid-community';
 import { Collection, PaginationInstance } from 'ngx-pagination';
 import { debounceTime, distinctUntilChanged, map, Observable, Subject, switchMap, takeUntil } from "rxjs";
-import { ICreateEntity } from '../../interfaces/create-entity.interface';
 
+import { ICreateEntity } from '../../interfaces/create-entity.interface';
 import { EButtonStyle } from '../../modules/form-elements/components/button/enums/button-style.enum';
 import { DatepickerComponent } from '../../shared/components/datepicker/datepicker.component';
 import { IMenuItem } from '../../shared/components/menu/menu-item.interface';
@@ -21,6 +21,8 @@ import { NAME_PATTERN } from '../../utils/name-pattern.constant';
 import { REQUEST_COLUMNS } from './constants/request-columns.constant';
 import { IHelpRequest } from './interfaces/help-request.interface';
 import { RequestsActionControlService } from './services/requests-action-control.service';
+import { GetOwnHelpRequests } from './state/help-seeker/help-seekers.actions';
+import { HelpSeekersState } from './state/help-seeker/help-seekers.state';
 import { CreateHelpRequest, FetchRequests } from './state/requests/requests.actions';
 import { RequestsState } from './state/requests/requests.state';
 
@@ -43,7 +45,9 @@ import { RequestsState } from './state/requests/requests.state';
 })
 export class RequestsComponent implements OnInit {
 
-  public gridApi!: GridApi;
+  public allRequestGridApi!: GridApi;
+  public myRequestGridApi!: GridApi;
+
   public colDefs: ColDef[] = [
     {
       field: 'Status',
@@ -101,15 +105,29 @@ export class RequestsComponent implements OnInit {
     }
   ];
   public readonly columns = REQUEST_COLUMNS;
+
+  public ownHelpRequests$ = this._store.select(HelpSeekersState.requests)
+                                .pipe(
+                                  map(ownHelpRequests => {
+                                    return {
+                                      requests: ownHelpRequests || [],
+                                      requestMenu: this._generateActions(ownHelpRequests) || {}
+                                    }
+                                  })
+                                );
+
+
   public viewModel$: Observable<{
     requests: IHelpRequest[],
     requestMenu: { [key: string]: IMenuItem[] }
   }> = this._store.select(RequestsState.requests)
            .pipe(
-             map(requests => ({
-               requests: requests || [],
-               requestMenu: this._generateActions(requests) || {}
-             }))
+             map(requests => {
+               return {
+                 requests: requests || [],
+                 requestMenu: this._generateActions(requests) || {}
+               }
+             })
            );
 
   public buttonStyle = EButtonStyle;
@@ -140,15 +158,22 @@ export class RequestsComponent implements OnInit {
   public ngOnInit(): void {
     this._initSearchInput();
     this._initCreateRequestForm();
+    this._fetchOwnHelpRequests();
   }
 
-  public onGridReady(params: GridReadyEvent) {
-    this.gridApi = params.api;
-    this.gridApi.refreshHeader();
+  public onGridReady(params: GridReadyEvent): void {
+    if (this.allRequestGridApi) {
+      this.myRequestGridApi = params.api;
+      this.myRequestGridApi.refreshHeader();
+      return;
+    }
+
+    this.allRequestGridApi = params.api;
+    this.allRequestGridApi.refreshHeader();
   }
 
   public setPage(page: number) {
-    this.gridApi.paginationGoToPage(page);
+    this.allRequestGridApi.paginationGoToPage(page);
     this.paginationConfig.currentPage = page;
   }
 
@@ -159,6 +184,18 @@ export class RequestsComponent implements OnInit {
           this.createRequestForm.reset();
         });
   }
+
+  public changeTab(): void {
+    this._redrawGrid(this.allRequestGridApi);
+    this._redrawGrid(this.myRequestGridApi);
+  }
+
+  private _redrawGrid(grid: GridApi): void {
+    if (grid) {
+      grid.redrawRows();
+    }
+  }
+
 
   private _localizeHeader(parameters: any): string {
     const headerIdentifier = `table.${parameters.colDef!.field}`.toLowerCase();
@@ -196,9 +233,13 @@ export class RequestsComponent implements OnInit {
   private _initCreateRequestForm(): void {
     this.createRequestForm = this._fb.group({
       name: this._fb.nonNullable.control('', [Validators.required, NAME_PATTERN]),
-      description: this._fb.nonNullable.control('', [Validators.required, Validators.minLength(3)]),
-      location: this._fb.nonNullable.control('', [Validators.required, Validators.minLength(10)]),
+      description: this._fb.nonNullable.control('', [Validators.required, Validators.minLength(10)]),
+      location: this._fb.nonNullable.control('', [Validators.required, Validators.minLength(3)]),
     });
+  }
+
+  private _fetchOwnHelpRequests(): void {
+    this._store.dispatch(new GetOwnHelpRequests());
   }
 
   public ngOnDestroy() {

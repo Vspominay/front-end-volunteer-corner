@@ -23,22 +23,21 @@
                      [createForm]="createProposalForm"
                      (onSubmitForm)="createProposal()"
                      *ngIf="isShowCreateForm"
-                     class="mx-auto max-w-3xl mb-6 block"></app-create-form>
+                     class="mx-auto w-full max-w-3xl mb-6 block"></app-create-form>
 
 
     <ng-container *ngIf="(viewModel$ | async) as vm">
       <ag-grid-angular
-          #agGrid
-          [paginationAutoPageSize]="true"
-          [pagination]="true"
-          class="ag-theme-alpine w-full flex-grow"
-          [rowData]="vm.proposals | paginate : paginationConfig"
-          [columnDefs]="colDefs"
-          [rowHeight]="73"
-          [paginationPageSize]="paginationConfig.itemsPerPage"
-          [suppressPaginationPanel]="true"
-          [suppressScrollOnNewData]="true"
-          (gridReady)="onGridReady($event)"
+        [paginationAutoPageSize]="true"
+        [pagination]="true"
+        class="ag-theme-alpine w-full flex-grow"
+        [rowData]="vm.proposals | paginate : paginationConfig"
+        [columnDefs]="colDefs"
+        [rowHeight]="73"
+        [paginationPageSize]="paginationConfig.itemsPerPage"
+        [suppressPaginationPanel]="true"
+        [suppressScrollOnNewData]="true"
+        (gridReady)="onGridReady($event)"
       >
       </ag-grid-angular>
 

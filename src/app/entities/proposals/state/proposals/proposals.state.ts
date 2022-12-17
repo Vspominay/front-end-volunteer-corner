@@ -35,7 +35,7 @@ export class ProposalsState {
   constructor(private proposalsService: ProposalsService) {}
 
   @Action(FetchProposals)
-  fetchRequests({ patchState }: StateContext<IProposalsState>) {
+  fetchProposals({ patchState }: StateContext<IProposalsState>) {
     return this.proposalsService.getProposals()
                .pipe(tap((proposals) => {
                  patchState({

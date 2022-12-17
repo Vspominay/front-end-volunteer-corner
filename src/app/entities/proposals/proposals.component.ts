@@ -63,14 +63,6 @@ export class ProposalsComponent implements OnInit, OnDestroy {
       })
     },
     {
-      field: 'Donor',
-      headerValueGetter: this._localizeHeader.bind(this),
-      cellRendererSelector: (params: ICellRendererParams) => this._retrieveTableFieldParams(TableFieldComponent, {
-        title: params.data.owner.firstName,
-        subTitle: params.data.owner.lastName
-      })
-    },
-    {
       field: 'Location',
       headerValueGetter: this._localizeHeader.bind(this),
       cellRendererSelector: (params: ICellRendererParams) => this._retrieveTableFieldParams(TableFieldComponent, {
@@ -82,14 +74,14 @@ export class ProposalsComponent implements OnInit, OnDestroy {
       field: 'Date',
       headerValueGetter: this._localizeHeader.bind(this),
       cellRendererSelector: (params: ICellRendererParams) => this._retrieveTableFieldParams(TableFieldComponent, {
-        title: this._datePipe.transform(params.data.createdDate) || ''
+        title: this._datePipe.transform(params.data.createdAt) || ''
       }),
       sortable: true,
       filter: DatepickerComponent,
       filterParams: {
         isShowHint: false
       },
-      comparator: (valueA, valueB, nodeA, nodeB) => new Date(nodeA.data.createdDate).getTime() - new Date(nodeB.data.createdDate).getTime(),
+      comparator: (valueA, valueB, nodeA, nodeB) => new Date(nodeA.data.createdAt).getTime() - new Date(nodeB.data.createdAt).getTime(),
     },
     {
       field: 'Actions',
@@ -176,7 +168,7 @@ export class ProposalsComponent implements OnInit, OnDestroy {
 
     for (const item of collection) {
       result[item.id] = [];
-      // result[item.id].push(...this._actionControlService.getActions(item));
+      // resu lt[item.id].push(...this._actionControlService.getActions(item));
     }
 
     return result;
@@ -195,8 +187,8 @@ export class ProposalsComponent implements OnInit, OnDestroy {
   private _initCreateProposalForm(): void {
     this.createProposalForm = this._fb.group({
       name: this._fb.nonNullable.control('', [Validators.required, NAME_PATTERN]),
-      description: this._fb.nonNullable.control('', [Validators.required, Validators.minLength(3)]),
-      location: this._fb.nonNullable.control('', [Validators.required, Validators.minLength(10)]),
+      description: this._fb.nonNullable.control('', [Validators.required, Validators.minLength(10)]),
+      location: this._fb.nonNullable.control('', [Validators.required, Validators.minLength(3)]),
     });
   }
 

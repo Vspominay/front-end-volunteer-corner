@@ -12,6 +12,6 @@ import { NgxPaginationModule, PaginationInstance } from 'ngx-pagination';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaginationComponent {
-  @Output() onPageChange = new EventEmitter<number>();
   @Input() config!: PaginationInstance;
+  @Output() onPageChange = new EventEmitter<number>();
 }

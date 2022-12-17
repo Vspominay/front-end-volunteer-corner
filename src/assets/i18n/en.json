@@ -56,6 +56,8 @@
     "changeStatus": "Change Status",
     "viewDetails": "Details",
     "delete": "Delete",
+    "allRequests": "All requests",
+    "myRequests": "My requests",
     "deleteRequest": "Are you sure you want to delete this entry?"
   },
   "detailsPage": {
