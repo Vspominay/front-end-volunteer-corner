@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -16,14 +16,7 @@ export class ProposalsService {
   constructor(private http: HttpClient) { }
 
   public getProposals(): Observable<IProposal[]> {
-    const headers: HttpHeaders = new HttpHeaders(
-      {
-        'Access-Control-Allow-Origin': '*'
-      }
-    )
-
-    return this.http.get<IProposal[]>(`${this.api}proposals`, { headers }
-    );
+    return this.http.get<IProposal[]>(`${this.api}proposals`);
   }
 
   public getProposal(id: string): Observable<IProposal> {
@@ -31,14 +24,12 @@ export class ProposalsService {
   }
 
   public createProposal(title: string, location: string, description: string = '') {
-    const createFormData: FormData = new FormData();
-
-    createFormData.append('name', title);
-    createFormData.append('description', description);
-    createFormData.append('location', location);
-    createFormData.append('ownerId', title);
-
-    return this.http.post<IProposal>(`${this.api}create`, createFormData);
+    return this.http.post<IProposal>(`${this.api}proposals/create`, {
+      name: title,
+      description,
+      location,
+      ownerId: '7a9a250a-70de-492c-a3cc-2766d8ed0ebb'
+    });
   }
 
   public updateProposal(id: string, name?: string, description?: string, location?: string): Observable<IProposal> {

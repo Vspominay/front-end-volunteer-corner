@@ -89,7 +89,10 @@ export class ProposalsState {
     return this.proposalsService.changeProposalStatus(payload.id, payload.status)
                .pipe(tap(status => {
                  patchState({
-                   proposals: getState().proposals.map(req => req.id === payload.id ? { ...req, status } : req)
+                   proposals: getState().proposals.map(req => req.id === payload.id ? {
+                     ...req,
+                     status: payload.status
+                   } : req)
                  });
                }));
   }

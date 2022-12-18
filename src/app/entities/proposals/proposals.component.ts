@@ -20,6 +20,7 @@ import { TableFieldComponent } from '../../shared/components/table-field/table-f
 import { NAME_PATTERN } from '../../utils/name-pattern.constant';
 import { REQUEST_COLUMNS } from '../requests/constants/request-columns.constant';
 import { IProposal } from './interfaces/proposal.interface';
+import { ProposalsActionControlService } from './services/proposals-action-control.service';
 import { CreateProposal, FetchProposals } from './state/proposals/proposals.actions';
 import { ProposalsState } from './state/proposals/proposals.state';
 
@@ -69,7 +70,6 @@ export class ProposalsComponent implements OnInit, OnDestroy {
         title: params.data.location
       })
     },
-
     {
       field: 'Date',
       headerValueGetter: this._localizeHeader.bind(this),
@@ -87,7 +87,7 @@ export class ProposalsComponent implements OnInit, OnDestroy {
       field: 'Actions',
       headerValueGetter: this._localizeHeader.bind(this),
       cellRendererSelector: (params: ICellRendererParams) => this._retrieveTableFieldParams(MenuComponent, {
-        // items: this._actionControlService.getActions(params.data)
+        items: this._actionsControlService.getActions(params.data)
       }),
     }
   ];
@@ -125,7 +125,8 @@ export class ProposalsComponent implements OnInit, OnDestroy {
     private _router: Router,
     private _datePipe: DatePipe,
     private _translateService: TranslateService,
-    private _fb: FormBuilder
+    private _fb: FormBuilder,
+    private _actionsControlService: ProposalsActionControlService
   ) { }
 
   public ngOnInit(): void {
@@ -136,6 +137,7 @@ export class ProposalsComponent implements OnInit, OnDestroy {
   public onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.gridApi.refreshHeader();
+    this.gridApi.sizeColumnsToFit();
   }
 
   public setPage(page: number) {
