@@ -19,7 +19,6 @@ export class RequestsState {
 
   @Selector()
   static requests(state: IRequestsState) {
-    console.log(state)
     return state.requests;
   }
 

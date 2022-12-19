@@ -138,11 +138,17 @@ export class RequestsComponent implements OnInit {
     description: FormControl<string>,
     location: FormControl<string>
   }>;
-  public paginationConfig: PaginationInstance = {
+  public allRequestsPaginationConfig: PaginationInstance = {
     id: 'requests',
     itemsPerPage: 5,
     currentPage: 0
   };
+
+  public myRequestsPaginationConfig: PaginationInstance = {
+    id: 'myRequests',
+    itemsPerPage: 5,
+    currentPage: 0
+  }
 
   private _destroy$: Subject<void> = new Subject<void>();
 
@@ -172,9 +178,9 @@ export class RequestsComponent implements OnInit {
     this.allRequestGridApi.refreshHeader();
   }
 
-  public setPage(page: number) {
+  public setPage(page: number, paginationConfig: PaginationInstance) {
     this.allRequestGridApi.paginationGoToPage(page);
-    this.paginationConfig.currentPage = page;
+    paginationConfig.currentPage = page;
   }
 
   public createRequest(): void {

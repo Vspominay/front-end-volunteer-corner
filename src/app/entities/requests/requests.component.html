@@ -36,7 +36,7 @@
           <ng-template mat-tab-label>{{'requests.allRequests' | translate}}</ng-template>
           <ng-container
             [ngTemplateOutlet]="gridTemplate"
-            [ngTemplateOutletContext]="{rowData: vm.requests, colDefs: colDefs,pageSize: paginationConfig.itemsPerPage}">
+            [ngTemplateOutletContext]="{rowData: vm.requests, colDefs: colDefs,paginationConfig: allRequestsPaginationConfig}">
           </ng-container>
         </mat-tab>
       </ng-container>
@@ -46,7 +46,7 @@
           <ng-template mat-tab-label>{{'requests.myRequests' | translate}}</ng-template>
           <ng-container
             [ngTemplateOutlet]="gridTemplate"
-            [ngTemplateOutletContext]="{rowData: ownRequests.requests | paginate : paginationConfig, colDefs: colDefs,pageSize: paginationConfig.itemsPerPage}">
+            [ngTemplateOutletContext]="{rowData: ownRequests.requests, colDefs: colDefs, paginationConfig: myRequestsPaginationConfig}">
           </ng-container>
         </mat-tab>
       </ng-container>
@@ -58,8 +58,7 @@
     #gridTemplate
     let-rowData='rowData'
     let-colDefs='colDefs'
-    let-pageSize='pageSize'
-    let-gridId='gridId'
+    let-paginationConfig='paginationConfig'
 >
   <ag-grid-angular
     [paginationAutoPageSize]="true"
@@ -68,7 +67,7 @@
     [rowData]="rowData | paginate : paginationConfig"
     [columnDefs]="colDefs"
     [rowHeight]="73"
-    [paginationPageSize]="pageSize"
+    [paginationPageSize]="paginationConfig.itemsPerPage"
     [suppressPaginationPanel]="true"
     [suppressScrollOnNewData]="true"
     (gridReady)="onGridReady($event)"
@@ -76,6 +75,6 @@
   </ag-grid-angular>
 
   <div class="flex justify-end">
-    <app-pagination (onPageChange)="setPage($event)" [config]="paginationConfig"></app-pagination>
+    <app-pagination (onPageChange)="setPage($event, paginationConfig)" [config]="paginationConfig"></app-pagination>
   </div>
 </ng-template>

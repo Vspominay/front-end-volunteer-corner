@@ -23,8 +23,25 @@
     </div>
   </div>
 
-  <div *ngIf="viewModel.request.description" class="">
+  <div *ngIf="viewModel.request.description">
     <app-card-information [title]="'detailsPage.remark' | translate"
                           [fields]="[{title: '', subtitle: viewModel.request.description }]"></app-card-information>
   </div>
+
+  <section class="pt-6" *ngIf="viewModel.responses.length">
+    <h2 class="font-medium mb-6 text-center">{{'requests.responses' | translate}}</h2>
+
+    <div class="flex flex-col max-w-3xl mx-auto" *ngFor="let response of viewModel.responses">
+      <app-request-response
+        class="block mb-4"
+        [user]="{
+        id: response.volunteerFrom.id,
+        fullName: response.volunteerFrom.firstName + ' ' + response.volunteerFrom.lastName
+        }"
+        [description]="response.comment"
+      ></app-request-response>
+    </div>
+  </section>
+
+
 </div>

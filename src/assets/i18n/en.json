@@ -58,7 +58,8 @@
     "delete": "Delete",
     "allRequests": "All requests",
     "myRequests": "My requests",
-    "deleteRequest": "Are you sure you want to delete this entry?"
+    "deleteRequest": "Are you sure you want to delete this entry?",
+    "responses": "Responses"
   },
   "detailsPage": {
     "id": "ID",

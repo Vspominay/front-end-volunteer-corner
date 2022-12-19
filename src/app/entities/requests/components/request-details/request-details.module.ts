@@ -11,12 +11,14 @@ import { ProductInfoComponent } from './components/product-info/product-info.com
 
 import { RequestDetailsRoutingModule } from './request-details-routing.module';
 import { RequestDetailsComponent } from './request-details.component';
+import { RequestResponseComponent } from './components/request-response/request-response.component';
 
 @NgModule({
   declarations: [
     RequestDetailsComponent,
     ProductInfoComponent,
-    PopupChangeDetailsComponent
+    PopupChangeDetailsComponent,
+    RequestResponseComponent
   ],
   imports: [
     CommonModule,

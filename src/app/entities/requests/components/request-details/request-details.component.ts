@@ -6,6 +6,7 @@ import { Store } from '@ngxs/store';
 import { filter, map, Observable, take, tap } from 'rxjs';
 
 import { IHelpRequest } from '../../interfaces/help-request.interface';
+import { IRequestResponse } from '../../interfaces/request-response.interface';
 import { UpdateRequestInformation } from '../../state/requests/requests.actions';
 import { RequestsState } from '../../state/requests/requests.state';
 import { PopupChangeDetailsComponent } from './components/popup-change-details/popup-change-details.component';
@@ -19,7 +20,7 @@ import { PopupChangeDetailsComponent } from './components/popup-change-details/p
 export class RequestDetailsComponent {
   private _changeDetailsData!: { title: string | null, location: string, description: string | null };
 
-  public vm$: Observable<{ request: IHelpRequest, volunteer: { title: string, fields: { title: string, subtitle: string | null }[] }, recipient: { title: string, fields: { title: string, subtitle: string | null }[] } }> =
+  public vm$: Observable<{ request: IHelpRequest, responses: IRequestResponse[], volunteer: { title: string, fields: { title: string, subtitle: string | null }[] }, recipient: { title: string, fields: { title: string, subtitle: string | null }[] } }> =
     this._store.select(RequestsState.requests)
         .pipe(
           map((requests) => requests.find(request => request.id === this._route.snapshot.paramMap.get('id')) as IHelpRequest),
@@ -32,6 +33,7 @@ export class RequestDetailsComponent {
 
             return {
               request,
+              responses: request.responses || [],
               volunteer: this._getVolunteerInfoFields(request),
               recipient: this._getRecipientInfoFields(request)
             }
