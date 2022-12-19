@@ -64,6 +64,14 @@ export class ProposalsComponent implements OnInit, OnDestroy {
       })
     },
     {
+      field: 'Donor',
+      headerValueGetter: this._localizeHeader.bind(this),
+      cellRendererSelector: (params: ICellRendererParams) => this._retrieveTableFieldParams(TableFieldComponent, {
+        title: params.data.owner.user.firstName,
+        subTitle: params.data.owner.user.lastName
+      })
+    },
+    {
       field: 'Location',
       headerValueGetter: this._localizeHeader.bind(this),
       cellRendererSelector: (params: ICellRendererParams) => this._retrieveTableFieldParams(TableFieldComponent, {

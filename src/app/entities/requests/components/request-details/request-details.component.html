@@ -1,8 +1,8 @@
 <div *ngIf="(vm$ | async) as viewModel" class="wrapper p-6 py-12 sm:p-8 md:p-10">
   <div class="flex items-center py-4 w-full border-b border-solid border-lightSilver">
     <div class="flex font-medium flex-grow items-center">
-      <span class="text-lg mr-5">{{'detailsPage.id' | translate}}: {{viewModel.request.id}}</span>
-      <span class="text-lightSilver text-sm">{{viewModel.request.createdDate | date}}</span>
+      <span class="text-lg mr-5">{{'detailsPage.id' | translate}}: {{viewModel.entityDetail.id}}</span>
+      <span class="text-lightSilver text-sm">{{viewModel.entityDetail.createdDate | date}}</span>
     </div>
 
     <div class="">
@@ -12,7 +12,7 @@
 
   <div class="mb-6 mt-8">
     <app-product-info
-      [title]="viewModel.request.name || '--'"
+      [title]="viewModel.entityDetail.title || '--'"
     >
     </app-product-info>
   </div>
@@ -23,25 +23,25 @@
     </div>
   </div>
 
-  <div *ngIf="viewModel.request.description">
+  <div *ngIf="viewModel.entityDetail.description">
     <app-card-information [title]="'detailsPage.remark' | translate"
-                          [fields]="[{title: '', subtitle: viewModel.request.description }]"></app-card-information>
+                          [fields]="[{title: '', subtitle: viewModel.entityDetail.description }]"></app-card-information>
   </div>
 
-  <section class="pt-6" *ngIf="viewModel.responses.length">
-    <h2 class="font-medium mb-6 text-center">{{'requests.responses' | translate}}</h2>
+  <ng-container *ngIf="viewModel.entityDetail.responses as responses">
+    <section class="pt-6" *ngIf="responses.length">
+      <h2 class="font-medium mb-6 text-center">{{'requests.responses' | translate}}</h2>
 
-    <div class="flex flex-col max-w-3xl mx-auto" *ngFor="let response of viewModel.responses">
-      <app-request-response
-        class="block mb-4"
-        [user]="{
+      <div class="flex flex-col max-w-3xl mx-auto" *ngFor="let response of responses">
+        <app-request-response
+          class="block mb-4"
+          [user]="{
         id: response.volunteerFrom.id,
         fullName: response.volunteerFrom.firstName + ' ' + response.volunteerFrom.lastName
         }"
-        [description]="response.comment"
-      ></app-request-response>
-    </div>
-  </section>
-
-
+          [description]="response.comment"
+        ></app-request-response>
+      </div>
+    </section>
+  </ng-container>
 </div>

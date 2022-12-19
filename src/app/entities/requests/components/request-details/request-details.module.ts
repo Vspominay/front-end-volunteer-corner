@@ -8,10 +8,10 @@ import { FormElementsModule } from '../../../../modules/form-elements/form-eleme
 import { SharedModule } from '../../../../shared/shared.module';
 import { PopupChangeDetailsComponent } from './components/popup-change-details/popup-change-details.component';
 import { ProductInfoComponent } from './components/product-info/product-info.component';
+import { RequestResponseComponent } from './components/request-response/request-response.component';
 
 import { RequestDetailsRoutingModule } from './request-details-routing.module';
 import { RequestDetailsComponent } from './request-details.component';
-import { RequestResponseComponent } from './components/request-response/request-response.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +29,8 @@ import { RequestResponseComponent } from './components/request-response/request-
     MatDialogModule,
     FormElementsModule,
     ReactiveFormsModule
-  ]
+  ],
+  exports: [RequestDetailsComponent]
 })
 export class RequestDetailsModule {
 }

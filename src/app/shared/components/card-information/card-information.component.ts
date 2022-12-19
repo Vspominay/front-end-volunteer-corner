@@ -9,7 +9,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 export class CardInformationComponent {
 
   @Input() title!: string;
-  @Input() fields!: { title: string, subtitle: string | null }[];
+  @Input() fields!: { title: string, subtitle?: string | null }[];
 
   constructor() { }
 }

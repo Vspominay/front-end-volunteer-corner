@@ -29,8 +29,8 @@ export class RequestsActionControlService {
 
     resultAction.push(this._viewDetails(request.id));
     if (request.status !== ERequestStatus.Closed) resultAction.push(this._changeStatus(request));
+    if (request.status === ERequestStatus.Active) resultAction.push(this._createResponse(request));
     resultAction.push(this._deleteRequest(request));
-    resultAction.push(this._createResponse(request));
 
     return resultAction;
   }

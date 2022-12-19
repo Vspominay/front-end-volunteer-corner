@@ -9,7 +9,7 @@ const routes: Routes = [
   {
     path: ':id',
     component: RequestDetailsComponent,
-    resolve: { request: RequestDetailsResolver }
+    resolve: { entityDetail: RequestDetailsResolver }
   }
 ];
 

@@ -28,8 +28,8 @@ export class ProposalsState {
   }
 
   @Selector()
-  static getRequest(state: IProposalsState) {
-    return (id: string) => state.proposals.find(request => request.id === id);
+  static proposal(state: IProposalsState) {
+    return (id: string) => state.proposals.find(proposal => proposal.id === id);
   }
 
   constructor(private proposalsService: ProposalsService) {}
