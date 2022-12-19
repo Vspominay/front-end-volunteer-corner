@@ -6,26 +6,30 @@ import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from "@angular/material/table";
 import { MatTabsModule } from '@angular/material/tabs';
 import { TranslateModule } from "@ngx-translate/core";
+import { NgxsModule } from '@ngxs/store';
 import { AgGridModule } from 'ag-grid-angular';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { FormElementsModule } from '../../modules/form-elements/form-elements.module';
 import { DatepickerComponent } from '../../shared/components/datepicker/datepicker.component';
+import { PaginationComponent } from '../../shared/components/pagination/pagination.component';
 import { SharedModule } from "../../shared/shared.module";
-import { CreateRequestFormComponent } from './components/create-request-form/create-request-form.component';
+import { CreateFormComponent } from './components/create-form/create-form.component';
 import { StatusChangeSheetComponent } from './components/request-details/components/status-change-sheet/status-change-sheet.component';
 import { DesktopTableComponent } from './desktop-table/desktop-table.component';
 import { RequestsRoutingModule } from './requests-routing.module';
 import { RequestsComponent } from './requests.component';
 
 import { RequestsActionControlService } from './services/requests-action-control.service';
+import { HelpSeekersState } from './state/help-seeker/help-seekers.state';
+import { RequestsState } from './state/requests/requests.state';
 
 
 @NgModule({
   declarations: [
     RequestsComponent,
     DesktopTableComponent,
-    StatusChangeSheetComponent,
-    CreateRequestFormComponent
+    StatusChangeSheetComponent
   ],
   imports: [
     CommonModule,
@@ -38,7 +42,11 @@ import { RequestsActionControlService } from './services/requests-action-control
     ReactiveFormsModule,
     MatTabsModule,
     AgGridModule,
-    DatepickerComponent
+    DatepickerComponent,
+    PaginationComponent,
+    NgxPaginationModule,
+    CreateFormComponent,
+    NgxsModule.forFeature([HelpSeekersState, RequestsState])
   ],
   providers: [
     RequestsActionControlService,

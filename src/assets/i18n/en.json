@@ -56,7 +56,11 @@
     "changeStatus": "Change Status",
     "viewDetails": "Details",
     "delete": "Delete",
-    "deleteRequest": "Are you sure you want to delete this entry?"
+    "allRequests": "All requests",
+    "myRequests": "My requests",
+    "deleteRequest": "Are you sure you want to delete this entry?",
+    "responses": "Responses",
+    "uploadDocument": "Upload document"
   },
   "detailsPage": {
     "id": "ID",
@@ -74,8 +78,6 @@
     "closed": "Completed successful request",
     "canceled": "Request that was canceled for certain reasons"
   },
-  "createRequest": {
-  },
   "profile": {
     "firstName": "First Name",
     "lastName": "Surname",
@@ -83,5 +85,14 @@
     "email": "Email",
     "phone": "Phone number",
     "editProfile": "Edit profile"
+  },
+  "proposals": {
+    "searchPlaceholder": "Search proposal by name, ref ect.",
+    "createProposal": "Create proposal"
+  },
+  "createResponse": {
+    "respond": "Respond",
+    "title": "Create response",
+    "commentPlaceholder": "Fill out the comment with your contact information and your detailed proposal/request"
   }
 }

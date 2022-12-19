@@ -8,15 +8,19 @@ import { FormElementsModule } from '../../../../modules/form-elements/form-eleme
 import { SharedModule } from '../../../../shared/shared.module';
 import { PopupChangeDetailsComponent } from './components/popup-change-details/popup-change-details.component';
 import { ProductInfoComponent } from './components/product-info/product-info.component';
+import { RequestResponseComponent } from './components/request-response/request-response.component';
 
 import { RequestDetailsRoutingModule } from './request-details-routing.module';
 import { RequestDetailsComponent } from './request-details.component';
+import { DocumentComponent } from './components/document/document.component';
 
 @NgModule({
   declarations: [
     RequestDetailsComponent,
     ProductInfoComponent,
-    PopupChangeDetailsComponent
+    PopupChangeDetailsComponent,
+    RequestResponseComponent,
+    DocumentComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +31,8 @@ import { RequestDetailsComponent } from './request-details.component';
     MatDialogModule,
     FormElementsModule,
     ReactiveFormsModule
-  ]
+  ],
+  exports: [RequestDetailsComponent]
 })
 export class RequestDetailsModule {
 }

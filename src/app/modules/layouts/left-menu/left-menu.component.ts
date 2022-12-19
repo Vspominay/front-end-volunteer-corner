@@ -16,6 +16,7 @@ export class LeftMenuComponent {
 
   public readonly menuItems = NAV_MENU_ITEMS;
   public fullName$: Observable<string> = this._store.select(ProfileState.fullName);
+  public role$: Observable<string> = this._store.select(ProfileState.roles);
 
   constructor(private _store: Store, private _router: Router) { }
 

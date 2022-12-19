@@ -1,0 +1,29 @@
+<div class="wrapper">
+  <div class="rounded-xl shadow-lg p-3">
+    <div class="flex items-center mb-4">
+      <a [routerLink]="['profile', user.id]"
+         class="rounded-3xl decoration-0 border border-lightPurple p-3 flex items-center">
+        <div class="img-block rounded-full overflow-hidden mr-3">
+          <ng-container *ngIf="user.photo; else defaultPhoto">
+            <img class="w-full h-full object-cover" [src]="user.photo || ''" [alt]="user.fullName + ' photo'">
+          </ng-container>
+
+          <ng-template #defaultPhoto>
+            <mat-icon svgIcon="ic-blank-user" class="text-primaryPurple"></mat-icon>
+          </ng-template>
+        </div>
+
+        <span class="text-primaryPurple">{{user.fullName}}</span>
+      </a>
+    </div>
+
+    <div class="">
+      <h4 *ngIf="title">
+        {{title}}
+      </h4>
+      <p>
+        {{description}}
+      </p>
+    </div>
+  </div>
+</div>

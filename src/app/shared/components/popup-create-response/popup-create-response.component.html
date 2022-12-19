@@ -1,0 +1,21 @@
+<div class="wrapper p-6">
+  <div class="flex items-center justify-between mb-6">
+    <h1 class="font-semiBold text-primaryPurple">{{'createResponse.title' | translate}}</h1>
+    <mat-icon (click)="close()" class="text-primaryRed cursor-pointer !h-3.5 !w-3.5" svgIcon="ic-close"></mat-icon>
+  </div>
+
+  <form (ngSubmit)="onSubmit()" [formGroup]="responseForm">
+    <app-input class="mb-4"
+               formControlName="comment"
+               [placeholder]="'createResponse.commentPlaceholder' | translate"></app-input>
+
+    <app-button
+      [buttonShape]="buttonShape"
+      [isDisabledButton]="responseForm.invalid"
+      [buttonStyle]="buttonStyle"
+      class="max-w-50 mx-auto block"
+      type="submit"
+      [content]="'appButtons.confirm' | translate"
+    ></app-button>
+  </form>
+</div>

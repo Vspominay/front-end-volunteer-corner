@@ -1,7 +1,7 @@
 <div class="wrapper py-5 px-6 font-medium">
   <div class="flex items-center justify-between mb-6">
     <h1 class="font-semiBold text-primaryPurple">{{'detailsPage.changeDetails' | translate}}</h1>
-    <mat-icon></mat-icon>
+    <mat-icon (click)="close()" class="text-primaryRed cursor-pointer !h-3.5 !w-3.5" svgIcon="ic-close"></mat-icon>
   </div>
 
   <form (ngSubmit)="onSubmit()" [formGroup]="editForm" class="">

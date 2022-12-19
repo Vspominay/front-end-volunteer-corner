@@ -56,7 +56,8 @@ export const translationConfig = {
     StatusComponent,
     MenuComponent,
     PopupConfirmationComponent,
-    ErrorControlPipe
+    ErrorControlPipe,
+    TranslateModule
   ]
 })
 export class SharedModule {

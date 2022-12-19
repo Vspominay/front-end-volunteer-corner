@@ -1,3 +1,4 @@
+import { ICreateEntity } from '../../../../interfaces/create-entity.interface';
 import { ERequestStatus } from "../../enums/request-status.enum";
 
 export class FetchRequests {
@@ -15,7 +16,7 @@ export class GetRequestInformation {
 export class CreateHelpRequest {
   static readonly type = '[Requests] Create help request';
 
-  constructor(public payload: { location: string, name: string, description?: string }) {}
+  constructor(public payload: ICreateEntity) {}
 }
 
 export class UpdateRequestInformation {
@@ -36,14 +37,20 @@ export class ChangeRequestStatus {
   constructor(public payload: { id: string, status: ERequestStatus }) {}
 }
 
+export class CreateResponse {
+  static readonly type = '[Request] Create response';
+
+  constructor(public payload: { id: string, comment: string }) {}
+}
+
 export class DeleteRequestDocuments {
   static readonly type = '[Request] Delete request documents';
 
   constructor(public payload: number) {}
 }
 
-export class UploadRequestDocuments {
+export class UploadRequestDocument {
   static readonly type = '[Request] Upload request documents';
 
-  constructor(public payload: File[]) {}
+  constructor(public payload: { id: string, file: File }) {}
 }

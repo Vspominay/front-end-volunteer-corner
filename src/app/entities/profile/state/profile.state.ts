@@ -20,6 +20,17 @@ export class ProfileState {
   }
 
   @Selector()
+  static userId(state: IProfileState) {
+    return state.id
+  }
+
+
+  @Selector()
+  static roles(state: IProfileState) {
+    return state.roles.map(role => role.name.replace(/([A-Z]+)/g, " $1").replace(/([A-Z][a-z])/g, " $1")).join('/');
+  }
+
+  @Selector()
   static profileData(state: IProfileState) {
     const { firstName, lastName, phoneNumber, email } = state;
     return { firstName, lastName, phoneNumber, email };

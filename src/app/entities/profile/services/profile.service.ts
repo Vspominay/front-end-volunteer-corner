@@ -11,16 +11,16 @@ import { IUpdateProfileRequest } from '../interfaces/update-profile-request.inte
 })
 export class ProfileService {
 
-  private readonly api = environment.api;
+  private readonly api = environment.requestsApi;
 
   constructor(private http: HttpClient) { }
 
   public getProfile(): Observable<IProfile> {
-    return this.http.get<Omit<IProfile, 'phoneNumber'> & { phone: string, helpSeeker: Omit<IProfile, 'phoneNumber'> & { phone: string } }>(`${this.api}Users/profile`)
+    return this.http.get<Omit<IProfile, 'phoneNumber'> & { phone: string, helpSeeker: Omit<IProfile, 'phoneNumber'> & { phone: string } | null, volunteer: Omit<IProfile, 'phoneNumber'> & { phone: string } | null }>(`${this.api}Users/profile`)
                .pipe(map(profile => ({
                  ...profile,
-                 phoneNumber: profile.helpSeeker.phone,
-                 email: profile.helpSeeker.email
+                 phoneNumber: profile.helpSeeker ? profile.helpSeeker.phone : profile.volunteer?.phone || '--',
+                 email: profile.helpSeeker ? profile.helpSeeker.email : profile.volunteer?.email || '--'
                })));
   }
 

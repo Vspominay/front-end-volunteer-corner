@@ -18,29 +18,62 @@
         [content]="(isShowCreateForm ? 'appButtons.cancel' : 'requests.createRequest' ) | translate"
       ></app-button>
     </div>
-    
-    <app-create-request-form @fade
-                             *ngIf="isShowCreateForm"
-                             class="mx-auto max-w-3xl mb-6 block"></app-create-request-form>
 
+    <app-create-form @fade
+                     [createForm]="createRequestForm"
+                     (onSubmitForm)="createRequest()"
+                     *ngIf="isShowCreateForm"
+                     class="mx-auto w-full max-w-3xl mb-6 block"></app-create-form>
 
-    <ng-container *ngIf="(viewModel$ | async) as vm">
-      <ag-grid-angular
-          #agGrid
-          class="ag-theme-alpine w-full flex-grow"
-          [rowData]="vm.requests"
-          [columnDefs]="colDefs"
-          [rowHeight]="73"
-          (gridReady)="gridApi.api.refreshHeader()"
-      >
-      </ag-grid-angular>
+    <mat-tab-group
+      [dynamicHeight]="true"
+      (selectedTabChange)="changeTab()"
+      mat-align-tabs="center"
+      class="pt-3"
+    >
+      <ng-container *ngIf="(viewModel$ | async) as vm">
+        <mat-tab>
+          <ng-template mat-tab-label>{{'requests.allRequests' | translate}}</ng-template>
+          <ng-container
+            [ngTemplateOutlet]="gridTemplate"
+            [ngTemplateOutletContext]="{rowData: vm.requests, colDefs: colDefs,paginationConfig: allRequestsPaginationConfig}">
+          </ng-container>
+        </mat-tab>
+      </ng-container>
 
-      <!--      <app-desktop-table [actions]="vm.requestMenu"-->
-      <!--                         [columns]="columns"-->
-      <!--                         [data]="vm.requests"></app-desktop-table>-->
-
-    </ng-container>
-
-
+      <ng-container *ngIf="(ownHelpRequests$ | async) as ownRequests">
+        <mat-tab>
+          <ng-template mat-tab-label>{{'requests.myRequests' | translate}}</ng-template>
+          <ng-container
+            [ngTemplateOutlet]="gridTemplate"
+            [ngTemplateOutletContext]="{rowData: ownRequests.requests, colDefs: colDefs, paginationConfig: myRequestsPaginationConfig}">
+          </ng-container>
+        </mat-tab>
+      </ng-container>
+    </mat-tab-group>
   </div>
 </div>
+
+<ng-template
+    #gridTemplate
+    let-rowData='rowData'
+    let-colDefs='colDefs'
+    let-paginationConfig='paginationConfig'
+>
+  <ag-grid-angular
+    [paginationAutoPageSize]="true"
+    [pagination]="true"
+    class="ag-theme-alpine w-full flex-grow"
+    [rowData]="rowData"
+    [columnDefs]="colDefs"
+    [rowHeight]="73"
+    [paginationPageSize]="paginationConfig.itemsPerPage"
+    [suppressScrollOnNewData]="true"
+    (gridReady)="onGridReady($event)"
+  >
+  </ag-grid-angular>
+
+  <div class="flex justify-end">
+    <app-pagination (onPageChange)="setPage($event, paginationConfig)" [config]="paginationConfig"></app-pagination>
+  </div>
+</ng-template>

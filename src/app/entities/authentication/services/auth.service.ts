@@ -1,10 +1,10 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from "rxjs";
+import { Observable } from 'rxjs';
 
-import { environment } from "../../../../environments/environment";
+import { environment } from '../../../../environments/environment';
 import { IProfile } from '../../profile/interfaces/profile.interface';
-import { ILoginResponse } from "../interfaces/login-response.interface";
+import { ILoginResponse } from '../interfaces/login-response.interface';
 import { ISignUpResponse } from '../interfaces/sign-up-response.interface';
 
 @Injectable({
@@ -12,7 +12,7 @@ import { ISignUpResponse } from '../interfaces/sign-up-response.interface';
 })
 export class AuthService {
 
-  private readonly api = environment.api;
+  private readonly api = environment.requestsApi;
 
   constructor(private http: HttpClient) { }
 

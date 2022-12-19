@@ -1,20 +1,33 @@
 <div *ngIf="(vm$ | async) as viewModel" class="wrapper p-6 py-12 sm:p-8 md:p-10">
   <div class="flex items-center py-4 w-full border-b border-solid border-lightSilver">
     <div class="flex font-medium flex-grow items-center">
-      <span class="text-lg mr-5">{{'detailsPage.id' | translate}}: {{viewModel.request.id}}</span>
-      <span class="text-lightSilver text-sm">{{viewModel.request.createdDate | date}}</span>
+      <span class="text-lg mr-5">{{'detailsPage.id' | translate}}: {{viewModel.entityDetail.id}}</span>
+      <span class="text-lightSilver text-sm">{{viewModel.entityDetail.createdDate | date}}</span>
     </div>
 
-    <div class="">
+    <div *ngIf="isOwner$ | async">
       <mat-icon class="cursor-pointer text-lightSilver" (click)="openEditPopup()" svgIcon="ic-edit"></mat-icon>
     </div>
   </div>
 
-  <div class="mb-6 mt-8">
+  <div class="mb-6 mt-8 flex">
     <app-product-info
-      [title]="viewModel.request.name || '--'"
+      [title]="viewModel.entityDetail.title || '--'"
     >
     </app-product-info>
+
+    <ng-container *ngIf="viewModel.entityDetail.documents as documents">
+      <div class="documents pl-5 flex flex-col items-end justify-center" *ngIf="documents.length">
+        <app-document
+          class="my-3"
+          *ngFor="let document of documents"
+          [file]="{
+            fileName: document.fileName,
+            filePath: document.filePath
+          }"
+        ></app-document>
+      </div>
+    </ng-container>
   </div>
 
   <div class="flex flex-wrap -mx-4">
@@ -23,8 +36,25 @@
     </div>
   </div>
 
-  <div *ngIf="viewModel.request.description" class="">
+  <div *ngIf="viewModel.entityDetail.description">
     <app-card-information [title]="'detailsPage.remark' | translate"
-                          [fields]="[{title: '', subtitle: viewModel.request.description }]"></app-card-information>
+                          [fields]="[{title: '', subtitle: viewModel.entityDetail.description }]"></app-card-information>
   </div>
+
+  <ng-container *ngIf="viewModel.entityDetail.responses as responses">
+    <section class="pt-6" *ngIf="responses.length">
+      <h2 class="font-medium mb-6 text-center">{{'requests.responses' | translate}}</h2>
+
+      <div class="flex flex-col max-w-3xl mx-auto" *ngFor="let response of responses">
+        <app-request-response
+          class="block mb-4"
+          [user]="{
+        id: response.volunteerFrom.id,
+        fullName: response.volunteerFrom.firstName + ' ' + response.volunteerFrom.lastName
+        }"
+          [description]="response.comment"
+        ></app-request-response>
+      </div>
+    </section>
+  </ng-container>
 </div>

@@ -1,14 +1,14 @@
 import { DatePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { filter, map, Observable, take, tap } from 'rxjs';
+import { BehaviorSubject, filter, map, Observable, take } from 'rxjs';
+import { ProfileState } from '../../../profile/state/profile.state';
 
-import { IHelpRequest } from '../../interfaces/help-request.interface';
 import { UpdateRequestInformation } from '../../state/requests/requests.actions';
-import { RequestsState } from '../../state/requests/requests.state';
 import { PopupChangeDetailsComponent } from './components/popup-change-details/popup-change-details.component';
+import { IPersonInformation, IRequestDetail } from './interfaces/request-details.interface';
 
 @Component({
   selector: 'app-request-details',
@@ -16,27 +16,11 @@ import { PopupChangeDetailsComponent } from './components/popup-change-details/p
   styleUrls: ['./request-details.component.scss'],
   providers: [DatePipe]
 })
-export class RequestDetailsComponent {
+export class RequestDetailsComponent implements OnInit {
   private _changeDetailsData!: { title: string | null, location: string, description: string | null };
 
-  public vm$: Observable<{ request: IHelpRequest, volunteer: { title: string, fields: { title: string, subtitle: string | null }[] }, recipient: { title: string, fields: { title: string, subtitle: string | null }[] } }> =
-    this._store.select(RequestsState.requests)
-        .pipe(
-          map((requests) => requests.find(request => request.id === this._route.snapshot.paramMap.get('id')) as IHelpRequest),
-          map(request => {
-            this._changeDetailsData = {
-              location: request.location,
-              description: request.description,
-              title: request.name
-            }
-
-            return {
-              request,
-              volunteer: this._getVolunteerInfoFields(request),
-              recipient: this._getRecipientInfoFields(request)
-            }
-          })
-        );
+  public vm$!: Observable<{ entityDetail: IRequestDetail, volunteer: { title: string, fields: { title: string, subtitle?: string | null }[] }, recipient: { title: string, fields: { title: string, subtitle?: string | null }[] } }>;
+  public isOwner$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(
     private _route: ActivatedRoute,
@@ -46,19 +30,38 @@ export class RequestDetailsComponent {
   ) {
   }
 
+  public ngOnInit(): void {
+    this.vm$ = this._route.data.pipe(
+      map(({ entityDetail }) => entityDetail as IRequestDetail),
+      map(entity => {
+        this._changeDetailsData = {
+          title: entity.title,
+          description: entity.description,
+          location: entity.recipientData.location || entity.volunteerData.location || '--'
+        }
+
+        this.isOwner$.next(entity.ownerId === this._store.selectSnapshot(ProfileState.userId));
+
+        return {
+          entityDetail: entity,
+          volunteer: this._getVolunteerInfoFields(entity.volunteerData),
+          recipient: this._getRecipientInfoFields(entity.recipientData)
+        }
+      })
+    );
+  }
+
   public openEditPopup(): void {
     this._matDialog.open(PopupChangeDetailsComponent, {
       data: {
         title: this._changeDetailsData.title,
         description: this._changeDetailsData.description,
         location: this._changeDetailsData.location
-      },
-      panelClass: 'change-details-container'
+      }
     }).afterClosed()
         .pipe(
           filter(value => value && value.title && value.location && value.description),
-          take(1),
-          tap(console.log),
+          take(1)
         )
         .subscribe(({ location, description, title }) => {
           this._store.dispatch(new UpdateRequestInformation({
@@ -70,58 +73,70 @@ export class RequestDetailsComponent {
         });
   }
 
-  private _getVolunteerInfoFields(request: IHelpRequest) {
+  private _getVolunteerInfoFields(personInformation: IPersonInformation) {
+    const { name, phone, email, lastModifiedDate, createdDate, location } = personInformation;
+
     return {
       title: 'detailsPage.volunteer',
       fields: [
         {
           title: 'placeholders.name',
-          subtitle: `${request.owner.firstName} ${request.owner.lastName}`
+          subtitle: name
         },
         {
           title: 'placeholders.contactNumber',
-          subtitle: request.owner.phone
+          subtitle: phone
         },
         {
           title: 'placeholders.email',
-          subtitle: request.owner.email
+          subtitle: email
         },
         {
           title: 'placeholders.pickUpLocation',
-          subtitle: request.location
+          subtitle: location
         },
         {
           title: 'detailsPage.created',
-          subtitle: this._datePipe.transform(request.createdDate)
+          subtitle: this._datePipe.transform(createdDate)
         },
         {
           title: 'detailsPage.lastModified',
-          subtitle: this._datePipe.transform(request.lastModifiedDate)
+          subtitle: this._datePipe.transform(lastModifiedDate)
         },
       ]
     };
   }
 
-  private _getRecipientInfoFields(request: IHelpRequest) {
+  private _getRecipientInfoFields(personInformation: IPersonInformation) {
+    const { name, phone, email, lastModifiedDate, createdDate, location } = personInformation;
+
     return {
       title: 'detailsPage.recipient',
       fields: [
         {
           title: 'placeholders.name',
-          subtitle: ''
+          subtitle: name,
         },
         {
           title: 'placeholders.contactNumber',
-          subtitle: ''
+          subtitle: phone
         },
         {
           title: 'placeholders.email',
-          subtitle: ''
+          subtitle: email
         },
         {
           title: 'placeholders.dropOffAddress',
-          subtitle: ''
-        }
+          subtitle: location
+        },
+        {
+          title: 'detailsPage.created',
+          subtitle: this._datePipe.transform(createdDate)
+        },
+        {
+          title: 'detailsPage.lastModified',
+          subtitle: this._datePipe.transform(lastModifiedDate)
+        },
       ]
     };
   }

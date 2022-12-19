@@ -1,17 +1,17 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from "rxjs";
+import { map, Observable } from 'rxjs';
 
-import { environment } from "../../../../environments/environment";
-import { ERequestStatus } from "../enums/request-status.enum";
-import { IHelpRequest } from "../interfaces/help-request.interface";
+import { environment } from '../../../../environments/environment';
+import { ERequestStatus } from '../enums/request-status.enum';
+import { IHelpRequest } from '../interfaces/help-request.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RequestsService {
 
-  private readonly api = environment.api;
+  private readonly api = environment.requestsApi;
 
   constructor(private http: HttpClient) { }
 
@@ -27,7 +27,18 @@ export class RequestsService {
   }
 
   public getRequest(id: string): Observable<IHelpRequest> {
-    return this.http.get<IHelpRequest>(`${this.api}HelpRequests/${id}`);
+    return this.http.get<Omit<IHelpRequest, 'additionalDocuments'> & { additionalDocuments: { filePath: string }[] }>(`${this.api}HelpRequests/${id}`)
+               .pipe(map(requests => {
+                 return {
+                   ...requests,
+                   additionalDocuments: requests.additionalDocuments.map(document => {
+                     return {
+                       fileName: document.filePath.slice(document.filePath.lastIndexOf('/') + 1),
+                       filePath: document.filePath
+                     }
+                   })
+                 }
+               }));
   }
 
   public createRequest(title: string, location: string, description: string = ''): Observable<IHelpRequest> {
@@ -54,14 +65,15 @@ export class RequestsService {
     return this.http.patch<ERequestStatus>(`${this.api}HelpRequests/${id}/ChangeStatus`, { newStatus: status });
   }
 
-  public uploadRequestDocuments(id: number, documents: File[]) {
+  public uploadRequestDocuments(id: string, document: File) {
     const documentFormData = new FormData();
+    documentFormData.append('', document);
 
-    for (const document of documents) {
-      documentFormData.append('', document);
-    }
+    return this.http.patch((`${this.api}HelpRequests/${id}/AddDocuments`), documentFormData);
+  }
 
-    return this.http.patch((`${this.api}HelpRequests/${id}`), documentFormData);
+  public createResponse(id: string, comment: string): Observable<IHelpRequest> {
+    return this.http.post<IHelpRequest>(`${this.api}HelpRequests/${id}/responses`, { comment });
   }
 
 }

@@ -9,12 +9,13 @@ import { AuthState } from "../entities/authentication/state/auth.state";
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-  private readonly aspUrl = environment.api;
+  private readonly requestUrl = environment.requestsApi;
+  private readonly proposalsUrl = environment.proposalsApi;
 
   constructor(private store: Store) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    if (request.url.match(this.aspUrl)) {
+    if (request.url.match(this.requestUrl) || request.url.match(this.proposalsUrl)) {
       const token = this.store.selectSnapshot(AuthState.token);
 
       if (token) {
