@@ -8,7 +8,10 @@ export interface IHelpRequest extends IBaseCreatedEntity {
   name: string | null,
   description: string | null,
   location: string,
-  additionalDocuments: string[],
+  additionalDocuments: {
+    fileName: string,
+    filePath: string
+  }[],
   status: ERequestStatus,
   responses: IRequestResponse[]
 }

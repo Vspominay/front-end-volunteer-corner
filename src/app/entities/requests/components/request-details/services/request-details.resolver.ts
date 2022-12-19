@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { first, map, Observable, of } from 'rxjs';
+import { filter, first, map, Observable, of } from 'rxjs';
 
 import { IHelpRequest } from '../../../interfaces/help-request.interface';
 import { RequestsService } from '../../../services/requests.service';
@@ -25,11 +25,14 @@ export class RequestDetailsResolver implements Resolve<IRequestDetail> {
                                                                                                                  .pipe(
                                                                                                                    first(),
                                                                                                                    map(() => this._getRequestInformation(id!)!),
+                                                                                                                   filter(request => !!request),
                                                                                                                    map((request) => this._retrieveRequestDetail(request))
                                                                                                                  );
   }
 
   private _getRequestInformation(id: string): IHelpRequest | undefined {
+    console.log(id)
+    console.log(this._store.selectSnapshot(RequestsState.getRequest)(id!))
     return this._store.selectSnapshot(RequestsState.getRequest)(id!);
   }
 
@@ -44,6 +47,7 @@ export class RequestDetailsResolver implements Resolve<IRequestDetail> {
       name,
       location,
       owner,
+      additionalDocuments,
       lastModifiedDate
     } = request;
     const recipientData: IPersonInformation = {
@@ -65,6 +69,7 @@ export class RequestDetailsResolver implements Resolve<IRequestDetail> {
       responses,
       description: description!,
       volunteerData: {},
+      documents: additionalDocuments,
       recipientData
     }
   }

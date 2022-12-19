@@ -31,7 +31,6 @@ export class RequestDetailsComponent implements OnInit {
     this.vm$ = this._route.data.pipe(
       map(({ entityDetail }) => entityDetail as IRequestDetail),
       map(entity => {
-
         return {
           entityDetail: entity,
           volunteer: this._getVolunteerInfoFields(entity.volunteerData),

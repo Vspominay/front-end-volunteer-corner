@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 import { environment } from '../../../../environments/environment';
 import { ERequestStatus } from '../enums/request-status.enum';
@@ -27,7 +27,18 @@ export class RequestsService {
   }
 
   public getRequest(id: string): Observable<IHelpRequest> {
-    return this.http.get<IHelpRequest>(`${this.api}HelpRequests/${id}`);
+    return this.http.get<Omit<IHelpRequest, 'additionalDocuments'> & { additionalDocuments: { filePath: string }[] }>(`${this.api}HelpRequests/${id}`)
+               .pipe(map(requests => {
+                 return {
+                   ...requests,
+                   additionalDocuments: requests.additionalDocuments.map(document => {
+                     return {
+                       fileName: document.filePath.slice(document.filePath.lastIndexOf('/') + 1),
+                       filePath: document.filePath
+                     }
+                   })
+                 }
+               }));
   }
 
   public createRequest(title: string, location: string, description: string = ''): Observable<IHelpRequest> {

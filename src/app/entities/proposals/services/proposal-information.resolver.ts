@@ -60,6 +60,7 @@ export class ProposalInformationResolver implements Resolve<IRequestDetail> {
       recipientData: {},
       responses: [],
       lastModifiedBy: null,
+      documents: [],
       createdBy: null
     }
   }

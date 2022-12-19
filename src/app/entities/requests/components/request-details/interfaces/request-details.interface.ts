@@ -7,6 +7,10 @@ export interface IRequestDetail extends IBaseCreatedEntity {
   title: string,
   responses?: IRequestResponse[],
   description: string,
+  documents: {
+    fileName: string,
+    filePath: string
+  }[]
 }
 
 export interface IPersonInformation {

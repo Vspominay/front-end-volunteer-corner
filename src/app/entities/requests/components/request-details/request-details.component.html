@@ -10,11 +10,24 @@
     </div>
   </div>
 
-  <div class="mb-6 mt-8">
+  <div class="mb-6 mt-8 flex">
     <app-product-info
       [title]="viewModel.entityDetail.title || '--'"
     >
     </app-product-info>
+
+    <ng-container *ngIf="viewModel.entityDetail.documents as documents">
+      <div class="documents pl-5 flex flex-col items-end justify-center" *ngIf="documents.length">
+        <app-document
+          class="my-3"
+          *ngFor="let document of documents"
+          [file]="{
+            fileName: document.fileName,
+            filePath: document.filePath
+          }"
+        ></app-document>
+      </div>
+    </ng-container>
   </div>
 
   <div class="flex flex-wrap -mx-4">

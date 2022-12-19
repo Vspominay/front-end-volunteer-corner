@@ -48,12 +48,13 @@ export class RequestsState {
   @Action(GetRequestInformation)
   getRequestInformation({ patchState, getState }: StateContext<IRequestsState>, { payload }: GetRequestInformation) {
     const requests = getState().requests;
+    const hasRequest = requests.findIndex(req => req.id === payload) !== -1;
 
     return this.requestsService.getRequest(payload)
                .pipe(
                  tap(request => {
                    patchState({
-                     requests: requests.map(req => req.id === request.id ? request : req)
+                     requests: hasRequest ? requests.map(req => req.id === request.id ? request : req) : [...requests, request]
                    });
                  })
                );
