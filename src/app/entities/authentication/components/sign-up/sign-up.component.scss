@@ -1,0 +1,16 @@
+:host {
+  width: 100%;
+  padding: theme('padding.6');
+
+  .wrapper {
+    app-input::ng-deep .mat-form-field-infix {
+      padding: 16px 0 16px 16px;
+    }
+  }
+
+  .controller-col {
+    width: 50%;
+    padding: 0 theme('padding.3');
+    margin-bottom: theme('margin.4');
+  }
+}

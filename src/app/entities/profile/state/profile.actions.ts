@@ -1,3 +1,4 @@
+import { IProfile } from '../interfaces/profile.interface';
 import { IUpdateProfileRequest } from '../interfaces/update-profile-request.interface';
 
 export class GetProfileData {
@@ -18,4 +19,10 @@ export class SetUserName {
 
 export class ResetProfile {
   static readonly type = '[Profile] Reset profile';
+}
+
+export class SetProfileData {
+  static readonly type = '[Profile] Set profile data';
+
+  constructor(public payload: IProfile) {}
 }

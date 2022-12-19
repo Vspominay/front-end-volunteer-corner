@@ -4,7 +4,7 @@ import { tap } from 'rxjs';
 
 import { PROFILE_DEFAULT_STATE } from '../constants/profile-default-state.constant';
 import { ProfileService } from '../services/profile.service';
-import { GetProfileData, ResetProfile, SetUserName, UpdateUserProfile } from './profile.actions';
+import { GetProfileData, ResetProfile, SetProfileData, SetUserName, UpdateUserProfile } from './profile.actions';
 import { IProfileState } from './profile.models';
 
 @State<IProfileState>({
@@ -70,6 +70,13 @@ export class ProfileState {
   setUserName({ patchState }: StateContext<IProfileState>, { payload }: SetUserName) {
     patchState({
       firstName: payload
+    });
+  }
+
+  @Action(SetProfileData)
+  setProfileData({ patchState }: StateContext<IProfileState>, { payload }: SetProfileData) {
+    patchState({
+      ...payload
     });
   }
 
