@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { IProfile } from '../../profile/interfaces/profile.interface';
 import { ILoginResponse } from '../interfaces/login-response.interface';
-import { ISignUpResponse } from '../interfaces/sign-up-response.interface';
+import { ISignUpReq } from '../interfaces/sign-up-response.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,7 @@ export class AuthService {
     });
   }
 
-  public signUp(signUpResponse: ISignUpResponse): Observable<IProfile> {
-    return this.http.post<IProfile>(`${this.api}/Users/Register`, {})
+  public signUp(signUpResponse: ISignUpReq): Observable<IProfile> {
+    return this.http.post<IProfile>(`${this.api}Users/Register`, signUpResponse);
   }
 }

@@ -39,6 +39,14 @@
     "username": "Username",
     "password": "Password"
   },
+  "signUp": {
+    "title": "Sign Up",
+    "tip": "Create a new account in couple of clicks",
+    "confirmPassword": "Password confirmation",
+    "selectAccountType": "Select an account type",
+    "helpSeeker": "Help Seeker",
+    "Volunteer": "Volunteer"
+  },
   "dashboard": {
     "overview": "Overview"
   },

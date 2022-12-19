@@ -1,6 +1,6 @@
 import { EAccountType } from '../../../enums/account-type.enum';
 
-export interface ISignUpResponse {
+export interface ISignUpReq {
   firstName: string,
   lastName: string,
   userName: string,

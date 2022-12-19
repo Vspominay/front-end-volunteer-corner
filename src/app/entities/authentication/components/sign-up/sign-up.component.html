@@ -1,0 +1,82 @@
+<div class="wrapper">
+  <div class="mb-5">
+    <h2>{{'signUp.title' | translate}}</h2>
+    <span class="text-lightSilver text-sm">{{'signUp.tip' | translate}}</span>
+  </div>
+  <form (ngSubmit)="onSubmit()" [formGroup]="signUpForm" class="form">
+
+    <div class="flex flex-wrap -ml-3">
+      <div class="controller-col">
+        <app-input [hasError]="signUpForm.controls['firstName'].invalid && signUpForm.controls['firstName'].dirty"
+                   class="mb-4"
+                   formControlName="firstName"
+                   [label]="'profile.firstName' | translate"
+                   [error]="signUpForm.controls['firstName'].errors | errorControl | translate"
+                   [placeholder]="'placeholders.enter' | translate : {name: 'profile.firstName' | translate | lowercase}"></app-input>
+      </div>
+
+      <div class="controller-col">
+        <app-input [hasError]="signUpForm.controls['lastName'].invalid && signUpForm.controls['lastName'].dirty"
+                   class="mb-4"
+                   formControlName="lastName"
+                   [label]="'profile.lastName' | translate"
+                   [error]="signUpForm.controls['lastName'].errors | errorControl | translate"
+                   [placeholder]="'placeholders.enter' | translate : {name: 'profile.lastName' | translate | lowercase}"></app-input>
+      </div>
+
+      <div class="controller-col">
+        <app-input [hasError]="signUpForm.controls['userName'].invalid && signUpForm.controls['userName'].dirty"
+                   class="mb-4"
+                   formControlName="userName"
+                   [label]="'profile.userName' | translate"
+                   [error]="signUpForm.controls['userName'].errors | errorControl | translate"
+                   [placeholder]="'placeholders.enter' | translate : {name: 'placeholders.username' | translate}"></app-input>
+      </div>
+
+      <div class="controller-col">
+        <app-input [hasError]="signUpForm.controls['email'].invalid && signUpForm.controls['email'].dirty"
+                   class="mb-4"
+                   formControlName="email"
+                   [label]="'profile.email' | translate"
+                   [error]="signUpForm.controls['email'].errors | errorControl | translate"
+                   [placeholder]="'placeholders.enter' | translate : {name: 'placeholders.email' | translate | lowercase}"></app-input>
+      </div>
+
+      <div class="controller-col">
+        <app-input [hasError]="signUpForm.controls['password'].invalid && signUpForm.controls['password'].dirty"
+                   class="mb-7"
+                   [type]="'password'"
+                   formControlName="password"
+                   [label]="'signIn.password' | translate"
+                   [error]="signUpForm.controls['password'].errors | errorControl | translate : {length: 8}"
+                   [placeholder]="'placeholders.enter' | translate : {name: 'placeholders.password' | translate}"></app-input>
+
+      </div>
+
+      <div class="controller-col">
+        <app-input [hasError]="signUpForm.controls['confirmPassword'].invalid && signUpForm.controls['confirmPassword'].dirty"
+                   class="mb-5"
+                   [type]="'password'"
+                   formControlName="confirmPassword"
+                   [label]="'signUp.confirmPassword' | translate"
+                   [error]="signUpForm.controls['confirmPassword'].errors | errorControl | translate : {length: 8}"
+                   [placeholder]="'placeholders.enter' | translate : {name: 'signUp.confirmPassword' | translate | lowercase}"></app-input>
+
+      </div>
+
+      <mat-radio-group formControlName="accountType" class="w-20 mb-7 mx-auto flex items-center justify-center">
+        <mat-radio-button
+          class="mx-4"
+          [value]="1000">{{'signUp.helpSeeker' | translate}}</mat-radio-button>
+        <mat-radio-button
+          class="mx-4"
+          [value]="2000">{{'signUp.Volunteer' | translate}}</mat-radio-button>
+      </mat-radio-group>
+
+    </div>
+
+    <app-button [isDisabledButton]="signUpForm.invalid"
+                class="block max-w-sm mx-auto"
+                [content]="'signUp.title' | translate"></app-button>
+  </form>
+</div>

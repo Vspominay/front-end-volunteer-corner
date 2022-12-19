@@ -42,7 +42,7 @@ export function initializeAppSteps(appInitService: AppInitService): any {
       ]),
       NgxsReduxDevtoolsPluginModule.forRoot(),
       NgxsStoragePluginModule.forRoot({
-        key: ['auth', 'profile.firstName', 'profile.lastName'],
+        key: ['auth', 'profile'],
       })
     ],
     SharedModule,
