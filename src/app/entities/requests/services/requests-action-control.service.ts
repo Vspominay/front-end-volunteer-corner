@@ -12,7 +12,7 @@ import { STATUS_CHANGE_SHEET } from '../components/request-details/components/st
 import { StatusChangeSheetComponent } from '../components/request-details/components/status-change-sheet/status-change-sheet.component';
 import { ERequestStatus } from '../enums/request-status.enum';
 import { IHelpRequest } from '../interfaces/help-request.interface';
-import { ChangeRequestStatus, CreateResponse, DeleteRequestInformation } from '../state/requests/requests.actions';
+import { ChangeRequestStatus, CreateResponse, DeleteRequestInformation, UploadRequestDocument } from '../state/requests/requests.actions';
 
 @Injectable()
 export class RequestsActionControlService {
@@ -31,6 +31,7 @@ export class RequestsActionControlService {
     if (request.status !== ERequestStatus.Closed) resultAction.push(this._changeStatus(request));
     if (request.status === ERequestStatus.Active) resultAction.push(this._createResponse(request));
     resultAction.push(this._deleteRequest(request));
+    resultAction.push(this._uploadFile(request));
 
     return resultAction;
   }
@@ -102,6 +103,26 @@ export class RequestsActionControlService {
               filter(value => !!value)
             ).subscribe(({ comment }) => {
           this._store.dispatch(new CreateResponse({ id: request.id, comment }));
+        });
+      }
+    }
+  }
+
+  private _uploadFile(request: IHelpRequest): IMenuItem {
+    return {
+      text: 'requests.uploadDocument',
+      icon: 'ic-document',
+      handler: () => {
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = '.pdf';
+        fileInput.click();
+        fileInput.addEventListener('change', (ev: any) => {
+          const file = ev.target.files[0];
+
+          if (!file) return;
+
+          this._store.dispatch(new UploadRequestDocument({ id: request.id, file }));
         });
       }
     }

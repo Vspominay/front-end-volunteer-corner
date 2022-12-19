@@ -49,8 +49,8 @@ export class DeleteRequestDocuments {
   constructor(public payload: number) {}
 }
 
-export class UploadRequestDocuments {
+export class UploadRequestDocument {
   static readonly type = '[Request] Upload request documents';
 
-  constructor(public payload: File[]) {}
+  constructor(public payload: { id: string, file: File }) {}
 }

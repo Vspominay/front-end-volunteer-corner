@@ -3,7 +3,7 @@ import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { tap } from "rxjs";
 
 import { RequestsService } from "../../services/requests.service";
-import { ChangeRequestStatus, CreateHelpRequest, CreateResponse, DeleteRequestInformation, FetchRequests, GetRequestInformation, UpdateRequestInformation } from "./requests.actions";
+import { ChangeRequestStatus, CreateHelpRequest, CreateResponse, DeleteRequestInformation, FetchRequests, GetRequestInformation, UpdateRequestInformation, UploadRequestDocument } from "./requests.actions";
 import { IRequestsState } from "./requests.models";
 
 @State<IRequestsState>({
@@ -109,5 +109,10 @@ export class RequestsState {
   @Action(CreateResponse)
   createResponse({ patchState, getState }: StateContext<IRequestsState>, { payload }: CreateResponse) {
     return this.requestsService.createResponse(payload.id, payload.comment);
+  }
+
+  @Action(UploadRequestDocument)
+  uploadRequestDocument({ patchState }: StateContext<IRequestsState>, { payload }: UploadRequestDocument) {
+    return this.requestsService.uploadRequestDocuments(payload.id, payload.file);
   }
 }

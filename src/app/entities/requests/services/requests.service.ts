@@ -65,14 +65,11 @@ export class RequestsService {
     return this.http.patch<ERequestStatus>(`${this.api}HelpRequests/${id}/ChangeStatus`, { newStatus: status });
   }
 
-  public uploadRequestDocuments(id: number, documents: File[]) {
+  public uploadRequestDocuments(id: string, document: File) {
     const documentFormData = new FormData();
+    documentFormData.append('', document);
 
-    for (const document of documents) {
-      documentFormData.append('', document);
-    }
-
-    return this.http.patch((`${this.api}HelpRequests/${id}`), documentFormData);
+    return this.http.patch((`${this.api}HelpRequests/${id}/AddDocuments`), documentFormData);
   }
 
   public createResponse(id: string, comment: string): Observable<IHelpRequest> {
