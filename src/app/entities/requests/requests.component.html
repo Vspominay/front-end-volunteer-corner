@@ -64,11 +64,10 @@
     [paginationAutoPageSize]="true"
     [pagination]="true"
     class="ag-theme-alpine w-full flex-grow"
-    [rowData]="rowData | paginate : paginationConfig"
+    [rowData]="rowData"
     [columnDefs]="colDefs"
     [rowHeight]="73"
     [paginationPageSize]="paginationConfig.itemsPerPage"
-    [suppressPaginationPanel]="true"
     [suppressScrollOnNewData]="true"
     (gridReady)="onGridReady($event)"
   >

@@ -140,13 +140,13 @@ export class RequestsComponent implements OnInit {
   }>;
   public allRequestsPaginationConfig: PaginationInstance = {
     id: 'requests',
-    itemsPerPage: 5,
+    itemsPerPage: 4,
     currentPage: 0
   };
 
   public myRequestsPaginationConfig: PaginationInstance = {
     id: 'myRequests',
-    itemsPerPage: 5,
+    itemsPerPage: 4,
     currentPage: 0
   }
 
