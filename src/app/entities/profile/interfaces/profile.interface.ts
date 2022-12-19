@@ -7,5 +7,6 @@ export interface IProfile extends IBaseCreatedEntity {
   phoneNumber: string,
   firstName: string,
   lastName: string,
+  roles: { name: 'string' }[],
   contactsDisplayPolicy: EDisplayPolicy
 }

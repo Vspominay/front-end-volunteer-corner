@@ -9,7 +9,7 @@
     <mat-icon svgIcon="ic-blank-user" class="text-white mr-3.5"></mat-icon>
     <div class="text-sm text-white">
       <h3>{{(fullName$ | async) | uppercase}}</h3>
-      <span class="opacity-50">Administrator</span>
+      <span class="opacity-50">{{role$ | async}}</span>
     </div>
   </a>
 

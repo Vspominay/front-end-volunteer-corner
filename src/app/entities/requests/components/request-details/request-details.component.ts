@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { filter, map, Observable, take, tap } from 'rxjs';
+import { filter, map, Observable, take } from 'rxjs';
 
 import { IHelpRequest } from '../../interfaces/help-request.interface';
 import { IRequestResponse } from '../../interfaces/request-response.interface';
@@ -54,13 +54,11 @@ export class RequestDetailsComponent {
         title: this._changeDetailsData.title,
         description: this._changeDetailsData.description,
         location: this._changeDetailsData.location
-      },
-      panelClass: 'change-details-container'
+      }
     }).afterClosed()
         .pipe(
           filter(value => value && value.title && value.location && value.description),
-          take(1),
-          tap(console.log),
+          take(1)
         )
         .subscribe(({ location, description, title }) => {
           this._store.dispatch(new UpdateRequestInformation({

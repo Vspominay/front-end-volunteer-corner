@@ -3,7 +3,7 @@ import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { tap } from "rxjs";
 
 import { RequestsService } from "../../services/requests.service";
-import { ChangeRequestStatus, CreateHelpRequest, DeleteRequestInformation, FetchRequests, GetRequestInformation, UpdateRequestInformation } from "./requests.actions";
+import { ChangeRequestStatus, CreateHelpRequest, CreateResponse, DeleteRequestInformation, FetchRequests, GetRequestInformation, UpdateRequestInformation } from "./requests.actions";
 import { IRequestsState } from "./requests.models";
 
 @State<IRequestsState>({
@@ -49,13 +49,11 @@ export class RequestsState {
   getRequestInformation({ patchState, getState }: StateContext<IRequestsState>, { payload }: GetRequestInformation) {
     const requests = getState().requests;
 
-    if (requests.findIndex(request => request.id === payload) !== -1) return;
-
     return this.requestsService.getRequest(payload)
                .pipe(
                  tap(request => {
                    patchState({
-                     requests: [...requests, request]
+                     requests: requests.map(req => req.id === request.id ? request : req)
                    });
                  })
                );
@@ -105,5 +103,10 @@ export class RequestsState {
                    requests: getState().requests.filter(request => request.id !== payload)
                  })
                }));
+  }
+
+  @Action(CreateResponse)
+  createResponse({ patchState, getState }: StateContext<IRequestsState>, { payload }: CreateResponse) {
+    return this.requestsService.createResponse(payload.id, payload.comment);
   }
 }

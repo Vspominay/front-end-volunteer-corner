@@ -18,11 +18,12 @@ export class RequestDetailsResolver implements Resolve<IHelpRequest> {
     const id = route.paramMap.get('id');
 
     const cachedRequest = this._store.selectSnapshot(RequestsState.getRequest)(id!);
+    const responses = cachedRequest?.responses;
 
-    return cachedRequest ? of(cachedRequest) : this._store.dispatch(new GetRequestInformation(id!))
-                                                   .pipe(
-                                                     first(),
-                                                     map(() => this._store.selectSnapshot(RequestsState.getRequest)(id!)!
-                                                     ));
+    return cachedRequest && responses && responses.length ? of(cachedRequest) : this._store.dispatch(new GetRequestInformation(id!))
+                                                                                    .pipe(
+                                                                                      first(),
+                                                                                      map(() => this._store.selectSnapshot(RequestsState.getRequest)(id!)!
+                                                                                      ));
   }
 }

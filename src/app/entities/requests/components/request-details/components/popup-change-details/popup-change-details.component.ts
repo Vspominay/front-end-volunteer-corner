@@ -19,14 +19,29 @@ export class PopupChangeDetailsComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: { title: string, location: string, description: string },
     private _fb: FormBuilder,
     private _dialogRef: MatDialogRef<PopupChangeDetailsComponent>
-  ) { }
+  ) {
+    _dialogRef.addPanelClass('default-modal-container');
+  }
 
   public ngOnInit(): void {
     this._initForm();
   }
 
+  public close(isSuccess: boolean = false): void {
+    if (isSuccess) {
+      this._dialogRef.close(this.editForm.value);
+    } else {
+      this._dialogRef.close();
+    }
+  }
+
   public onSubmit(): void {
-    this._dialogRef.close(this.editForm.value);
+    if (this.editForm.invalid) {
+      this.close();
+      return;
+    }
+
+    this.close(true);
   }
 
   private _initForm(): void {

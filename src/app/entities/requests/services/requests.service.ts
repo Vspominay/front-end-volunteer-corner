@@ -1,10 +1,10 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from "rxjs";
+import { Observable } from 'rxjs';
 
-import { environment } from "../../../../environments/environment";
-import { ERequestStatus } from "../enums/request-status.enum";
-import { IHelpRequest } from "../interfaces/help-request.interface";
+import { environment } from '../../../../environments/environment';
+import { ERequestStatus } from '../enums/request-status.enum';
+import { IHelpRequest } from '../interfaces/help-request.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -62,6 +62,10 @@ export class RequestsService {
     }
 
     return this.http.patch((`${this.api}HelpRequests/${id}`), documentFormData);
+  }
+
+  public createResponse(id: string, comment: string): Observable<IHelpRequest> {
+    return this.http.post<IHelpRequest>(`${this.api}HelpRequests/${id}/responses`, { comment });
   }
 
 }

@@ -192,6 +192,7 @@ export class RequestsComponent implements OnInit {
   }
 
   public changeTab(): void {
+    console.log('tab')
     this._redrawGrid(this.allRequestGridApi);
     this._redrawGrid(this.myRequestGridApi);
   }

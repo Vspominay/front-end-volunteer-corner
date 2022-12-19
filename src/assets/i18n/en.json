@@ -90,5 +90,10 @@
   "proposals": {
     "searchPlaceholder": "Search proposal by name, ref ect.",
     "createProposal": "Create proposal"
+  },
+  "createResponse": {
+    "respond": "Respond",
+    "title": "Create response",
+    "commentPlaceholder": "Fill out the comment with your contact information and your detailed proposal/request"
   }
 }

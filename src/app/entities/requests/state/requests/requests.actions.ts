@@ -37,6 +37,12 @@ export class ChangeRequestStatus {
   constructor(public payload: { id: string, status: ERequestStatus }) {}
 }
 
+export class CreateResponse {
+  static readonly type = '[Request] Create response';
+
+  constructor(public payload: { id: string, comment: string }) {}
+}
+
 export class DeleteRequestDocuments {
   static readonly type = '[Request] Delete request documents';
 

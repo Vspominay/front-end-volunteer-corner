@@ -12,6 +12,7 @@ export const
     phoneNumber: '',
     isFetched: false,
     createdDate: '',
+    roles: [],
     lastModifiedDate: null,
     createdBy: null,
     lastModifiedBy: null
