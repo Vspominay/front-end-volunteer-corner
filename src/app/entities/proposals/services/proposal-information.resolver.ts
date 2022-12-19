@@ -56,6 +56,7 @@ export class ProposalInformationResolver implements Resolve<IRequestDetail> {
       lastModifiedDate: modifiedAt,
       title: name,
       description,
+      ownerId: owner.id,
       volunteerData,
       recipientData: {},
       responses: [],

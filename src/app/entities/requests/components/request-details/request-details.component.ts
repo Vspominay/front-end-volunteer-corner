@@ -3,7 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { filter, map, Observable, take } from 'rxjs';
+import { BehaviorSubject, filter, map, Observable, take } from 'rxjs';
+import { ProfileState } from '../../../profile/state/profile.state';
+
 import { UpdateRequestInformation } from '../../state/requests/requests.actions';
 import { PopupChangeDetailsComponent } from './components/popup-change-details/popup-change-details.component';
 import { IPersonInformation, IRequestDetail } from './interfaces/request-details.interface';
@@ -18,6 +20,7 @@ export class RequestDetailsComponent implements OnInit {
   private _changeDetailsData!: { title: string | null, location: string, description: string | null };
 
   public vm$!: Observable<{ entityDetail: IRequestDetail, volunteer: { title: string, fields: { title: string, subtitle?: string | null }[] }, recipient: { title: string, fields: { title: string, subtitle?: string | null }[] } }>;
+  public isOwner$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(
     private _route: ActivatedRoute,
@@ -31,6 +34,14 @@ export class RequestDetailsComponent implements OnInit {
     this.vm$ = this._route.data.pipe(
       map(({ entityDetail }) => entityDetail as IRequestDetail),
       map(entity => {
+        this._changeDetailsData = {
+          title: entity.title,
+          description: entity.description,
+          location: entity.recipientData.location || entity.volunteerData.location || '--'
+        }
+
+        this.isOwner$.next(entity.ownerId === this._store.selectSnapshot(ProfileState.userId));
+
         return {
           entityDetail: entity,
           volunteer: this._getVolunteerInfoFields(entity.volunteerData),

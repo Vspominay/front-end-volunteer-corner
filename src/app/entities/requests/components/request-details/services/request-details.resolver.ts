@@ -31,8 +31,6 @@ export class RequestDetailsResolver implements Resolve<IRequestDetail> {
   }
 
   private _getRequestInformation(id: string): IHelpRequest | undefined {
-    console.log(id)
-    console.log(this._store.selectSnapshot(RequestsState.getRequest)(id!))
     return this._store.selectSnapshot(RequestsState.getRequest)(id!);
   }
 
@@ -61,6 +59,7 @@ export class RequestDetailsResolver implements Resolve<IRequestDetail> {
 
     return {
       id,
+      ownerId: owner.id,
       createdDate,
       lastModifiedDate,
       createdBy,

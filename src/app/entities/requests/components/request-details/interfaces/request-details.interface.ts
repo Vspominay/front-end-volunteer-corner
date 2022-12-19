@@ -5,6 +5,7 @@ export interface IRequestDetail extends IBaseCreatedEntity {
   volunteerData: IPersonInformation,
   recipientData: IPersonInformation,
   title: string,
+  ownerId: string,
   responses?: IRequestResponse[],
   description: string,
   documents: {

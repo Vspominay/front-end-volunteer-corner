@@ -5,7 +5,7 @@
       <span class="text-lightSilver text-sm">{{viewModel.entityDetail.createdDate | date}}</span>
     </div>
 
-    <div class="">
+    <div *ngIf="isOwner$ | async">
       <mat-icon class="cursor-pointer text-lightSilver" (click)="openEditPopup()" svgIcon="ic-edit"></mat-icon>
     </div>
   </div>
